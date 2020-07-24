@@ -1,0 +1,37 @@
+$primary: #8c67ef;
+$primary-invert: findColorInvert($primary);
+$twitter: #4099FF;
+$twitter-invert: findColorInvert($twitter);
+$mail-compose-button: #7367f0;
+$mail-compose-button-invert: findColorInvert($mail-compose-button);
+$white: #FFF;
+
+$sidebar-box-shadow: 1px 0px 0px 0px rgba(#dae1e7, 1);
+
+
+$colors: (
+    "white": ($white, $black),
+    "black": ($black, $white),
+    "light": ($light, $light-invert),
+    "dark": ($dark, $dark-invert),
+    "primary": ($primary, $primary-invert),
+    "info": ($info, $info-invert),
+    "success": ($success, $success-invert),
+    "warning": ($warning, $warning-invert),
+    "danger": ($danger, $danger-invert),
+    "twitter": ($twitter, $twitter-invert),
+    "sidebar": ($white, #000),
+    "mail-compose-button": ($mail-compose-button, $mail-compose-button-invert),
+);
+
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+$sidebar-mobile-width: 60px;
+$sidebar-mobile-breakpoint: $desktop;
+
+
+.menu-list a.is-active {
+    background-color: #FFF !important;
+    color: #7367f0 !important
+}
