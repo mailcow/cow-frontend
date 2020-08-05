@@ -6,9 +6,6 @@ $mail-compose-button: #7367f0;
 $mail-compose-button-invert: findColorInvert($mail-compose-button);
 $white: #FFF;
 
-$sidebar-box-shadow: 1px 0px 0px 0px rgba(#dae1e7, 1);
-
-
 $colors: (
     "white": ($white, $black),
     "black": ($black, $white),
@@ -27,11 +24,3 @@ $colors: (
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
-$sidebar-mobile-width: 60px;
-$sidebar-mobile-breakpoint: $desktop;
-
-
-.menu-list a.is-active {
-    background-color: #FFF !important;
-    color: #7367f0 !important
-}
