@@ -1,9 +1,12 @@
 <template>
-  <div id="app">
+  <div>
     <router-view/>
+    <footer-bar></footer-bar>
   </div>
 </template>
 <script>
+
+import Footer from 'mailcow-components/Layout/Footer';
 
 export default {
   data: () => ({
@@ -11,6 +14,7 @@ export default {
   created () {
   },
   components: {
+    'footer-bar': Footer
   }
 };
 </script>

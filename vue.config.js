@@ -6,6 +6,7 @@ module.exports = {
       alias: {
         // Mailcow Aliases
         'package': path.resolve(__dirname, './package.json'),
+        'mailcow-layouts': path.resolve(__dirname, 'src/Layouts'),
         'mailcow-views': path.resolve(__dirname, 'src/views'),
         'mailcow-store': path.resolve(__dirname, 'src/store'),
         'mailcow-services': path.resolve(__dirname, 'src/services'),
