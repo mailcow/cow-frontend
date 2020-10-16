@@ -1,0 +1,14 @@
+footer.footer {
+  border-top: $base-color-light;
+  padding: .5em;
+  bottom: 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+@include mobile {
+  .footer-copyright {
+    text-align: center;
+  }
+}
