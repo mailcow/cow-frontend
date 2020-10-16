@@ -1,21 +1,27 @@
 <template>
-  <div>
-    <mailcow-nav></mailcow-nav>
-    <router-view></router-view>
+  <div id="app">
+    <nav-bar></nav-bar>
+    <!-- <navigation-menu></navigation-menu> -->
+    <router-view class="main-content"/>
+    <footer-bar></footer-bar>
   </div>
 </template>
 <script>
 
-import Nav from 'mailcow-components/Layouts/Nav';
+
+// import NavigationMenu from 'mailcow-components/Email/NavigationMenu';
+import NavBar from 'mailcow-components/Layout/NavBar';
+import Footer from 'mailcow-components/Layout/Footer';
 
 export default {
   data: () => ({
   }),
+  created () {
+  },
   components: {
-    'mailcow-nav': Nav
+    'nav-bar': NavBar,
+    'footer-bar': Footer,
+    // 'navigation-menu': NavigationMenu
   }
 };
 </script>
-<style lang="scss">
-  @import "./assets/scss/app";
-</style>
