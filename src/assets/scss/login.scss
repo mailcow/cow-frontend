@@ -1,0 +1,50 @@
+.login-main {
+  background: $login-page-background;
+  height: 100vh;
+}
+
+.login-panel {
+  margin-top: 10rem;
+  background: white;
+  border-radius: 10px;
+
+  input:focus {
+    border-color: $primary;
+    box-shadow: 0 0 0 1px $primary!important;
+  }
+
+  .left {
+    padding: 4.5rem;
+    border-right: 5px solid $login-border-hr;
+
+    .title {
+      font-weight: 800;
+      letter-spacing: -2px;
+    }
+
+    .colored {
+      color: $primary;
+      font-weight: 500;
+      margin-top: 1rem !important;
+      letter-spacing: -1px;
+    }
+
+    p {
+      color: $login-page-p;
+      font-size: 1.15rem;
+    }
+  }
+  .right {
+    padding: 4.5rem;
+    .title {
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+    .description {
+      margin-top: 1rem;
+      margin-bottom: 1rem !important;
+      color: $login-page-p-soft;
+      font-size: 1.15rem;
+    }
+  }
+}

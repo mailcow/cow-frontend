@@ -349,6 +349,31 @@ html {
 
     /* APPS */
 
+    .login-main {
+      background: $dark-mode-background-color;
+    }
+
+    .login-panel {
+        background: $dark-mode-login-panel;
+
+        .left {
+          border-right: 5px solid $login-border-hr-dark;
+
+          .colored {
+            color: #FFF;
+          }
+
+          p {
+            color: $login-page-p-dark;
+          }
+        }
+      .right {
+        .description {
+          color: #FFF;
+        }
+      }
+    }
+
     .email-list {
       background-color: $email-list-dark;
       box-shadow: $bottom-box-shadow-dark;

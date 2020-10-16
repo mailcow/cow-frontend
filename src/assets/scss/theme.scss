@@ -35,9 +35,7 @@ $link-focus-border: $primary;
 $bottom-box-shadow: 0 1px $base-color-light;
 $bottom-box-shadow-dark: 0 1px $base-color;
 
-$email-list: #F8F8F8;
-$email-list-dark: #191818;
-$email-scroll: #CCC;
+
 
 $navbar-item-hover-background-color: transparent;
 $navbar-item-active-color: $black-ter;
@@ -69,6 +67,23 @@ $aside-tools-color: #4a4a4a;
 $aside-dropdown-background-color: transparent;
 $aside-margin-top: $navbar-height + 0.6rem;
 
+
+// Email Page
+$email-list: #F8F8F8;
+$email-list-dark: #191818;
+$email-scroll: #CCC;
+$email-scroll-dark: #242424;
+$email-scroll-bar-dark: #444444;
+
+// Login Page
+$login-page-background:rgb(247, 247, 247);
+$login-border-hr: rgb(247, 247, 247);
+$login-border-hr-dark: #585757;
+$dark-mode-login-panel: #4c4a4a;
+$login-page-p: hsla(0, 0%, 0%, 0.8);
+$login-page-p-soft: hsla(0, 0%, 0%, 0.5);
+$login-page-p-dark: #FFF;
+
 $state-colors: (
     "white": ($white, $black),
     "black": ($black, $white),
@@ -97,5 +112,4 @@ $dark-mode-button-color: $white-ter;
 $dark-mode-button-hover-color: $black-ter;
 $dark-mode-card-header-button-color: $grey;
 $dark-mode-card-header-button-hover-color: $black-ter;
-$email-scroll-dark: #242424;
-$email-scroll-bar-dark: #444444;
+
