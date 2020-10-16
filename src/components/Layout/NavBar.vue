@@ -1,7 +1,7 @@
 <template>
-  <b-navbar style="border-bottom: 1px solid #dae1e7;">
-    <template slot="brand" >
-      <b-navbar-item tag="router-link" :to="{ path: '/' }" style="margin: 0px 35px">
+  <b-navbar>
+    <template slot="brand">
+      <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img src="https://www.debinux.de/256.png" alt="MailCow">
         <h1 style="padding: 7px 10px; font-weight: 500; font-size: 20px">MAILCOW</h1>
       </b-navbar-item>
