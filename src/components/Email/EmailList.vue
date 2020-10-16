@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div style="height: 50px; border-bottom: 1px solid #dae1e7;">
+  <section class="email-list full-height">
+    <div class="email-messages-action">
       <b-checkbox  style="margin: 15px 22px">Select All</b-checkbox>
       <small style="padding: 13px" class="is-pulled-right">
         <b-icon icon="chevron-left" size="is-small" ></b-icon>
@@ -8,22 +8,22 @@
         <b-icon size="is-small" icon="chevron-right" ></b-icon>
       </small>
     </div>
-    <div style="border-bottom: 1px solid #dae1e7;">
+    <div class="email-messages">
       <article class="media" v-for="(message, i) in messages" :key="i" style="padding: 10px; margin: 0">
-        <div class="media-left">
+        <div class="media-left email-avatar">
           <figure class="image is-48x48">
             <img class="is-rounded" :src="message.avatar" alt="Image">
           </figure>
-          <b-checkbox size="is-small" style="margin: 16px"></b-checkbox>
+          <!-- <b-checkbox size="is-small" style="margin: 16px"></b-checkbox> -->
         </div>
         <div class="media-content">
           <div class="content">
             <strong>{{message.owner}}</strong>
-            <small style="padding-left: 10px">{{message.email}}</small>
+            <small class="pl-2">{{message.email}}</small>
             <p>
-              <strong style="font-weight: 500; font-size: 12px">Invation</strong>
+              <strong class="is-size-7">Invation</strong>
               <br>
-              {{message.snippet}}
+              <span>Lorem ipsum dolor sit amet, consectetur adipiscing..</span>
             </p>
           </div>
         </div>
@@ -33,18 +33,18 @@
           </div>
           <div>
             <small class="is-pulled-right">
-              <b-icon icon="paperclip" ></b-icon>
+              <b-icon icon="attachment" ></b-icon>
             </small>
           </div>
           <div>
             <small class="is-pulled-right">
-              <b-icon icon="star-outline" style="margin-top: 10px" ></b-icon>
+              <b-icon icon="star-outline" ></b-icon>
             </small>
           </div>
         </div>
       </article>
     </div>
-  </div>
+  </section>
 </template>
 <script>
 export default {
@@ -79,7 +79,44 @@ export default {
         avatar: 'https://pickaface.net/gallery/avatar/unr_randomsuburbguy_170104_0514_qxi74z8.png',
         email: 'rawlings@mailcow.email',
         snippet: 'Proin dapibus rutrum laoreet. Integer viverra vitae tortor sit amet ullamcorper..'
+      },
+      {
+        owner: 'Urs Morley',
+        avatar: 'https://pickaface.net/gallery/avatar/unr_random_180527_1151_2bcb7h9.png',
+        email: 'urs@mailcow.email',
+        snippet: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae...'
+      },
+      {
+        owner: 'Manolito Sherwood',
+        avatar: 'https://pickaface.net/gallery/avatar/Dorka123551177b601b1e.png',
+        email: 'manolito@mailcow.email',
+        snippet: 'Curabitur egestas justo ac turpis varius, et rhoncus nibh imperdiet...'
+      },
+      {
+        owner: 'Rawlings Chester',
+        avatar: 'https://pickaface.net/gallery/avatar/unr_randomsuburbguy_170104_0514_qxi74z8.png',
+        email: 'rawlings@mailcow.email',
+        snippet: 'Proin dapibus rutrum laoreet. Integer viverra vitae tortor sit amet ullamcorper..'
+      },
+      {
+        owner: 'Urs Morley',
+        avatar: 'https://pickaface.net/gallery/avatar/unr_random_180527_1151_2bcb7h9.png',
+        email: 'urs@mailcow.email',
+        snippet: 'Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae...'
+      },
+      {
+        owner: 'Manolito Sherwood',
+        avatar: 'https://pickaface.net/gallery/avatar/Dorka123551177b601b1e.png',
+        email: 'manolito@mailcow.email',
+        snippet: 'Curabitur egestas justo ac turpis varius, et rhoncus nibh imperdiet...'
+      },
+      {
+        owner: 'Rawlings Chester',
+        avatar: 'https://pickaface.net/gallery/avatar/unr_randomsuburbguy_170104_0514_qxi74z8.png',
+        email: 'rawlings@mailcow.email',
+        snippet: 'Proin dapibus rutrum laoreet. Integer viverra vitae tortor sit amet ullamcorper..'
       }
+
     ]
   })
 };
