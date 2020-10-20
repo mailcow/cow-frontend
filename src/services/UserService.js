@@ -1,11 +1,11 @@
-import Vue from 'vue';
+import axios from 'axios';
 import { API_BASE_URL } from 'mailcow-config';
 
 export default {
   login (data) {
-    return Vue.axios.post(API_BASE_URL + 'auth/login/', data);
+    return axios.post(API_BASE_URL + 'auth/login/', data);
   },
   logout () {
-  	return Vue.axios.post(API_BASE_URL + 'auth/logout/');
+    return axios.post(API_BASE_URL + 'auth/logout/');
   }
 };

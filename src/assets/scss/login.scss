@@ -15,7 +15,7 @@
 
   .left {
     padding: 4.5rem;
-    border-right: 5px solid $login-border-hr;
+    border-right: 2px solid $login-border-hr;
 
     .title {
       font-weight: 800;
@@ -45,6 +45,18 @@
       margin-bottom: 1rem !important;
       color: $login-page-p-soft;
       font-size: 1.15rem;
+    }
+  }
+}
+
+@media screen and (max-width: 1216px) {
+  .login-panel {
+    
+    .right {
+      padding: 2rem;
+    }
+    .left {
+      padding: 2rem;
     }
   }
 }
