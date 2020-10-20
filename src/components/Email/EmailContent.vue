@@ -1,5 +1,5 @@
 <template>
-  <component :is="is_mobile ? 'b-modal' : 'div'" v-model="isComponentModalActive" has-modal-card full-screen >
+  <component :is="is_mobile ? 'b-modal' : 'div'" v-model="isComponentModalActive" has-modal-card full-screen class="mail-content-container">
     <div class="email-content">
       <div class="email-content-subject">
         <strong>Invation</strong>
