@@ -35,8 +35,6 @@ $link-focus-border: $primary;
 $bottom-box-shadow: 0 1px $base-color-light;
 $bottom-box-shadow-dark: 0 1px $base-color;
 
-
-
 $navbar-item-hover-background-color: transparent;
 $navbar-item-active-color: $black-ter;
 $navbar-item-active-background-color: transparent;
@@ -56,6 +54,11 @@ $menu-item-active-color: #7367f0;
 $menu-item-active-background-color: transparent;
 $menu-link-color: $link;
 
+$sidebar-width: $size-base * 15;
+$sidebar-mobile-width: 0;
+$sidebar-box-shadow: 1px 0 $base-color-light;
+$sidebar-background: #FFF;
+
 $aside-width: $size-base * 15;
 $aside-mobile-width: $size-base * 15;
 $aside-icon-width: $size-base * 3;
@@ -65,8 +68,7 @@ $aside-background-color: $white;
 $aside-tools-background-color: transparent;
 $aside-tools-color: #4a4a4a;
 $aside-dropdown-background-color: transparent;
-$aside-margin-top: $navbar-height + 0.6rem;
-
+$aside-margin-top: $navbar-height + 0.1rem;
 
 // Email Page
 $email-list: #F8F8F8;

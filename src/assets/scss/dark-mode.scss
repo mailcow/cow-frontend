@@ -1,5 +1,5 @@
 html {
-  &.is-dark-mode-active {
+  &.dark-mode {
     background-color: $dark-mode-background-color;
 
     .modal {
@@ -264,7 +264,7 @@ html {
       }
     }
 
-    aside.aside {
+    aside.navigation-drawer {
       background-color: $dark-mode-background-color;
       box-shadow: 1px 0 $dark-mode-light-border-color;
 
@@ -402,7 +402,7 @@ html {
 }
 
 @include touch {
-  html.is-dark-mode-active {
+  html.dark-mode {
 
     .table-wrapper.has-mobile-cards {
       tr:not(.detail):not(.is-empty):not(.table-footer) {
@@ -432,7 +432,7 @@ html {
 }
 
 @include desktop {
-  html.is-dark-mode-active {
+  html.dark-mode {
     .navbar-dropdown {
       border-color: $dark-mode-light-border-color;
       box-shadow: 0 8px 8px rgba($black, 0.25);
@@ -441,7 +441,7 @@ html {
 }
 
 @include until-widescreen {
-  html.is-dark-mode-active {
+  html.dark-mode {
     aside.aside {
       .aside-tools {
         box-shadow: 0 1px $dark-mode-light-border-color;
