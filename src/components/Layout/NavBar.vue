@@ -1,9 +1,10 @@
 <template>
   <b-navbar :mobile-burger="false">
     <template slot="brand">
+      <b-icon @click.native="$store.dispatch('toggle_navigation')" style="margin: auto 0; cursor: pointer;" icon="menu"></b-icon>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img src="https://www.debinux.de/256.png" alt="MailCow">
-        <h1 style="margin: auto 0px auto 10px; font-weight: 500; font-size: 20px">MAILCOW</h1>
+        <h1 style="margin: auto 0px auto 5px; font-weight: 500; font-size: 20px">MAILCOW</h1>
       </b-navbar-item>
     </template>
     <template slot="start">

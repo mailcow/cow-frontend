@@ -1,5 +1,5 @@
 <template>
-  <aside class="aside is-placed-left is-expanded">
+  <aside class="navigation-drawer" :class="{'open': $store.getters.navigation_drawer}">
     <div class="block" style="padding: 1rem; margin-bottom: 0;">
       <b-button type="is-primary" expanded icon-left="pencil">COMPOSE</b-button>
     </div>
@@ -34,4 +34,5 @@
       </b-menu-list>
     </b-menu>
   </aside>
+
 </template>

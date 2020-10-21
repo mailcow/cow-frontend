@@ -2,135 +2,37 @@
   transition: $t 250ms ease-in-out 50ms;
 }
 
-@mixin icon-with-update-mark ($icon-base-width) {
-  .icon {
-    width: $icon-base-width;
-
-    &.has-update-mark:after {
-      right: ($icon-base-width / 2) - .85;
-    }
-  }
-}
-
-
-@include desktop {
-  html {
-    &.has-aside-left {
-      &.has-aside-expanded {
-        .main-content {
-          padding-left: 15em;
-        }
-
-        footer.footer {
-          padding-left: 16em;
-        }
-
-        nav.navbar {
-         padding-left: 0em; 
-        }
-
-      }
-      nav.navbar, body {
-        @include transition(padding-left);
-      }
-      aside.is-placed-left {
-        display: block;
-      }
-    }
-  }
-
-  aside.aside.is-expanded {
-    width: $aside-width;
-
-    .menu-list {
-      @include icon-with-update-mark($aside-icon-width);
-
-      span.menu-item-label {
-        display: inline-block;
-      }
-
-      li.is-active {
-        ul {
-          display: block;
-        }
-      }
-    }
-  }
-}
-
-aside.aside {
-  display: none;
+aside.navigation-drawer {
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 40;
+  width: $aside-width;
+  left: $aside-mobile-width * -1;
   height: calc(100vh - 62px);
+  z-index: 40;
   padding: 0;
   box-shadow: $aside-box-shadow;
   background: $aside-background-color;
   margin-top: $aside-margin-top;
-
-
-  .aside-tools {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    background-color: $aside-tools-background-color;
-    color: $aside-tools-color;
-    line-height: $navbar-height;
-    height: $navbar-height;
-    padding-left: $default-padding * .5;
-    flex: 1;
-    box-shadow: 0 1px $base-color-light;
-
-    .icon {
-      margin-right: $default-padding * .5;
-    }
-  }
+  @include transition(padding-left);
 
   .menu-list {
-    li {
-      &.is-active {
-        box-shadow: 0 1px $base-color-light;
-        >a {
-          box-shadow: 0 1px $base-color-light;
-        }
-      }
-
-      a {
-        &.has-dropdown-icon {
-          position: relative;
-          padding-right: $aside-icon-width;
-
-          .dropdown-icon {
-            position: absolute;
-            top: $size-base * .5;
-            right: 0;
-          }
-        }
-      }
+    li.is-active {
       ul {
-        display: none;
-        border-left: 0;
-        background-color: $aside-dropdown-background-color;
-        padding-left: 0;
-        margin: 0 0 $default-padding * .5;
+        display: block;
+      }
+    }
+    a {
 
-        li {
-          a {
-            padding: $default-padding * .5 0 $default-padding * .5 $default-padding * .5;
-            font-size: $aside-submenu-font-size;
+      .icon {
+        width: $aside-icon-width;
 
-            &.has-icon {
-              padding-left: 0;
-            }
-            &.is-active {
-              &:not(:hover) {
-                background: transparent;
-              }
-            }
-          }
+        &.has-update-mark:after {
+          right: ($aside-icon-width / 2) - .85;
         }
+      }
+
+      span.menu-item-label {
+        display: inline-block;
       }
     }
   }
@@ -140,6 +42,45 @@ aside.aside {
     margin-top: $default-padding * .5;
     margin-bottom: $default-padding * .5;
   }
+}
+
+@include desktop {
+  html {
+
+    .main-content {
+      @include transition(padding-left);
+    }
+
+    &.nav-menu-space {
+
+      .main-content {
+        @include transition(padding-left);
+        padding-left: 15em;
+      }
+
+      footer.footer {
+        padding-left: 16em;
+      }
+
+      nav.navbar {
+       padding-left: 0em; 
+      }
+
+    }
+
+    nav.navbar, body {
+      @include transition(padding-left);
+    }
+
+    aside.navigation-drawer {
+      @include transition(left);
+    }
+
+  }
+
+  aside.navigation-drawer.open {
+    left: 0;
+  }
 
 }
 
@@ -148,53 +89,25 @@ aside.aside {
   #app, nav.navbar {
     @include transition(margin-left);
   }
-  aside.aside {
-    @include transition(left);
-  }
-  html.has-aside-mobile-transition {
 
-    &.has-aside-expanded {
-      // background: rgba(0,0,0,.4);
-    }
+  html {
+
     body {
       overflow-x: hidden;
     }
+
     body, #app, nav.navbar {
       width: 100vw;
     }
-    aside.aside {
-      width: $aside-mobile-width;
-      display: block;
-      left: $aside-mobile-width * -1;
 
-      .image {
-        img {
-          max-width: $aside-mobile-width * .33;
-        }
-      }
-
-      .menu-list {
-        li.is-active {
-          ul {
-            display: block;
-          }
-        }
-        a {
-          @include icon-with-update-mark($aside-icon-width);
-
-          span.menu-item-label {
-            display: inline-block;
-          }
-        }
-      }
-    }
-  }
-  html.has-aside-mobile-expanded {
-    #app, nav.navbar {
-      margin-left: $aside-mobile-width;
-    }
-    aside.aside {
+    aside.navigation-drawer.open {
+      @include transition(left);
       left: 0;
+    }
+
+    aside.navigation-drawer {
+      @include transition(left);
+      left: $aside-width * -1;
     }
   }
 }
