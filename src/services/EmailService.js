@@ -1,8 +1,23 @@
-import Vue from 'vue';
+import axios from 'axios';
 import { API_BASE_URL } from 'mailcow-config';
 
 export default {
-  ping (data) {
-    return Vue.$http.get(API_BASE_URL + 'email/');
+  ping () {
+    return axios.get(API_BASE_URL + 'email/');
+  },
+  messages (filter) {
+	return axios.get(API_BASE_URL + 'email/messages?' + filter);
+  },
+  get_folders () {
+    return axios.get(API_BASE_URL + 'email/folders/');
+  },
+  new_folder (data) {
+    return axios.post(API_BASE_URL + 'email/folders/', data);
+  },
+  rename_folder (folder_id, data) {
+    return axios.put(API_BASE_URL + 'email/folders/' + folder_id, data);
+  },
+  delete_folder (folder_id) {
+    return axios.delete(API_BASE_URL + 'email/folders/' + folder_id);
   }
 };
