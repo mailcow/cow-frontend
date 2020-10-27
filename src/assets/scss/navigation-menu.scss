@@ -103,6 +103,16 @@ aside.navigation-drawer {
     aside.navigation-drawer.open {
       @include transition(left);
       left: 0;
+
+      .navigation-drawer-overlay {
+        z-index: 0;
+        position: absolute;
+        width: calc(100vw - 240px);
+        height: calc(100vh - 60px);
+        margin-left: $aside-width;
+        background: rgba(0,0,0,.3);
+      }
+
     }
 
     aside.navigation-drawer {

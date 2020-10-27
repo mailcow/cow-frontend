@@ -10,6 +10,7 @@ import Simple from 'mailcow-layouts/Simple';
 import Login from 'mailcow-views/Login';
 import Email from 'mailcow-views/Email';
 import Calendar from 'mailcow-views/Calendar';
+import Contact from 'mailcow-views/Contact';
 import {DEFAULT_APP} from 'mailcow-config';
 
 Vue.use(VueRouter);
@@ -27,7 +28,17 @@ const routes = [
       {
         path: 'email',
         name: 'Email',
-        component: Email,
+        redirect: '/email/inbox'
+      },
+      {
+        path: 'email/:folder/:message_id?',
+        name: 'EmailFolder',
+        component: Email
+      },
+      {
+        path: 'Contact',
+        name: 'Contact',
+        component: Contact
       },
       {
         path: 'calendar',
