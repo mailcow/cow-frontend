@@ -14,7 +14,7 @@ const actions = {
     commit('change_dark_mode_status');
   },
   toggle_navigation ({commit}) {
-    const html_class_name = 'navigation-menu';
+    const html_class_name = 'nav-menu-space';
     if (!state.navigation_drawer) {
       document.documentElement.classList.add(html_class_name);
     } else {
