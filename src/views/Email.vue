@@ -20,10 +20,40 @@ import EmailContent from 'mailcow-components/Email/EmailContent';
 
 export default {
   name: 'Email',
+  data: () => ({
+  }),
+  created () {
+    this.$store.dispatch('get_folders');
+    this.$store.dispatch('get_messages', 'in=' + this.$route.params.folder + '&limit=20');
+    // this.fetch_email();
+  },
+  props: {
+  },
+  computed: {
+    active_account () {
+      return this.$store.getters.active_account;
+    }
+  },
+  methods: {
+    fetch_email () {
+      this.$store.dispatch('get_messages', 'in=' + this.$route.params.folder + '&limit=20');
+    }
+  },
   components: {
     'navigation-menu': NavigationMenu,
     'email-list': EmailList,
     'email-content': EmailContent
+  },
+  watch: {
+    active_account () {
+      this.fetch_email();
+    },
+    $route (to) {
+      if (to.name === 'EmailFolder' && !to.params.message_id) {
+        this.fetch_email();
+        // this.$store.commit('toggle_navigation');
+      }
+    }
   }
 }
 </script>

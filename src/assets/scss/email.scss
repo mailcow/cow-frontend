@@ -5,21 +5,21 @@
 
   &::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
-    background-color: $email-scroll;
+    background-color: $base-color-light;
   }
 
   &::-webkit-scrollbar {
     width: 5px;
-    background-color: $base-color-light;
+    background-color: $email-scroll;
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: $base-color-light;
+    background-color: $email-scroll;
   }
 }
 
 .full-height {
-  height: calc(100vh - 102px);
+  height: calc(100vh - 95px);
 }
 
 .email-messages {
@@ -35,8 +35,6 @@
   margin: auto 1rem auto 0;
 }
 
-.email-content {
-}
 
 .email-content-subject {
   height: 50px;
@@ -51,7 +49,42 @@
 .email-content-text {
  padding: 20px;
 }
+
+.mail-content-dialog {
+  .modal-background {
+    display: none !important;
+  }
+
+  .animation-content {
+    overflow-y: auto;
+  }
+
+}
+
 .mail-content-container {
+
+  height: calc(100vh - 6em);
+
+  .email-content {
+    height: 100%;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+      background-color: $email-scroll;
+    }
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: $base-color-light;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: $base-color-light;
+    }
+  }
+
+
   .modal-background {
     background-color: rgba(255, 255, 255, 0) !important;
   }
@@ -82,4 +115,20 @@
   font-weight: 400;
 }
 
+.email-message {
+  padding: 0.3em 0.5em !important;
+  margin: 0 !important;
+}
 
+.email-message:hover{
+  background: #8c67ef14;
+  cursor: pointer;
+}
+
+.email-selected {
+  background: #8c67ef14 !important;
+}
+
+.email-unread {
+  background: #d2d1d133;
+}
