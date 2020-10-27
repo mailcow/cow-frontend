@@ -8,15 +8,15 @@
       </b-navbar-item>
     </template>
     <template slot="start">
-      <b-navbar-item href="#" active>
+      <b-navbar-item tag="router-link" :to="{'name': 'Email'}" :active="$route.name === 'Email'">
         <b-icon icon="email-open-outline"></b-icon> 
         <span class="pl-1 is-size-7">Email</span>
       </b-navbar-item>
-      <b-navbar-item href="#">
+      <b-navbar-item tag="router-link" :to="{'name': 'Contact'}" :active="$route.name === 'Contact'">
         <b-icon icon="account-box-outline"></b-icon>
         <span class="pl-1 is-size-7">Contact</span>
       </b-navbar-item>
-      <b-navbar-item href="#">
+      <b-navbar-item tag="router-link" :to="{'name': 'Calendar'}" :active="$route.name === 'Calendar'">
         <b-icon icon="calendar"></b-icon>
         <span class="pl-1 is-size-7">Calendar</span>
       </b-navbar-item>
@@ -27,10 +27,10 @@
           class="mr-4"
           placeholder="Small"
           size="is-small"
-          v-model="test"
+          :value="$store.getters.active_account.id"
+          @input="change_account"
           expanded>
-          <option value="ahmet@mailcow.com">ahmet@mailcow.com</option>
-          <option value="ahmet@gmail.com">ahmet@gmail.com</option>
+          <option :value="account.id" :key="account.id" v-for="account in $store.getters.accounts">{{account.email}}</option>          
       </b-select>
       <b-icon @click.native="$store.dispatch('change_dark_mode')" style="margin: auto 0;" class="mr-4" icon="brightness-6"></b-icon>
       <b-icon style="margin: auto 0;" class="mr-4" icon="magnify"></b-icon>
@@ -59,7 +59,6 @@ import UserService from 'mailcow-services/UserService';
 
 export default {
   data: () => ({
-    test: 'ahmet@mailcow.com'
   }),
   methods: {
     logout () {
@@ -70,6 +69,9 @@ export default {
         }).catch (err => {
           console.log('Login Failed ', err);
         });
+    },
+    change_account (account_id) {
+      this.$store.commit('change_account', account_id);
     }
   }
 };
