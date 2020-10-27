@@ -347,6 +347,10 @@ html {
       }
     }
 
+    .datepicker .datepicker-table .datepicker-body .datepicker-cell.is-selectable {
+        color: #ffffff !important;
+    }
+
     /* APPS */
 
     .login-main {
@@ -397,6 +401,20 @@ html {
     }
     .email-content-subject {
       box-shadow: $bottom-box-shadow-dark;
+    }
+
+    .email-messages {
+        box-shadow: 0 1px #2e323a;
+    }
+
+    .email-selected {
+      background: #5b52b326 !important;
+    }
+    .email-unread {
+      background: #00000063;
+    }
+    .email-message:hover{
+      background: #5b52b326;
     }
   }
 }
