@@ -98,6 +98,11 @@ $state-colors: (
     "twitter": ($twitter, $twitter-invert)
 );
 
+
+$datepicker-shadow: 0px 0 $base-color-light;
+$datepicker-background-color: transparent;
+
+
 /* Dark Mode */
 $dark-mode-background-color: $black-ter;
 $dark-mode-lighter-background-color: $grey-darker;
@@ -108,7 +113,7 @@ $dark-mode-light-border-color: $grey-darker;
 $dark-mode-light-border: 1px solid $dark-mode-light-border-color;
 $dark-mode-link-color: #FFF;
 $dark-mode-link-active-color: #7367f0;
-$dark-mode-link-hover-color: $white-bis;
+$dark-mode-link-hover-color: $link;
 $dark-mode-overlay-background-color: rgba($black, .85);
 $dark-mode-button-color: $white-ter;
 $dark-mode-button-hover-color: $black-ter;
