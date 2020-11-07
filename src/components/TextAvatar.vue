@@ -1,7 +1,13 @@
-<template>
-  <div class="avatar" :style="'background:' + background_color">
-    <img v-if="img" :src="img" alt="Avatar" />
-    <span v-else>{{avatar_text}}</span>
+  <template>
+  <div class="avatar mailcow-avatar" :style="'background:' + background_color">
+    <input v-if="id" class="checkbox" :id="`avatar-checkbox-${id}`" :value="id" type="checkbox" v-model="selected_mail" />
+    <label :for="`avatar-checkbox-${id}`">
+      <img v-if="img" :src="img" alt="Avatar" />
+      <span v-else>{{avatar_text}}</span>
+      <span class="check">
+        <b-icon class="check-icon" icon="check" size="is-medium"></b-icon>
+      </span>
+    </label>
   </div>
 </template>
 <script>
@@ -22,9 +28,22 @@ export default {
     img: {
       type: [String, Boolean],
       default: false
+    },
+    id: {
+      type: [String, Number],
+      required: false
     }
   },
   computed: {
+    selected_mail: {
+      get () {
+        return this.$store.getters.get_slected_messages;
+      },
+      set (value) {
+        console.log('SET ', value);
+        this.$store.commit('select_message', value)
+      }
+    }, 
     background_color () {
       if (!this.img) {
         var tot = 0;
@@ -40,7 +59,6 @@ export default {
       if (!this.img) {
         var split_data = this.name.split(' ');
         var chracter = split_data[0][0];
-          
         if (split_data.length > 1) {
           chracter += split_data[split_data.length - 1][0];
         }
