@@ -1,0 +1,16 @@
+.mail-compose-transition-enter-active {
+  transition: all .3s ease;
+}
+.mail-compose-transition-leave-active {
+  transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.mail-compose-transition-enter, .mail-compose-transition-leave-to {
+  transform: translateY(10em);
+  opacity: 0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
