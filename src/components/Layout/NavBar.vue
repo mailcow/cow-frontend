@@ -22,18 +22,43 @@
       </b-navbar-item>
     </template>
     <template slot="end">
-      <b-select
-          style="margin: auto 0;"
-          class="mr-4"
-          placeholder="Small"
-          size="is-small"
-          :value="$store.getters.active_account.id"
-          @input="change_account"
-          expanded>
-          <option :value="account.id" :key="account.id" v-for="account in $store.getters.accounts">{{account.email}}</option>          
-      </b-select>
-      <b-icon @click.native="$store.dispatch('change_dark_mode')" style="margin: auto 0;" class="mr-4" icon="brightness-6"></b-icon>
-      <b-icon style="margin: auto 0;" class="mr-4" icon="magnify"></b-icon>
+      <b-dropdown
+        class="mr-4"
+        aria-role="list"
+        style="margin: auto 0;"
+      >
+        <b-button size="is-small" type="button" slot="trigger">
+          <template>
+            <span>{{$store.getters.active_account.email}}</span>
+          </template>
+          <b-icon size="is-small" icon="menu-down"></b-icon>
+        </b-button>
+        <b-dropdown-item 
+            v-for="(account) in $store.getters.accounts"
+            @click="change_account(account.id)"
+            :key="account.id"
+            :value="account.id" 
+            aria-role="listitem"
+          >
+            <div class="media">
+              <div class="media-content">
+                  <h3>{{account.email}}</h3>
+              </div>
+            </div>
+        </b-dropdown-item>
+        <b-dropdown-item 
+            @click="change_account('new_account')"
+            aria-role="listitem"
+          >
+            <div class="media">
+              <div class="media-content">
+                  <h3>Add New Account</h3>
+              </div>
+            </div>
+        </b-dropdown-item>
+      </b-dropdown>
+      <b-icon @click.native="$store.dispatch('change_dark_mode')" style="margin: auto 0;" class="mr-4 c-pointer" icon="brightness-6"></b-icon>
+      <b-icon style="margin: auto 0;" class="mr-4 c-pointer" icon="magnify"></b-icon>
       <b-dropdown position="is-bottom-left" aria-role="menu" append-to-body class="mr-4" style="margin: auto 0; cursor: pointer;">
           <figure class="image is-32x32"  slot="trigger">
             <img style="border-radius: 50%" src="https://pickaface.net/gallery/avatar/unr_randomavatar_170412_0236_9n4c2i.png">
@@ -71,7 +96,11 @@ export default {
         });
     },
     change_account (account_id) {
-      this.$store.commit('change_account', account_id);
+      if (account_id === 'new_account') {
+        this.$store.commit('account_dialog_status', true);
+      } else {
+        this.$store.commit('change_account', account_id);
+      }
     }
   }
 };
