@@ -40,7 +40,6 @@ export default {
         return this.$store.getters.get_slected_messages;
       },
       set (value) {
-        console.log('SET ', value);
         this.$store.commit('select_message', value)
       }
     }, 

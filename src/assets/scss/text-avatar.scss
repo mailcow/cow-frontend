@@ -1,0 +1,40 @@
+.mailcow-avatar {
+
+  label {
+    cursor: pointer;
+    position: relative;
+    display:block;
+    width: 100%;
+    height: 100%;
+    border-radius:50%;
+    -webkit-font-smoothing: antialiased; 
+  }
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  input:checked + label {
+    color: #F00;
+  }
+
+  .check {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: -50px;
+    background: rgba(140, 103, 239, .8);
+    transition: top 0.5s;
+    visibility: hidden;
+
+    .check-icon {
+      margin-top: 0.6em;
+    }
+  }
+
+  input:checked + label .check {
+    visibility: visible;
+    top: 0;
+  }
+}
