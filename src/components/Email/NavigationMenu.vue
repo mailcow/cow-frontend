@@ -2,7 +2,7 @@
   <aside class="navigation-drawer" :class="{'open': $store.getters.navigation_drawer}">
     <div class="navigation-drawer-overlay" @click="$store.dispatch('toggle_navigation')"></div>
     <div class="block" style="padding: 1rem; margin-bottom: 0;">
-      <b-button type="is-primary" expanded icon-left="pencil">COMPOSE</b-button>
+      <b-button @click="$store.commit('change_mail_dialog', true)" type="is-primary" expanded icon-left="pencil">COMPOSE</b-button>
     </div>
     <b-menu>
       <b-menu-list>
@@ -30,16 +30,17 @@
           v-for="other in folders.other"
           :key="other.id"
           :active="$route.params.folder === other.id" 
-          :to="{'name': 'EmailFolder', 'params': {'folder': other.id}}"
+          :to="{'name': 'EmailFolder', 'params': {'folder': other.id}, 'query': {'f': other.display_name}}"
           icon="folder" 
           tag="router-link" 
-          class="email-menu-item" 
+          class="email-menu-item other-folder" 
         >
         <template slot="label" class="is-hidden-tablet is-hidden-mobile">
           {{other.display_name}}
-          <!-- <div class="is-pulled-right" >
-            <b-icon size="is-small" icon="delete"></b-icon>
-          </div> -->
+          <div class="is-pulled-right folder-edit">
+            <b-icon @click.native="folder_dialog(other)" size="is-small" icon="pencil"></b-icon>
+            <b-icon @click.native="delete_folder(other)" size="is-small" icon="delete"></b-icon>
+          </div>
         </template>
         </b-menu-item>
         <b-menu-item icon="plus" class="email-menu-item" label="New Folder" @click="folder_dialog()"></b-menu-item>
@@ -50,44 +51,19 @@
 <script>
 
 import EmailService from 'mailcow-services/EmailService';
+import EmailFolders from 'mailcow-mixins/EmailFolders';
 
 export default {
-  data: () => ({
-    default_folders: {
-      inbox: { icon: 'inbox', 'name': 'inbox', 'index': 0 },
-      sent: { icon: 'send', 'name': 'sent', 'index': 1 },
-      starred: { icon: 'star', 'name': 'starred', 'index': 2 },
-      trash: { icon: 'delete', 'name': 'trash', 'index': 3 },
-      archive: { icon: 'file', 'name': 'archive', 'index': 4 },
-      drafts: { icon: 'email-open', 'name': 'drafts', 'index': 5 },
-      spam: { icon: 'alert-circle', 'name': 'spam', 'index': 6 }
-    }
-  }),
-  computed: {
-    folders () {
-      var folders = {default: [], other: []};
-      this.$store.getters.get_folders.forEach((f) => {
-        if (f.name && this.default_folders[f.name]) {
-          folders.default.push(this.default_folders[f.name]);
-        } else {
-          folders.other.push(f);
-        }
-      });
-      folders.default.sort(function(a, b) {
-          return a.index - b.index;
-      });
-      return folders;
-    }
-  },
+  mixins: [EmailFolders],
   created () {
   },
   methods: {
     folder_dialog (folder = null) {
-
       this.$buefy.dialog.prompt({
-        message: 'Create new folder 🖿',
+        message: folder ? 'Edit folder name 🖿' : 'Create new folder 🖿',
         inputAttrs: {
           type: 'text',
+          required: true,
           placeholder: 'Folder name',
           value: folder ? folder.display_name : ''
         },
@@ -96,6 +72,9 @@ export default {
         trapFocus: true,
         closeOnConfirm: false,
         onConfirm: (value, {close}) => {
+          if (value.length === 0) {
+            return false;
+          }
           this.$buefy.toast.open(`Creating folder..`);
           if (folder) {
             this.edit_folder(folder.id, {'display_name': value}, close);
@@ -108,31 +87,44 @@ export default {
     new_folder(data, close) {
       EmailService.new_folder(data)
         .then(() => {
-          this.$buefy.toast.open(`Success, Created your folder`);
+          this.$buefy.toast.open({'message': `Success, Created your folder 🥳`, 'type': 'is-success'});
+          this.$store.dispatch('get_folders');
           close();
         }).catch(() => {
-          this.$buefy.toast.open(`Sorry, something went be wrong! ☹️`);
+          this.$buefy.toast.open({'message': `Sorry, something went be wrong! ☹️`, 'type': 'is-danger'});
           close();
         });
     },
     edit_folder (folder_id, data, {close}) {
       EmailService.rename_folder(folder_id, data)
         .then(() => {
-          this.$buefy.toast.open(`Success, Created your folder`);
+          this.$buefy.toast.open({'message': `Success, Created your folder 🥳`, 'type': 'is-success'});
           close();
         }).catch(() => {
-          this.$buefy.toast.open(`Sorry, something went be wrong! ☹️`);
+          this.$buefy.toast.open({'message': `Sorry, something went be wrong! ☹️`, 'type': 'is-danger'});
           close();
         });
     },
     delete_folder (folder) {
       this.$buefy.dialog.confirm({
           title: 'Deleting folder',
-          message: 'Are you sure you want to <b>delete</b> your folder? This action cannot be undone.',
+          message: 'Are you sure you want to <b>delete</b> <br />This action cannot be undone.',
           confirmText: 'Delete Folder',
           type: 'is-danger',
           hasIcon: true,
-          onConfirm: () => this.$buefy.toast.open('Account deleted!' + folder.id)
+          onConfirm: () => {
+            EmailService.delete_folder(folder.id)
+              .then(() => {
+                this.$buefy.toast.open({'message': `Success, Deleted your folder`, 'type': 'is-success'});
+                this.$store.dispatch('get_folders');
+              }).catch((err) => {
+                if (err.response.data.type === 'invalid_request_error') {
+                  this.$buefy.toast.open({'message': `Folder ${folder.display_name} cannot be deleted because it contains messages ☹️`, 'type': 'is-danger'});
+                } else {
+                  this.$buefy.toast.open({'message': `Sorry, something went be wrong! ☹️`, 'type': 'is-danger'});
+                }
+              });
+          }
       });
     }
   }
