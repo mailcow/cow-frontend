@@ -1,21 +1,27 @@
 <template>
   <component v-if="selected_email" :is="is_mobile ? 'b-modal' : 'div'" v-model="dialog" has-modal-card full-screen class="mail-content-dialog" :class="{'mail-content-container': !is_mobile}">
     <div class="email-content">
-      <div class="email-content-subject">
-        <strong>{{message.subject}}</strong>
+      <div class="email-content-nav">
+        <strong class="email-subject">{{message.subject}}</strong>
+        <div class="email-actions">
+          <b-icon class="ml-5 c-pointer" icon="reply"></b-icon>
+          <b-icon class="ml-5 c-pointer" icon="forward"></b-icon>
+          <b-icon class="ml-5 is-hidden-touch c-pointer" @click.native="move_message('trash')" icon="delete"></b-icon>
+          <b-icon class="ml-5 is-hidden-touch c-pointer" @click.native="move_message('spam')" icon="alert-circle"></b-icon>
+          <b-icon @click.native="star_message" class="ml-5 is-hidden-touch c-pointer" :type="message.starred ? 'is-warning': ''" :icon="message.starred ? 'star' : 'star-outline'"></b-icon>
+          <message-menu :message="message" class="ml-5"></message-menu>
           <b-icon
               v-if="is_mobile"
-              style="float: right;"
               icon="close"
+              class="ml-5"
               @click.native="close_mail_dialog"
-              >
+            >
           </b-icon>
+        </div>
       </div>
       <article class="media email-content-header">
         <figure class="media-left">
-          <p class="image is-64x64">
-            <img style="border-radius: 50%" src="https://pickaface.net/gallery/avatar/unr_randomavatar_170412_0236_9n4c2i.png">
-          </p>
+          <text-avatar :name="message.from[0].name"></text-avatar>
         </figure>
         <div class="media-content">
           <div class="content">
@@ -25,31 +31,27 @@
             </p>
           </div>
         </div>
-        <div class="media-right">
-          <span>{{message.date}}</span>
+        <div class="media-right has-text-right">
+          <span>{{message.date | get_date}}</span>
           <br>
-          <span>12 Oct 2020</span>
+          <span>{{message.date | get_time }} ({{message.date | from_now }})</span>
         </div>
       </article>
       <div class="email-content-text">
         <div v-html="message.body">
-          <!-- ::{{a}}::
-          <p>Hey John, </p>
-          <p><br></p>
-          <p>bah kivu decrete epanorthotic unnotched Argyroneta nonius veratrine preimaginary saunders demidolmen Chaldaic allusiveness lorriker unworshipping ribaldish tableman hendiadys outwrest unendeavored fulfillment scientifical Pianokoto Chelonia</p>
-          <p><br></p>
-          <p>Freudian sperate unchary hyperneurotic phlogiston duodecahedron unflown Paguridea catena disrelishable Stygian paleopsychology cantoris phosphoritic disconcord fruited inblow somewhatly ilioperoneal forrard palfrey Satyrinae outfreeman melebiose</p> -->
         </div>
       </div>
     </div>
   </component>
   <div v-else class="is-justify-content-center is-align-items-center mail-content-container is-hidden-touch">
-      <empty-state mode="envelope" text="No selected any email"></empty-state>
+    <empty-state mode="envelope" text="No selected any email"></empty-state>
   </div>
 </template>
 <script>
 
-import EmptyState from './EmptyState';
+import EmptyState from 'mailcow-components/EmptyState';
+import MessageMenu from 'mailcow-components/Email/MessageMenu';
+import TextAvatar from 'mailcow-components/TextAvatar';
 
 export default {
   data: () => ({
@@ -82,16 +84,29 @@ export default {
     },
     get_message () {
       this.message = this.$store.getters.get_message(this.$route.params.message_id);
-      // var elmnt = document.getElementsByClassName("mail-content-container");
-      // if (elmnt) {
-      //   elmnt[0].scrollTop = 0;
-      // }
       this.dialog = true;
       this.selected_email = true;
+      var elmnt = document.getElementsByClassName("mail-content-container");
+      if (elmnt) {
+        elmnt[0].scrollTop = 0;
+      }
+    },
+    move_message (dest) {
+      var folder = this.$store.getters.get_folder(dest);
+      const msg = {'folder_id': folder.id};
+      this.$store.dispatch('update_message', {'mail_id': this.message.id, 'message': msg});
+      this.$router.replace({'name': 'EmailFolder', 'params': {}});
+    },
+    star_message () {
+      const msg = {'starred': !this.message.starred};
+      this.message.starred = !this.message.starred;
+      this.$store.dispatch('update_message', {'mail_id': this.message.id, 'message': msg, 'no_update': true});
     }
   },
   components: {
-    'empty-state': EmptyState
+    'empty-state': EmptyState,
+    'message-menu': MessageMenu,
+    'text-avatar': TextAvatar
   },
   watch: {
     $route (to) {
