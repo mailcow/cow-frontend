@@ -1,6 +1,6 @@
 <template>
   <div class="login-main">
-    <b-loading :is-full-page="true" v-model="is_loading" :can-cancel="true"></b-loading>
+    <b-loading :is-full-page="true" v-model="is_loading" :can-cancel="false"></b-loading>
     <section class="container">
       <div class="columns is-multiline">
         <div class="column is-8 is-offset-2 login-panel">
@@ -90,7 +90,7 @@ export default {
           .then(resp => {
             this.$store.dispatch('login', resp.data);
             this.is_loading = false;
-            this.$buefy.toast.open({ message: 'Welcome to Mailcow', type: 'is-success', position: 'is-bottom-right'});
+            this.$buefy.toast.open({ message: 'Welcome to Mailcow', type: 'is-success', position: 'is-top'});
             this.$router.push({'name': 'Home', 'params': {'folder': 'inbox'}});
           }).catch (err => {
             console.log('Login Failed ', err);
