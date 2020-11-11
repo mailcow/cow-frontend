@@ -73,6 +73,10 @@
     </div>
     <h1 class="is-size-4 empty-status-bottom-text">{{text}}</h1>
   </div>
+  <div class="empty-status-contact" v-else-if="mode === 'contact'">
+    <img width="600" src="@/assets/contact.svg" />
+    <h1 class="is-size-4 empty-status-bottom-text">{{text}}</h1>
+  </div>
 </template>
 <script>
 export default {
@@ -92,11 +96,13 @@ export default {
     }
   },
   created () {
-    this.windowWidth = window.innerWidth;
-    this.windowHeight = window.innerHeight;
-    window.addEventListener('resize', this.setWindowSize);
-    window.addEventListener("mousemove", this.mousemove);
-    window.addEventListener("touchmove", this.touchmove);
+    if (this.mode === 'envelope') {
+      this.windowWidth = window.innerWidth;
+      this.windowHeight = window.innerHeight;
+      window.addEventListener('resize', this.setWindowSize);
+      window.addEventListener("mousemove", this.mousemove);
+      window.addEventListener("touchmove", this.touchmove);
+    }
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.setWindowSize);
