@@ -23,9 +23,10 @@ export default {
   data: () => ({
   }),
   created () {
+    this.$store.commit('set_filter', {'in': this.$route.params.folder, 'limit': 20, 'offset': 0});
     this.$store.dispatch('get_folders');
-    this.$store.dispatch('get_messages', 'in=' + this.$route.params.folder + '&limit=20');
-    // this.fetch_email();
+    this.$store.dispatch('get_total_message_count');
+    this.$store.dispatch('get_messages');
   },
   props: {
   },
@@ -36,7 +37,9 @@ export default {
   },
   methods: {
     fetch_email () {
-      this.$store.dispatch('get_messages', 'in=' + this.$route.params.folder + '&limit=20');
+      this.$store.commit('set_filter', {'in': this.$route.params.folder, 'limit': 20, 'offset': 0});
+      this.$store.dispatch('get_total_message_count');
+      this.$store.dispatch('get_messages');
     }
   },
   components: {
@@ -50,6 +53,7 @@ export default {
     },
     $route (to) {
       if (to.name === 'EmailFolder' && !to.params.message_id) {
+        this.$store.commit('clear_selected_message');
         this.fetch_email();
         // this.$store.commit('toggle_navigation');
       }
