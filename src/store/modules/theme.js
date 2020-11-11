@@ -1,4 +1,5 @@
 const state = {
+  new_mail_dialog: false,
   dark_mode: false,
   navigation_drawer: true
 };
@@ -25,6 +26,9 @@ const actions = {
 };
 
 const mutations = {
+  change_mail_dialog (state, status) {
+    state.new_mail_dialog = status;
+  },
   change_dark_mode_status (state) {
     state.dark_mode = !state.dark_mode;
   },
@@ -39,6 +43,9 @@ const getters = {
   },
   navigation_drawer () {
     return state.navigation_drawer;
+  },
+  mail_dialog () {
+    return state.new_mail_dialog;
   }
 };
 
