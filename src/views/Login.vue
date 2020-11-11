@@ -88,10 +88,10 @@ export default {
       if (this.login_data.email && this.login_data.password) {
         UserService.login(this.login_data)
           .then(resp => {
-            this.$store.dispatch('login', resp.data.expires);
+            this.$store.dispatch('login', resp.data);
             this.is_loading = false;
             this.$buefy.toast.open({ message: 'Welcome to Mailcow', type: 'is-success', position: 'is-bottom-right'});
-            this.$router.push({'name': 'Home'});
+            this.$router.push({'name': 'Home', 'params': {'folder': 'inbox'}});
           }).catch (err => {
             console.log('Login Failed ', err);
             this.show_error_dialog();
