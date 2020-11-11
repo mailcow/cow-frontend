@@ -1,36 +1,28 @@
 const state = {
-  authenticated: false,
-  active_account: null,
-  accounts: null
+  authenticated: false
 };
 
 const actions = {
-  check_auth () {
+  check_auth ({commit}) {
 
     var jwt = localStorage.getItem('expires');
     var accounts = JSON.parse(localStorage.getItem('accounts'));
     var active_account = JSON.parse(localStorage.getItem('active'));
 
     if(jwt && accounts) {
+      commit('add_accounts', accounts);
+      commit('set_active_account', active_account);
       state.authenticated = true;
-      state.accounts = accounts;
-      if (!active_account) {
-        active_account = accounts.filter((a) => {return a.is_main})[0];
-        localStorage.setItem('active', JSON.stringify(active_account));
-      }
-
-      state.active_account = active_account;
     }
     else {
       state.authenticated = false;
     }
   },
   login ({commit}, data) {
-    var active_account = data.user_accounts.filter((a) => {return a.is_main})[0];
     localStorage.setItem('expires', data.expires);
-    localStorage.setItem('accounts', JSON.stringify(data.user_accounts));
-    localStorage.setItem('active', JSON.stringify(state.active_account));
-    commit('add_auth_data', active_account, data.user_accounts)
+    commit('add_accounts', data.user_accounts);
+    commit('set_active_account', undefined); // undefined means default 
+    commit('change_auth_status', true);
   },
   logout () {
     state.authenticated = false;
@@ -41,27 +33,14 @@ const actions = {
 };
 
 const mutations = {
-  add_auth_data (active_account, user_accounts) {
-    state.active_account = active_account;
-    state.accounts = user_accounts;
-    state.authenticated = true;
-  },
-  change_account (state, account_id) {
-    var account = state.accounts.filter((a) => { return a.id === account_id})[0];
-    state.active_account = account;
-    localStorage.setItem('active', JSON.stringify(account));
+  change_auth_status (status) {
+    state.authenticated = status;
   }
 };
 
 const getters = {
   user_authenticated (state) {
     return state.authenticated;
-  },
-  accounts (state) {
-    return state.accounts;
-  },
-  active_account (state) {
-    return state.active_account;
   }
 };
 
