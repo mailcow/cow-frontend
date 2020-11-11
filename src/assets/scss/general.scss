@@ -7,3 +7,25 @@
   display: flex;
   align-items: center;
 }
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid #dbdbdb;
+  text-align: center;
+  img { 
+    width: 100%; 
+    height: auto; 
+  }
+  span {
+    color: #FFF;
+    font-weight: 500;
+    line-height: 44px;
+  }
+}
+
+.c-pointer {
+  cursor: pointer !important;
+}
