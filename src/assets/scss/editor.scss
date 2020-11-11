@@ -1,0 +1,62 @@
+.content_editor {
+  max-height: 20em;
+  height: 20em;
+  overflow: auto;
+  outline: none;
+  padding-top: 0px;
+  text-align:left;
+  outline: 0; 
+  padding-top: 0px;
+  text-align:left;
+  border-block-end-color:rgb(219, 219, 219);
+  border-block-end-style:solid;
+  border-block-end-width:0.993114px;
+  border-block-start-color:rgb(219, 219, 219);
+  border-block-start-style:solid;  
+  border-bottom-left-radius:4px;
+  border-bottom-right-radius:4px;
+  border-bottom-style:solid;
+  border-bottom-width:0.993114px;
+  border-collapse:separate;
+  border-image-outset:0px;
+  border-image-repeat:stretch;
+  border-image-slice:100%;
+  border-image-source:none;
+  border-image-width:1;
+  box-sizing:border-box;
+  border-inline-end-color:rgb(219, 219, 219);
+  border-inline-end-style:solid;
+  border-inline-end-width:0.993114px;
+  border-inline-start-color:rgb(219, 219, 219);
+  border-inline-start-style:solid;
+  border-inline-start-width:0.993114px;
+  border-left-color:rgb(219, 219, 219);
+  border-left-style:solid;
+  border-left-width:0.993114px;
+  border-right-color:rgb(219, 219, 219);
+  border-right-style:solid;
+  border-right-width:0.993114px;
+  border-top-color:rgb(219, 219, 219);
+  border-top-left-radius:4px;
+  border-top-right-radius:4px;
+  border-top-style:solid;
+  border-top-width:0.993114px;
+  bottom:0px;
+  box-shadow:rgba(10, 10, 10, 0.1) 0px 1px 2px 0px inset;
+  box-sizing:border-box;  
+  padding-bottom:11.5px;
+  padding-left:11.5px;
+  padding-right:11.5px;
+  padding-top:11.5px;
+}
+
+// Tiptap Overwrite 
+
+.ProseMirror{
+  max-height: 18em;
+  height: 18em;
+}
+
+.ProseMirror:focus {
+  outline: none !important;
+}
