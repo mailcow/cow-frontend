@@ -1,3 +1,26 @@
 <template>
-  <h1>CONTACT</h1>
+  <div>
+    <navigation-menu></navigation-menu>
+    <div class="is-justify-content-center is-align-items-center mail-content-container is-hidden-touch">
+      <empty-state mode="contact" text="Not yet create any contact"></empty-state>
+    </div>
+  </div>
 </template>
+
+<script>
+
+import NavigationMenu from 'mailcow-components/Contact/NavigationMenu';
+import EmptyState from 'mailcow-components/EmptyState';
+
+export default {
+  name: 'Contact',
+  data: () => ({
+  }),
+  components: {
+    'navigation-menu': NavigationMenu,
+    'empty-state': EmptyState,
+  },
+  methods: {
+  }
+}
+</script>
