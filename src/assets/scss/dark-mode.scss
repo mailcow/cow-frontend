@@ -256,7 +256,10 @@ html {
       }
     }
 
-    .navbar-dropdown {
+    // .dropdown-content {
+    //     background-color: #0f0f0f;
+
+    .dropdown-content {
       background-color: $dark-mode-background-color;
 
       .navbar-item:hover {
@@ -396,10 +399,25 @@ html {
         background-color: $email-scroll-bar-dark;
       }
     }
+
+    .mail-compose {
+      background: $dark-mode-background-color;
+      box-shadow: 0px -4px 30px -8px #000000;
+
+      .button {
+        color: #7165ed !important;
+      }
+
+    }
+
     .email-messages-action {
       box-shadow: $bottom-box-shadow-dark;
     }
     .email-content-subject {
+      box-shadow: $bottom-box-shadow-dark;
+    }
+
+    .email-content-nav {
       box-shadow: $bottom-box-shadow-dark;
     }
 
@@ -416,6 +434,7 @@ html {
     .email-message:hover{
       background: #5b52b326;
     }
+
   }
 }
 
