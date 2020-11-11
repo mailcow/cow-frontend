@@ -12,7 +12,8 @@ module.exports = {
         'mailcow-services': path.resolve(__dirname, 'src/services'),
         'mailcow-config': path.resolve(__dirname, 'src/config'),
         'mailcow-components': path.resolve(__dirname, 'src/components'),
-        'mailcow-router': path.resolve(__dirname, 'src/router')
+        'mailcow-router': path.resolve(__dirname, 'src/router'),
+        'mailcow-mixins': path.resolve(__dirname, 'src/mixins')
       }
     }
   }
