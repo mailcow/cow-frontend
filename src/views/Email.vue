@@ -30,14 +30,14 @@ export default {
     this.fetch_email();
 
     // First login
-    // if (this.$store.getters.get_folders.length === 0) {
-    //   this.is_preparing_account = true;
-    //   setTimeout(() => {
-    //     this.$store.dispatch('get_folders');
-    //     this.fetch_email();
-    //     this.is_preparing_account = false;
-    //   }, 5000);
-    // }
+    if (this.$store.getters.is_first_login) {
+      this.is_preparing_account = true;
+      setTimeout(() => {
+        this.$store.dispatch('get_folders');
+        this.fetch_email();
+        this.is_preparing_account = false;
+      }, 5000);
+    }
   },
   props: {
   },

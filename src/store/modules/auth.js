@@ -1,4 +1,5 @@
 const state = {
+  first_login: false,
   authenticated: false
 };
 
@@ -35,12 +36,18 @@ const actions = {
 const mutations = {
   change_auth_status (status) {
     state.authenticated = status;
+  },
+  change_first_login (state, status) {
+    state.first_login = status;
   }
 };
 
 const getters = {
   user_authenticated (state) {
     return state.authenticated;
+  },
+  is_first_login (state) {
+    return state.first_login;
   }
 };
 
