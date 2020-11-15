@@ -85,10 +85,13 @@ export default {
         this.is_loading = true;
         console.log(this.credentials);
         AccountService.new_account(this.credentials)
-          .then(resp => {
-            console.log('==', resp);
+          .then((resp) => {
+            this.$store.dispath('add_accounts', resp.data.user_accounts);
+            this.$buefy.toast.open({ message: 'Created new account 🎉', type: 'is-success', position: 'is-top'});
             this.is_loading = false;
+            this.close();
           }).catch(() => {
+            this.$buefy.toast.open({ message: 'Sorry, something went be wrong, please try later 😢', type: 'is-danger', position: 'is-top'});
             this.is_loading = false;
           });
       } else {
