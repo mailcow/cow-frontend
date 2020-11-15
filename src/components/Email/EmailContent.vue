@@ -21,12 +21,12 @@
       </div>
       <article class="media email-content-header">
         <figure class="media-left">
-          <text-avatar :name="message.from[0].name"></text-avatar>
+          <text-avatar :name="user_text"></text-avatar>
         </figure>
         <div class="media-content">
           <div class="content">
             <p>
-              <strong>{{message.from[0].name}}</strong><br/>
+              <strong>{{user_text}}</strong><br/>
               <small>{{message.from[0].email}}</small>
             </p>
           </div>
@@ -66,6 +66,13 @@ export default {
   computed: {
     is_mobile () {
       return this.window.width < 770;
+    },
+    user_text () {
+      var _user = this.message.from[0];
+      if (this.$route.params.folder === 'sent') {
+        _user = this.message.to[0];
+      }
+      return _user.name || _user.email;
     }
   },
   created () {

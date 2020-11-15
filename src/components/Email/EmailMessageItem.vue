@@ -5,11 +5,11 @@
     :class="{'email-unread': message.unread, 'email-selected': $route.params.message_id === message.id}"
   >
     <div class="media-left email-avatar">
-      <text-avatar v-once :name="message.from[0].name" :id="message.id"></text-avatar>
+      <text-avatar v-once :name="user_text" :id="message.id"></text-avatar>
     </div>
     <div class="media-content">
       <div class="content">
-        <strong>{{message.from[0].name}}</strong>
+        <strong>{{user_text}}</strong>
         <small class="pl-2">{{message.from[0].email}}</small>
         <p>
           <strong class="is-size-7">{{message.subject}}</strong>
@@ -50,6 +50,15 @@ export default {
       if (this.$route.params.message_id !== this.message.id) {
         this.$router.push({params:{'message_id': this.message.id}});
       }
+    }
+  },
+  computed: {
+    user_text () {
+      var _user = this.message.from[0];
+      if (this.$route.params.folder === 'sent') {
+        _user = this.message.to[0];
+      }
+      return _user.name || _user.email;
     }
   },
   props: {

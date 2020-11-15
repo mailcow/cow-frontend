@@ -29,7 +29,7 @@
             <b-field label="Imap Host" expanded>
               <b-input
                 required
-                v-model="credentials.imap_host"
+                v-model="credentials.imap_server_host"
               >
               </b-input>
             </b-field>
@@ -37,7 +37,7 @@
               <b-input
                 required
                 type="number"
-                v-model="credentials.imap_port"
+                v-model="credentials.imap_server_port"
               >
               </b-input>
             </b-field>
@@ -46,7 +46,7 @@
             <b-field label="Smtp Host" expanded>
               <b-input
                 required
-                v-model="credentials.smtp_host"
+                v-model="credentials.smtp_server_host"
               >
               </b-input>
             </b-field>
@@ -54,7 +54,7 @@
               <b-input
                 required
                 type="number"
-                v-model="credentials.smtp_port"
+                v-model="credentials.smtp_server_port"
               >
               </b-input>
             </b-field>
@@ -69,9 +69,12 @@
   </div>
 </template>
 <script>
+
+import AccountService from 'mailcow-services/AccountService';
+
 export default {
   data: () => ({
-    credentials: {},
+    credentials: {account_type: 'generic', imap_secure: true, smtp_secure: true},
     is_loading: false
   }),
   created () {
@@ -80,7 +83,14 @@ export default {
     login () {
       if (this.$refs.form.checkValidity()) {
         this.is_loading = true;
-        // Account Service
+        console.log(this.credentials);
+        AccountService.new_account(this.credentials)
+          .then(resp => {
+            console.log('==', resp);
+            this.is_loading = false;
+          }).catch(() => {
+            this.is_loading = false;
+          });
       } else {
         this.$buefy.snackbar.open({
             duration: 2000,
@@ -94,7 +104,7 @@ export default {
     },
     close () {
       this.$emit('close');
-      this.credentials = {};
+      this.credentials = {account_type: 'generic', imap_secure: true, smtp_secure: true};
       this.$refs.form.reset();
     }
   }
