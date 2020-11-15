@@ -9,7 +9,10 @@ const actions = {
   // Account Service post
 
   change_account({commit}, account_id) {
-    commit('change_account', account_id);
+    AccountService.change_account(account_id)
+      .then(() => {
+        commit('change_account', account_id);
+      });
   }
 };
 

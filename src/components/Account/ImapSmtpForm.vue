@@ -86,7 +86,7 @@ export default {
         console.log(this.credentials);
         AccountService.new_account(this.credentials)
           .then((resp) => {
-            this.$store.dispatch('add_accounts', resp.data.user_accounts);
+            this.$store.commit('add_accounts', resp.data.user_accounts);
             this.$buefy.toast.open({ message: 'Created new account 🎉', type: 'is-success', position: 'is-top'});
             this.is_loading = false;
             this.close();
