@@ -8,10 +8,11 @@ const state = {
 
 const actions = {
 
-  change_account({commit}, account_id) {
+  change_account({commit, dispatch}, account_id) {
     AccountService.change_account(account_id)
       .then(() => {
         commit('change_account', account_id);
+        dispatch('get_folders');
       });
   }
 };
