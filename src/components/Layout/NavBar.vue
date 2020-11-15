@@ -99,7 +99,7 @@ export default {
       if (account_id === 'new_account') {
         this.$store.commit('account_dialog_status', true);
       } else {
-        this.$store.commit('change_account', account_id);
+        this.$store.dispatch('change_account', account_id);
       }
     }
   }
