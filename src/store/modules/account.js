@@ -1,3 +1,5 @@
+import AccountService from 'mailcow-services/AccountService';
+
 const state = {
   account_dialog: false,
   active_account: null,
@@ -5,8 +7,6 @@ const state = {
 };
 
 const actions = {
-
-  // Account Service post
 
   change_account({commit}, account_id) {
     AccountService.change_account(account_id)
