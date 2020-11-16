@@ -25,6 +25,7 @@ export default {
         this.$store.commit('set_filter', {'in': this.$route.params.folder, 'limit': 20, 'offset': 0});
         this.$store.dispatch('get_total_message_count');
         this.$store.dispatch('get_messages');
+        this.$store.commit('change_first_login', false);
         this.is_preparing_account = false;
       }, 8000);
     }
