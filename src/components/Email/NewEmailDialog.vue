@@ -12,6 +12,14 @@
               :icon="mode === 'mini' ? 'overscan' : 'window-minimize'"
               size="is-small"
               class="px-4 actions"
+              @click.native="sending_animation = !sending_animation"
+            >
+            </b-icon>
+
+            <b-icon
+              :icon="mode === 'mini' ? 'overscan' : 'window-minimize'"
+              size="is-small"
+              class="px-4 actions"
               @click.native="mode = (mode === 'mini' ? 'normal' : 'mini')"
             >
             </b-icon>
@@ -152,9 +160,12 @@ export default {
       EmailService.send_message(email_data)
         .then(() => {
           this.sending_animation = true;
-          this.$store.commit('change_mail_dialog', false);
+          this.is_loading = false;
+          setTimeout(() => {
+            this.sending_animation = false
+            this.$store.commit('change_mail_dialog', false);
+          }, 1500);
           this.success_message('Your message has been sent 🥳');
-          setTimeout(() => {this.sending_animation = false}, 1500);
         }).catch(() => {
           this.sending_animation = false;
           this.is_loading = false;

@@ -1,16 +1,23 @@
 <template>
-  <b-modal 
+  <b-modal
       v-model="dialog"
       has-modal-card
       full-screen 
       :can-cancel="false"
     >
-      <div class="modal-card" style="width: auto">
-        <section class="modal-card-body">
-          <b-loading :is-full-page="true" v-model="dialog" :can-cancel="false"></b-loading>
-          <h1>Preparing your account</h1>
-        </section>
+    <div class="modal-card" style="width: auto">
+    <div class="prepating-conatiner">
+      <div class="preparing-envelope">
+          <div class="letter">
+              <div class="shadow"></div>
+              <div class="background"></div>
+              <div class="body"></div>
+          </div>
+        <h1 class="title is-size-4 loading-text">Hold on, we are preparing your account. moohoo🐮</h1>
       </div>
+    </div>
+  </div>
+
   </b-modal>
 </template>
 <script>

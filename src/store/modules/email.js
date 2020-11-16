@@ -47,9 +47,6 @@ const actions = {
   get_folders({commit}) {
     EmailService.get_folders()
       .then(resp => {
-        if (resp.data.length === 0) {
-          commit('change_first_login', true);
-        }
         commit('add_folders', resp.data);
       });
   },

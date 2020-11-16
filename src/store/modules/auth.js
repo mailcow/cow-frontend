@@ -24,6 +24,7 @@ const actions = {
     commit('add_accounts', data.user_accounts);
     commit('set_active_account', undefined); // undefined means default 
     commit('change_auth_status', true);
+    commit('change_first_login', data.first_login);
   },
   logout () {
     state.authenticated = false;
