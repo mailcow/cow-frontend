@@ -2,6 +2,7 @@ var path = require('path');
 
 module.exports = {
   configureWebpack: {
+    publicPath: '/betaclient/',
     resolve: {
       alias: {
         // Mailcow Aliases
