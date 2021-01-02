@@ -66,7 +66,7 @@
           <b-dropdown-item custom aria-role="menuitem">
               Ahmet Küçük
           </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
+          <b-dropdown-item aria-role="listitem" @click="$router.push({'name': 'Settings'})">
               <b-icon icon="account-cog" size="is-small"></b-icon>
               Settings
           </b-dropdown-item>
