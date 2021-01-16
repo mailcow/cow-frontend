@@ -49,7 +49,7 @@
 </template>
 <script>
 
-import EmptyState from 'mailcow-components/EmptyState';
+import EmptyState from 'mailcow-components/EmptyState/State';
 import MessageMenu from 'mailcow-components/Email/MessageMenu';
 import TextAvatar from 'mailcow-components/TextAvatar';
 
