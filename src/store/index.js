@@ -5,6 +5,7 @@ import auth from './modules/auth';
 import account from './modules/account';
 import theme from './modules/theme';
 import email from './modules/email';
+import settings from './modules/settings';
 
 Vue.use(Vuex);
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
     auth,
     account,
     theme,
-    email
+    email,
+    settings
   }
 });
