@@ -1,7 +1,7 @@
 <template>
   <div>
     <navigation-menu></navigation-menu>
-    <div class="mail-content-container is-hidden-touch">
+    <div class="mail-content-container">
       <router-view></router-view>
     </div>
   </div>
