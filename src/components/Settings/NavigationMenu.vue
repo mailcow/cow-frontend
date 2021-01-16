@@ -1,6 +1,6 @@
 <template>
   <aside class="navigation-drawer" :class="{'open': $store.getters.navigation_drawer}">
-    <div style="margin-top: 2em">
+    <div style="margin-top: 1em">
       <b-menu>
         <b-menu-list>
           <b-menu-item 
