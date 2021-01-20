@@ -1,11 +1,20 @@
 import EmailService from 'mailcow-services/EmailService';
 
-var TIMER = null;
+const DEFAULT_FOLDERS = {
+  inbox: { icon: 'inbox', name: 'inbox', index: 0 },
+  sent: { icon: 'send', name: 'sent', index: 1 },
+  starred: { icon: 'star', name: 'starred', index: 2 },
+  trash: { icon: 'delete', name: 'trash', index: 3 },
+  archive: { icon: 'file', name: 'archive', index: 4 },
+  drafts: { icon: 'email-open', name: 'drafts', index: 5 },
+  spam: { icon: 'alert-circle', name: 'spam', index: 6 }
+};
+var timer = null;
 
-var filter_to_query = function (filters) {
-  var res = '';
-  for (var key of Object.keys(filters)) {
-    var val = filters[key];
+let filter_to_query = function (filters) {
+  let res = '';
+  for (let key of Object.keys(filters)) {
+    let val = filters[key];
     res += (key + '=' + val + '&');
   }
   return res;
@@ -24,7 +33,7 @@ const actions = {
   get_messages({commit}) {
     state.is_loading = true;
     state.selected = [];
-    var filter = filter_to_query(state.filters);
+    let filter = filter_to_query(state.filters);
     EmailService.messages(filter)
       .then(resp => {
         commit('add_messages', resp.data);
@@ -92,11 +101,11 @@ const mutations = {
   },
   updated_message () {
 
-    if (TIMER) {
-      clearTimeout(TIMER);
+    if (timer) {
+      clearTimeout(timer);
     }
 
-    TIMER = setTimeout(() => {
+    timer = setTimeout(() => {
       this.dispatch('get_messages');
     }, 200)
   }
@@ -108,6 +117,21 @@ const getters = {
   },
   get_folders (state) {
     return state.folders;
+  },
+  get_all_folders (state) {
+    let folders = {default: [], other: []};
+    state.folders.forEach((f) => {
+      if (f.name && DEFAULT_FOLDERS[f.name]) {
+        let default_folder = DEFAULT_FOLDERS[f.name];
+        folders.default.push({...default_folder, ...f});
+      } else {
+        folders.other.push(f);
+      }
+    });
+    folders.default.sort(function(a, b) {
+        return a.index - b.index;
+    });
+    return folders;
   },
   get_messages (state) {
     return state.messages;
@@ -122,11 +146,11 @@ const getters = {
     return state.messages.length;
   },
   get_message: state => message_id => {
-    var msg = state.messages.find((m) => {return m.id === message_id});
+    let msg = state.messages.find((m) => {return m.id === message_id});
     return msg;
   },
   get_folder: state => folder_name => {
-    var folder = state.folders.find((f) => {return f.name === folder_name || f.display_name === folder_name});
+    let folder = state.folders.find((f) => {return f.name === folder_name || f.display_name === folder_name});
     return folder;
   },
   get_slected_messages_count (state) {
