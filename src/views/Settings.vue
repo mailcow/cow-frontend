@@ -1,7 +1,7 @@
 <template>
   <div>
     <navigation-menu></navigation-menu>
-    <div class="mail-content-container">
+    <div class="settings-container">
       <router-view></router-view>
     </div>
   </div>
