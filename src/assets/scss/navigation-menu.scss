@@ -2,18 +2,23 @@
   transition: $t 250ms ease-in-out 50ms;
 }
 
+.main-content {
+  padding-top: $aside-margin-top;
+}
+
 aside.navigation-drawer {
-  position: absolute;
+  position: fixed;
   top: 0;
+  padding-top: 50px !important;
   width: $aside-width;
   left: $aside-mobile-width * -1;
-  height: calc(100vh - 62px);
-  z-index: 40;
+  height: calc(100vh - 3em);
+  z-index: 25;
   padding: 0;
   box-shadow: $aside-box-shadow;
   background: $aside-background-color;
-  margin-top: $aside-margin-top;
   @include transition(padding-left);
+  // margin-top: $aside-margin-top;
 
   .menu-list {
     li.is-active {
