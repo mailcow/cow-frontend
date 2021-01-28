@@ -1,6 +1,5 @@
 <template>
   <div class="container is-fluid settings-view">
-    >> {{$store.getters.unsaved_changes}}
     <section>
       <b-field>
         <b-switch v-model="options.status">Forward incoming messages {{options.status ? 'Open' : 'Closed'}}</b-switch>
@@ -25,10 +24,27 @@
 export default {
   data: () => ({
     options: {
-      notifications: true,
-      refresh: '5m'
+      status: false,
+      emails: [],
+      kepp_copy: false
     }
-  })
+  }),
+  methods: {
+    change_options () {
+      const options = {
+        'email-forward': Object.assign({}, this.options)
+      };
+      this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
+    }
+  },
+  watch: {
+    options: {
+      handler () {
+        this.change_options();
+      },
+      deep: true
+    }
+  }
 };
 </script>
   
