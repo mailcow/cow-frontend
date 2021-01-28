@@ -86,10 +86,10 @@
                   :key="`condition-field-${index}`"
                   v-else-if="field.type === 'text'"
                   expanded
-                  v-model="condition[field.name]"
                 >
                   <b-input 
                     :placeholder="field.name"
+                    v-model="condition[field.name]"
                   >
                   </b-input>
                 </b-field>
@@ -197,7 +197,7 @@
         </section>
         <footer class="modal-card-foot">
           <button class="button" type="button" @click="close">Close</button>
-          <button class="button" type="button" @click="close">Save</button>
+          <button class="button" type="button" @click="add_filter">Save</button>
         </footer>
       </div>
     </template>
@@ -205,6 +205,7 @@
 </template>
 <script>
 
+import SettingsService from 'mailcow-services/SettingsService';
 import {filters_settings_schemas} from 'mailcow-utils';
 import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
@@ -225,6 +226,12 @@ export default {
       this.filters_data = {incoming_message: 'match_all_flowing_rules', conditions: [], actions: []};
       this.$store.commit('set_filter_dialog', false);
     },
+    open_dialog (data = null) {
+      this.$store.commit('set_filter_dialog', true);
+      if (data) {
+        this.filters_data = Object.assign({}, data);
+      }
+    },
     add_condition () {
       this.filters_data.conditions.push({selector: 'subject'});
     },
@@ -236,6 +243,27 @@ export default {
     },
     remove_action_from_list (index) {
       this.filters_data.actions.splice(index, 1);
+    },
+    add_filter () {
+      // this.$emit('added', this.filters_data);
+      // this.close();
+
+      let data = {};
+      let email_filters = Object.assign({}, this.filters_data);
+      email_filters.order = 0;
+
+      data.content = {
+        'email-filters': email_filters
+      };
+
+      data.actions = [];
+      data.section = 'email';
+
+      SettingsService.update_settings(data)
+        .then(resp => {
+          console.log(resp);
+        });
+
     }
   },
   computed: {
