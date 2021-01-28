@@ -1,5 +1,5 @@
 <template>
-  <div class="container is-max-desktop settings-view">
+  <div class="container is-fluid settings-view">
     <h1
       class="is-size-3 has-text-bold-medium mb-4 mt-4"
     >
