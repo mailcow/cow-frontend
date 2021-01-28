@@ -1,5 +1,6 @@
 <template>
-  <div class="container is-max-desktop settings-view">
+  <div class="container is-fluid settings-view">
+    >> {{$store.getters.unsaved_changes}}
     <section>
       <b-field>
         <b-switch v-model="options.status">Forward incoming messages {{options.status ? 'Open' : 'Closed'}}</b-switch>
