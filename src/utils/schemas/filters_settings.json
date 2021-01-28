@@ -227,8 +227,8 @@
       {
         "type": "select",
         "order": 0,
-        "name": "file_with",
-        "title": "file_with",
+        "name": "file_width",
+        "title": "file_width",
         "items": [
           {"id": "seen"},
           {"id": "deleted"},
