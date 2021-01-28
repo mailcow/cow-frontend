@@ -1,17 +1,17 @@
 <template>
-  <div class="container is-max-desktop">
+  <div class="container is-fluid settings-view">
     <section>
       <b-field 
         class="mt-4 mb-4"
       >
         <b-switch 
-          v-model="vocation_options.vocation_mode"
+          v-model="options.vocation_mode"
         >
           Enable vacation auto reply
       </b-switch>
       </b-field>
     </section>
-    <div v-if="vocation_options.vocation_mode">
+    <div v-if="options.vocation_mode">
       <section 
         class="mt-3"
       >
@@ -20,7 +20,7 @@
           message="Please enter a subject"
         >
           <b-input
-            v-model="vocation_options.subject"
+            v-model="options.subject"
           >
           </b-input>
         </b-field>
@@ -29,7 +29,7 @@
           class="mt-4 mb-4"
         >
           <b-taginput
-            v-model="vocation_options.accounts"
+            v-model="options.accounts"
             :allow-new="false"
             :open-on-focus="true"
             :data="accounts"
@@ -37,12 +37,11 @@
             icon="email"
             placeholder="Add accounts"
             autocomplete
-            @typing="get_filterd"
             >
           </b-taginput>
         </b-field>
         <b-field label="Days beetwen responses">
-          <b-select v-model="vocation_options.days" placeholder="Select a day">
+          <b-select v-model="options.days" placeholder="Select a day">
             <option 
               :key="`day-${i}`"
               v-for="i in 7"
@@ -56,7 +55,7 @@
           label="Message"
         >
           <b-input
-            v-model="vocation_options.message"
+            v-model="options.message"
             rows="1"
             type="textarea"
           >
@@ -67,7 +66,7 @@
         >
           <b-field>
             <b-checkbox
-              v-model="vocation_options.dont_send"
+              v-model="options.dont_send"
             >
               Do not send responses to mailing lists
             </b-checkbox>
@@ -79,14 +78,14 @@
               style="display: flex;"
             >
               <b-checkbox
-                v-model="vocation_options.enable_auto_repley"
+                v-model="options.enable_auto_repley"
               >
                 Enable auto reply on
               </b-checkbox>
             </b-field>
             <b-field>
               <b-datetimepicker
-                :disabled="!vocation_options.enable_auto_repley"
+                :disabled="!options.enable_auto_repley"
                 placeholder="Type or select a date..."
                 icon="calendar-today"
                 editable>
@@ -100,14 +99,14 @@
               style="display: flex;"
             >
               <b-checkbox
-                v-model="vocation_options.disable_auto_repley"
+                v-model="options.disable_auto_repley"
               >
                 Disable auto reply on
               </b-checkbox>
             </b-field>
             <b-field >
               <b-datetimepicker
-                :disabled="!vocation_options.disable_auto_repley"
+                :disabled="!options.disable_auto_repley"
                 placeholder="Type or select a date..."
                 icon="calendar-today"
                 editable>
@@ -118,7 +117,7 @@
             class="mt-5"
           >
             <b-checkbox
-              v-model="vocation_options.always_send"
+              v-model="options.always_send"
             >
               Always send vacation message response
             </b-checkbox>
@@ -127,7 +126,7 @@
             class="mt-5"
           >
             <b-checkbox
-              v-model="vocation_options.discard_incoming"
+              v-model="options.discard_incoming"
             >
               Discard incoming mails during vacation
             </b-checkbox>
@@ -145,7 +144,7 @@ export default {
   data: () => ({
     tags: [],
     filterd_tags: [],
-    vocation_options: {}
+    options: {}
   }),
   computed: {
     ...mapGetters([
@@ -153,8 +152,19 @@ export default {
     ])
   },
   methods: {
-    get_filterd () {
-
+    change_options () {
+      const options = {
+        'email-vocation': Object.assign({}, this.options)
+      };
+      this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
+    }
+  },
+  watch: {
+    options: {
+      handler () {
+        this.change_options();
+      },
+      deep: true
     }
   }
 };
