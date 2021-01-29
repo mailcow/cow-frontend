@@ -12,6 +12,7 @@
     <template>
       <div class="modal-card" style="width:100%">
         <header class="modal-card-head">
+          {{edit_mode}}
           <b-field>
             <b-input
               v-model="filters_data.name"
@@ -117,6 +118,11 @@
           </b-button>
           <draggable v-model="filters_data.actions"  class="list-group" handle=".handle">
             <div v-for="(action, index) in filters_data.actions" :key="action.id">
+                <div
+                  style="display: none"
+                >
+                  {{action.order = index}}
+                </div>
                 <b-field
                   grouped
                 >
@@ -205,13 +211,14 @@
 </template>
 <script>
 
-import SettingsService from 'mailcow-services/SettingsService';
+// import SettingsService from 'mailcow-services/SettingsService';
 import {filters_settings_schemas} from 'mailcow-utils';
 import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
 
 export default {
   data: () => ({
+    edit_mode: false,
     filters_data: {incoming_message: 'match_all_flowing_rules', conditions: [], actions: []},
     incoming_messages_op: [
       {id: 'match_all_flowing_rules', name: 'Match all of the following rules'},
@@ -224,12 +231,14 @@ export default {
   methods: {
     close () {
       this.filters_data = {incoming_message: 'match_all_flowing_rules', conditions: [], actions: []};
+      this.edit_mode = false;
       this.$store.commit('set_filter_dialog', false);
     },
     open_dialog (data = null) {
       this.$store.commit('set_filter_dialog', true);
       if (data) {
-        this.filters_data = Object.assign({}, data);
+        this.edit_mode = true;
+        this.filters_data = data; // Object.assign({}, data);
       }
     },
     add_condition () {
@@ -245,25 +254,8 @@ export default {
       this.filters_data.actions.splice(index, 1);
     },
     add_filter () {
-      // this.$emit('added', this.filters_data);
-      // this.close();
-
-      let data = {};
-      let email_filters = Object.assign({}, this.filters_data);
-      email_filters.order = 0;
-
-      data.content = {
-        'email-filters': email_filters
-      };
-
-      data.actions = [];
-      data.section = 'email';
-
-      SettingsService.update_settings(data)
-        .then(resp => {
-          console.log(resp);
-        });
-
+      this.$emit('added', this.filters_data, this.edit_mode);
+      this.close();
     }
   },
   computed: {
