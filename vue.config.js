@@ -2,6 +2,11 @@ var path = require('path');
 
 module.exports = {
   publicPath: '/betaclient/',
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false
+    }
+  }, 
   configureWebpack: {
     resolve: {
       alias: {
