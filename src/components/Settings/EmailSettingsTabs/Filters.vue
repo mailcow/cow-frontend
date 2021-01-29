@@ -11,7 +11,6 @@
       @added="new_filter"
     >
     </new-filter-dialog>
-    <!-- {{filters}} -->
     <div class="mt-5">
       <draggable
         v-model="filters"
@@ -24,6 +23,11 @@
           :key="`filter-${index}`"
           v-for="(filter, index) in filters"
         >
+          <div
+            style="display: none"
+          >
+            {{filter.order = index}}
+          </div>
           <article class="media">
             <div class="media-left">
               <b-icon
@@ -76,22 +80,41 @@ import draggable from 'vuedraggable';
 export default {
   name: 'Filters',
   data: () => ({
-    filters: []
   }),
+  computed: {
+    filters: {
+      get () {
+        return this.$store.getters.email_settings('email-filters');
+      },
+      set () {
+        this.change_options();
+      }
+    }
+  },
   created () {
   },
   methods: {
     open_filter_dialog () {
       this.$store.commit('set_filter_dialog', true);
     },
-    new_filter (filter_data) {
-      this.filters.push(filter_data);
+    new_filter (filter_data, edit_mode = false) {
+      if (!edit_mode) {
+        this.filters.push(filter_data);
+      }
+      this.change_options();
+    },
+    change_options () {
+      const options = {
+        'email-filters': Object.assign([], this.filters)
+      };
+      this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options});
     },
     edit_filter (filter_data) {
       this.$refs.new_filter_dialog.open_dialog(filter_data);
     },
     delete_filter (index) {
       this.filters.splice(index, 1);
+      this.change_options();
     } 
   },
   components: {

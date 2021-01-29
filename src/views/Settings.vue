@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-loading :is-full-page="true" v-model="is_loading" :can-cancel="false"></b-loading>
     <navigation-menu></navigation-menu>
     <div class="settings-container">
       <router-view></router-view>
@@ -15,6 +16,15 @@ export default {
   name: 'Settings',
   data: () => ({
   }),
+  created () {
+  },
+  computed: {
+    is_loading: {
+      get () {
+        return this.$store.getters.settings_loading;
+      }
+    }
+  },
   components: {
     'navigation-menu': NavigationMenu,
   },

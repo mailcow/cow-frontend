@@ -5,13 +5,14 @@
         class="mt-4 mb-4"
       >
         <b-switch 
-          v-model="options.vocation_mode"
+          @input="change_options"
+          v-model="options.enabled"
         >
           Enable vacation auto reply
       </b-switch>
       </b-field>
     </section>
-    <div v-if="options.vocation_mode">
+    <div v-if="options.enabled">
       <section 
         class="mt-3"
       >
@@ -20,6 +21,7 @@
           message="Please enter a subject"
         >
           <b-input
+            @input="change_options"
             v-model="options.subject"
           >
           </b-input>
@@ -29,6 +31,7 @@
           class="mt-4 mb-4"
         >
           <b-taginput
+            @input="change_options"
             v-model="options.accounts"
             :allow-new="false"
             :open-on-focus="true"
@@ -41,7 +44,11 @@
           </b-taginput>
         </b-field>
         <b-field label="Days beetwen responses">
-          <b-select v-model="options.days" placeholder="Select a day">
+          <b-select 
+            @input="change_options"
+            v-model="options.days_beetwen_response"
+            placeholder="Select a day"
+          >
             <option 
               :key="`day-${i}`"
               v-for="i in 7"
@@ -55,6 +62,7 @@
           label="Message"
         >
           <b-input
+            @input="change_options"
             v-model="options.message"
             rows="1"
             type="textarea"
@@ -66,7 +74,8 @@
         >
           <b-field>
             <b-checkbox
-              v-model="options.dont_send"
+              @input="change_options"
+              v-model="options.dont_send_respnse"
             >
               Do not send responses to mailing lists
             </b-checkbox>
@@ -78,6 +87,7 @@
               style="display: flex;"
             >
               <b-checkbox
+                @input="change_options"
                 v-model="options.enable_auto_repley"
               >
                 Enable auto reply on
@@ -99,6 +109,7 @@
               style="display: flex;"
             >
               <b-checkbox
+                @input="change_options"
                 v-model="options.disable_auto_repley"
               >
                 Disable auto reply on
@@ -117,7 +128,8 @@
             class="mt-5"
           >
             <b-checkbox
-              v-model="options.always_send"
+              @input="change_options"
+              v-model="options.always_vocation_message_response"
             >
               Always send vacation message response
             </b-checkbox>
@@ -126,7 +138,8 @@
             class="mt-5"
           >
             <b-checkbox
-              v-model="options.discard_incoming"
+              @input="change_options"
+              v-model="options.discard_incoming_mails"
             >
               Discard incoming mails during vacation
             </b-checkbox>
@@ -144,12 +157,19 @@ export default {
   data: () => ({
     tags: [],
     filterd_tags: [],
-    options: {}
   }),
   computed: {
     ...mapGetters([
       'accounts'
-    ])
+    ]),
+    options: {
+      get () {
+        return this.$store.getters.email_settings('email-vocation');
+      },
+      set () {
+        this.change_options();
+      }
+    }
   },
   methods: {
     change_options () {
@@ -157,14 +177,6 @@ export default {
         'email-vocation': Object.assign({}, this.options)
       };
       this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
-    }
-  },
-  watch: {
-    options: {
-      handler () {
-        this.change_options();
-      },
-      deep: true
     }
   }
 };

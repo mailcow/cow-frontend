@@ -7,12 +7,15 @@
     </h1>
     <section>
       <b-field>
-          <b-select>
+          <b-select
+            v-model="options.lang"
+            @input="change_options"
+          >
               <option
                   :key="lang.code"
                   v-for="lang in langs"
                   :value="lang.code"
-                >
+              >
                 <div>
                   {{ lang.title }}
                 </div>
@@ -28,17 +31,20 @@
     </h1>
     <section>
       <b-field>
-          <b-select>
-              <option
-                  :key="timezone.code"
-                  v-for="timezone in timezones"
-                  :value="timezone.code"
-                >
-                <div>
-                  {{ timezone.title }}
-                </div>
-              </option>
-          </b-select>
+        <b-select
+          v-model="options.timezone"
+          @input="change_options"
+        >
+          <option
+            :key="timezone"
+            v-for="timezone in timezones"
+            :value="timezone"
+          >
+            <div>
+              {{ timezone }}
+            </div>
+          </option>
+        </b-select>
       </b-field>
     </section>
     <hr>
@@ -51,18 +57,27 @@
 <script>
 
 import ResetUserPassword from 'mailcow-components/Settings/ResetUserPassword';
+import {timezones, langs} from 'mailcow-utils';
 
 export default {
   data: () => ({
-    langs: [
-      {title: 'Türkçe', code: 90},
-      {title: 'Deutch', code: 49},
-      {title: 'English', code: 44},
-    ],
-    timezones: [
-      {title: 'Europe/Istanbul', code: 90}
-    ]    
+    langs: langs,
+    timezones: timezones
   }),
+  computed: {
+    options: {
+      get () {
+        return this.$store.getters.general_settings;
+      }
+    }
+  },
+  methods: {
+    change_options () {
+      const options = Object.assign({}, this.options);
+      console.log(options);
+      this.$store.commit('set_local_settings', {'section': 'general', 'options': options});    
+    }
+  },
   components: {
     'reset-user-password': ResetUserPassword
   }

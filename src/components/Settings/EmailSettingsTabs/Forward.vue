@@ -2,11 +2,12 @@
   <div class="container is-fluid settings-view">
     <section>
       <b-field>
-        <b-switch v-model="options.status">Forward incoming messages {{options.status ? 'Open' : 'Closed'}}</b-switch>
+        <b-switch @input="change_options" v-model="options.enabled">Forward incoming messages"</b-switch>
       </b-field>
-      <div v-if="options.status">
+      <div v-if="options.enabled">
         <b-field label="Add a email address">
           <b-taginput
+            @input="change_options"
             v-model="options.emails"
             icon="email"
             :placeholder="options.emails ? 'Add another email' : 'Enter an email'"
@@ -14,7 +15,7 @@
           </b-taginput>
         </b-field>
         <b-field>
-          <b-checkbox class="mt-1" v-model="options.kepp_copy">Kepp a copy</b-checkbox>
+          <b-checkbox @input="change_options" class="mt-1" v-model="options.keep_a_copy">Kepp a copy</b-checkbox>
         </b-field>
       </div>
     </section>
@@ -23,26 +24,23 @@
 <script>
 export default {
   data: () => ({
-    options: {
-      status: false,
-      emails: [],
-      kepp_copy: false
-    }
   }),
+  computed: {
+    options: {
+      get () {
+        return this.$store.getters.email_settings('email-forward');
+      },
+      set () {
+        this.change_options();
+      }
+    }
+  },
   methods: {
     change_options () {
       const options = {
         'email-forward': Object.assign({}, this.options)
       };
       this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
-    }
-  },
-  watch: {
-    options: {
-      handler () {
-        this.change_options();
-      },
-      deep: true
     }
   }
 };
