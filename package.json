@@ -16,6 +16,7 @@
     "core-js": "^3.6.5",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.2",
+    "vee-validate": "^3.4.5",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vuedraggable": "^2.24.3",
@@ -33,6 +34,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "vue-cli-plugin-webpack-bundle-analyzer": "~4.0.0",
     "vue-template-compiler": "^2.6.11"
   }
 }
