@@ -7,5 +7,8 @@ export default {
   },
   settings () {
     return axios.get(API_BASE_URL + 'settings/');
+  },
+  reset_password (data) {
+    return axios.post(API_BASE_URL + 'settings/password/', data);
   }
 };

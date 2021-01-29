@@ -1,65 +1,129 @@
 <template>
   <section>
-    <h1
-      class="is-size-3 has-text-bold-medium mb-4"
-    >
-      Reset Password
-    </h1>
-    <b-field 
-      label="Curret Password"
-      :type="{ 'is-danger': has_error }"
-      :message="{ 'Username is not available': has_error }"
-    >
-      <b-input
-        v-model="credentials.old_password"
+    <ValidationObserver ref="observer" v-slot="{ handleSubmit }">
+      <h1
+        class="is-size-3 has-text-bold-medium mb-4"
       >
-      </b-input>
-    </b-field>
-    <b-field 
-      label="New Password"
-      :type="{ 'is-danger': has_error }"
-      :message="[
-        { 'Password is too short': has_error },
-        { 'Password must have at least 8 characters': has_error }
-      ]"
-    >
-        <b-input
-          type="password"
+        Reset Password
+      </h1>
+      <ValidationProvider
+        rules="required"
+        vid="old_password"
+        name="Password"
+        v-slot="{ errors, valid }"
+      >
+        <b-field
+          :type="{ 'is-danger': errors[0], 'is-success': valid }"
+          :message="errors"
+          label="Curret Password"
         >
-        </b-input>
-    </b-field>
-    <b-field
-      label="Again New Password"
-      :type="{ 'is-danger': has_error }"
-      :message="[
-        { 'Password is too short': has_error },
-        { 'Password must have at least 8 characters': has_error }
-      ]"
-     >
-      <b-input
-        type="password"
+          <b-input
+            required
+            password-reveal
+            type="password"
+            placeholder="Old Password"
+            autocomplete="off"
+            v-model="credentials.old_password"
+          >
+          </b-input>
+        </b-field>
+      </ValidationProvider>
+      <ValidationProvider
+        rules="required"
+        vid="password"
+        name="Password"
+        v-slot="{ errors, valid }"
       >
-      </b-input>
-    </b-field>
-    <b-field>
-      <p
-        class="control"
+        <b-field
+          :type="{ 'is-danger': errors[0], 'is-success': valid }"
+          :message="errors"
+          label="New Password"
+        >
+            <b-input
+              required
+              password-reveal
+              v-model="credentials.new_password"
+              autocomplete="off"
+              type="password"
+              placeholder="New Password"
+            >
+            </b-input>
+        </b-field>
+      </ValidationProvider>
+      <ValidationProvider
+        rules="required|confirmed:password"
+        name="Password Confirmation"
+        v-slot="{ errors, valid }"
       >
-        <b-button
-          label="Change Password"
-          type="is-primary" 
-        />
-      </p>
-    </b-field>
+        <b-field
+          :type="{ 'is-danger': errors[0], 'is-success': valid }"
+          :message="errors"
+          label="Again New Password"
+         >
+          <b-input
+            required
+            password-reveal
+            v-model="credentials.re_new_password"
+            autocomplete="off"
+            type="password"
+            placeholder="Again Password"
+          >
+          </b-input>
+        </b-field>
+      </ValidationProvider>
+      <b-field
+        class="mt-4"
+      >
+        <p
+          class="control"
+        >
+          <b-button
+            @click="handleSubmit(change_password)"
+            :loading="is_loading"
+            label="Change Password"
+            type="is-primary" 
+          />
+        </p>
+      </b-field>
+    </ValidationObserver>
   </section>
 </template>
 
 <script>
+
+import { ValidationObserver, ValidationProvider } from "vee-validate";
+import SettingsService from 'mailcow-services/SettingsService';
+
 export default {
   data: () => ({
-    has_error: false,
+    is_loading: false,
     credentials: {}
   }),
+  methods: {
+    reset_form () {
+      this.credentials = {};
+      requestAnimationFrame(() => {
+        this.$refs.observer.reset();
+      });
+    },
+    change_password () {
+      this.is_loading = true;
+      SettingsService.reset_password(this.credentials)
+        .then(() => {
+          this.$buefy.toast.open({ message: 'Your password changed 🎉', type: 'is-success', position: 'is-top'});
+          this.is_loading = false;
+          this.reset_form();
+        }).catch((err) => {
+          let err_code = err.response.data.code;
+          this.$buefy.toast.open({ message: `Sorry, something went be wrong, please try later ${err_code} 😢`, type: 'is-danger', position: 'is-top'});
+          this.is_loading = false;
+        });
+    }
+  },
+  components: {
+    ValidationObserver,
+    ValidationProvider
+  },
   props: {
     inline: {
       type: Boolean,
