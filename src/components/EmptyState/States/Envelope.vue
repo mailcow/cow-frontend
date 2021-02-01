@@ -1,5 +1,5 @@
 <template>
-  <div class="empty-status-envelope" v-if="mode === 'envelope'">
+  <div class="empty-status-envelope">
     <svg id="svg" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 590 484.7">
       <g id="blobs">
         <path id="blob-1" d="M545.5,299c0,80.3-28.6,150.4-126.4,139.4-63.2-7.1-109.3-37.3-142.6-37.3-45.7,0-105.4,29.3-146.8,22.2-69-11.7-85.3-66.8-85.3-135.8,0-56.3,25.5-99.9,46.2-140.8,18.3-36.1,55.9-97.8,125.1-100.5,53.3-2.1,97.4,50.5,138.4,74.2,49.9,28.8,98.4-1.8,126,1.3C537.9,127.9,545.5,265.5,545.5,299Z" fill="#f8f8f8"/>
@@ -51,32 +51,6 @@
     </svg>
     <h1 class="is-size-4 empty-status-bottom-text">{{text}}</h1>
   </div>
-  <div class="empty-status-cactus" v-else-if="mode === 'cactus'">
-    <div class="draw">
-      <div class="cactus">
-        <div class="arm"></div>
-        <div class="arm"></div>
-      </div>
-      <div class="cactus">
-        <div class="arm"></div>
-        <div class="arm"></div>
-      </div>
-      <div  class="cactus">
-        <div class="arm"></div>
-        <div class="arm"></div>
-      </div>
-      <div class="sky">
-        <div class="montain"></div>
-        <div class="montain two"></div>
-        <div class="sun"></div>
-      </div>
-    </div>
-    <h1 class="is-size-4 empty-status-bottom-text">{{text}}</h1>
-  </div>
-  <div class="empty-status-contact" v-else-if="mode === 'contact'">
-    <img width="600" src="@/assets/contact.svg" />
-    <h1 class="is-size-4 empty-status-bottom-text">{{text}}</h1>
-  </div>
 </template>
 <script>
 export default {
@@ -86,23 +60,17 @@ export default {
     windowHeight: 0
   }),
   props: {
-    mode: {
-      type: String,
-      default: 'envelope'
-    },
     text: {
       type: String,
       default: ''
     }
   },
   created () {
-    if (this.mode === 'envelope') {
-      this.windowWidth = window.innerWidth;
-      this.windowHeight = window.innerHeight;
-      window.addEventListener('resize', this.setWindowSize);
-      window.addEventListener("mousemove", this.mousemove);
-      window.addEventListener("touchmove", this.touchmove);
-    }
+    this.windowWidth = window.innerWidth;
+    this.windowHeight = window.innerHeight;
+    window.addEventListener('resize', this.setWindowSize);
+    window.addEventListener("mousemove", this.mousemove);
+    window.addEventListener("touchmove", this.touchmove);
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.setWindowSize);
@@ -181,5 +149,3 @@ export default {
   }
 };
 </script>
-<style scoped lang="scss">
-</style>

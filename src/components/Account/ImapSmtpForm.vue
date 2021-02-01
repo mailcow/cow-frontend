@@ -83,7 +83,6 @@ export default {
     login () {
       if (this.$refs.form.checkValidity()) {
         this.is_loading = true;
-        console.log(this.credentials);
         AccountService.new_account(this.credentials)
           .then((resp) => {
             this.$store.commit('add_accounts', resp.data.user_accounts);

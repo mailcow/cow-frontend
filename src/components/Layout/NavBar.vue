@@ -1,5 +1,5 @@
 <template>
-  <b-navbar :mobile-burger="false">
+  <b-navbar :mobile-burger="true">
     <template slot="brand">
       <b-icon @click.native="$store.dispatch('toggle_navigation')" style="margin: auto 0; cursor: pointer;" icon="menu"></b-icon>
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
@@ -66,7 +66,7 @@
           <b-dropdown-item custom aria-role="menuitem">
               Ahmet Küçük
           </b-dropdown-item>
-          <b-dropdown-item aria-role="listitem">
+          <b-dropdown-item aria-role="listitem" @click="$router.push({'name': 'Settings'})">
               <b-icon icon="account-cog" size="is-small"></b-icon>
               Settings
           </b-dropdown-item>

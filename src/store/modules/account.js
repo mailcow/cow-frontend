@@ -7,7 +7,6 @@ const state = {
 };
 
 const actions = {
-
   change_account({commit, dispatch}, account_id) {
     AccountService.change_account(account_id)
       .then(() => {

@@ -32,6 +32,10 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+$loading-background: rgba(0, 0, 0, 0.5);
+// The loading background color for non-rgba compatible browsers
+$loading-background-legacy: #00000080; 
+
 $bottom-box-shadow: 0 1px $base-color-light;
 $bottom-box-shadow-dark: 0 1px $base-color;
 
@@ -99,8 +103,8 @@ $state-colors: (
 );
 
 
-$datepicker-shadow: 0px 0 $base-color-light;
-$datepicker-background-color: transparent;
+// $datepicker-shadow: 0px 0 $base-color-light;
+// $datepicker-background-color: transparent;
 
 
 /* Dark Mode */

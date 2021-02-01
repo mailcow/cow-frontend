@@ -2,7 +2,7 @@
   <div>
     <navigation-menu></navigation-menu>
     <div class="is-justify-content-center is-align-items-center mail-content-container is-hidden-touch">
-      <empty-state mode="contact" text="Not yet create any contact"></empty-state>
+      <empty-state mode="page" image="contact.svg" text="Not yet create any contact"></empty-state>
     </div>
   </div>
 </template>
@@ -10,7 +10,7 @@
 <script>
 
 import NavigationMenu from 'mailcow-components/Contact/NavigationMenu';
-import EmptyState from 'mailcow-components/EmptyState';
+import EmptyState from 'mailcow-components/EmptyState/State';
 
 export default {
   name: 'Contact',

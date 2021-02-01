@@ -26,6 +26,57 @@
   }
 }
 
+.settings-view {
+  max-height: calc(100vh - 10em);
+  // overflow: auto;
+
+  // &::-webkit-scrollbar-track {
+  //   -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
+  //   background-color: $base-color-light;
+  // }
+
+  // &::-webkit-scrollbar {
+  //   width: 5px;
+  //   background-color: $email-scroll;
+  // }
+
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: $email-scroll;
+  // }
+  
+}
+
 .c-pointer {
   cursor: pointer !important;
+}
+.c-all-scroll {
+  cursor: all-scroll !important;
+}
+
+#filter-modal {
+  .animation-content {
+    width:100%;
+  }
+}
+
+// Bulma external margin classes 
+
+.mt-6 {
+  margin-top: 6em;
+}
+
+.mt-7 {
+  margin-top: 7em;
+}
+
+.mt-8 {
+  margin-top: 8em;
+}
+
+.mt-9 {
+  margin-top: 9em;
+}
+
+.mt-10 {
+  margin-top: 10em;
 }

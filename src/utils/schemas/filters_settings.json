@@ -1,0 +1,249 @@
+{
+  "condition_schema": {
+    "subject": [
+      {
+        "order": 0,
+        "type": "select",
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "order": 1,
+        "type": "text",
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "from": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 1,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "to": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 2,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "cc": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 1,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "to_or_cc": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type":"text",
+        "order": 1,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "size": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is_under"},
+          {"id": "is_over"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 1,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "header": [
+      {
+        "type": "text",
+        "order": 0,
+        "name": "header",
+        "title": "header"
+      },
+      {
+        "type": "select",
+        "order": 1,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 2,
+        "name": "value",
+        "title": "value"
+      }
+    ],
+    "body": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "condition",
+        "title": "condition",
+        "items": [
+          {"id": "is"},
+          {"id": "is_not"},
+          {"id": "contains"},
+          {"id": "does_not_contain"},
+          {"id": "matches"},
+          {"id": "does_not_match"},
+          {"id": "matches_regex"},
+          {"id": "does_not_match_regex"}
+        ]
+      },
+      {
+        "type": "text",
+        "order": 1,
+        "name": "value",
+        "title": "value"
+      }
+    ]
+  },
+  "action_schema": {
+    "discard_message": [],
+    "keep_message": [],
+    "stop_processing_filter": [],
+    "forward_message_to": [
+      {
+        "type": "text",
+        "order":0,
+        "name": "to_email",
+        "title": "email"
+      }
+    ],
+    "send_reject_message": [
+      {
+        "type": "text",
+        "order": 0,
+        "name": "message",
+        "title": "message"
+      }
+    ],
+    "file_message_in": [
+      {
+        "type": "select",
+        "order": 0,
+        "store": true,
+        "name": "folder",
+        "title": "folder",
+        "items": "get_folders"
+      }
+    ],
+    "file_message_with": [
+      {
+        "type": "select",
+        "order": 0,
+        "name": "file_width",
+        "title": "file_width",
+        "items": [
+          {"id": "seen"},
+          {"id": "deleted"},
+          {"id": "answered"},
+          {"id": "flagged"},
+          {"id": "junk"},
+          {"id": "not_junk"},
+          {"id": "work"},
+          {"id": "later"},
+          {"id": "important"},
+          {"id": "todo"},
+          {"id": "return_receipt_sent"},
+          {"id": "personal"}
+        ]
+      }
+    ]
+  }
+}

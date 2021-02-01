@@ -7,7 +7,7 @@
     <b-menu>
       <b-menu-list>
         <b-menu-item 
-          v-for="folder in folders.default"
+          v-for="folder in get_all_folders.default"
           :key="folder.name"
           :active="$route.params.folder === folder.name" 
           :to="{'name': 'EmailFolder', 'params': {'folder': folder.name}}" 
@@ -27,7 +27,7 @@
       <hr>
       <b-menu-list label="Folders">
         <b-menu-item 
-          v-for="other in folders.other"
+          v-for="other in get_all_folders.other"
           :key="other.id"
           :active="$route.params.folder === other.id" 
           :to="{'name': 'EmailFolder', 'params': {'folder': other.id}, 'query': {'f': other.display_name}}"
@@ -51,11 +51,15 @@
 <script>
 
 import EmailService from 'mailcow-services/EmailService';
-import EmailFolders from 'mailcow-mixins/EmailFolders';
+import { mapGetters } from 'vuex';
 
 export default {
-  mixins: [EmailFolders],
   created () {
+  },
+  computed: {
+    ...mapGetters([
+      'get_all_folders'
+    ])
   },
   methods: {
     folder_dialog (folder = null) {
@@ -98,7 +102,8 @@ export default {
     edit_folder (folder_id, data, {close}) {
       EmailService.rename_folder(folder_id, data)
         .then(() => {
-          this.$buefy.toast.open({'message': `Success, Created your folder 🥳`, 'type': 'is-success'});
+          this.$buefy.toast.open({'message': `Success, Edited your folder 🥳`, 'type': 'is-success'});
+          this.$store.dispatch('get_folders');
           close();
         }).catch(() => {
           this.$buefy.toast.open({'message': `Sorry, something went be wrong! ☹️`, 'type': 'is-danger'});

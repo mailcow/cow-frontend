@@ -11,6 +11,9 @@ import Login from 'mailcow-views/Login';
 import Email from 'mailcow-views/Email';
 import Calendar from 'mailcow-views/Calendar';
 import Contact from 'mailcow-views/Contact';
+import Settings from 'mailcow-views/Settings';
+import EmailSettings from 'mailcow-components/Settings/EmailSettings';
+import GeneralSettings from 'mailcow-components/Settings/GeneralSettings';
 import {DEFAULT_APP} from 'mailcow-config';
 
 Vue.use(VueRouter);
@@ -44,6 +47,24 @@ const routes = [
         path: 'calendar',
         name: 'Calendar',
         component: Calendar,
+      },
+      {
+        path: 'settings',
+        name: 'Settings',
+        component: Settings,
+        redirect: 'settings/general',
+        children: [
+          {
+            path: 'general',
+            name: 'GeneralSettings',
+            component: GeneralSettings
+          },
+          {
+            path: 'email',
+            name: 'EmailSettings',
+            component: EmailSettings
+          }
+        ]
       }
     ]
   },

@@ -42,10 +42,9 @@
 </template>
 <script>
 
-import EmailFolders from 'mailcow-mixins/EmailFolders';
+import { mapGetters } from 'vuex';
 
 export default {
-  mixins: [EmailFolders],
   props: {
     message: {
       type: [Object, Boolean],
@@ -54,11 +53,14 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'get_all_folders'
+    ]),
     default_folders_filtered () {
-      return this.folders.default.filter((f) => { return f.name !== this.$route.params.folder});
+      return this.get_all_folders.default.filter((f) => { return f.name !== this.$route.params.folder});
     },
     other_folders_filtered () {
-      return this.folders.other.filter((f) => { return f.id !== this.$route.params.folder});
+      return this.get_all_folders.other.filter((f) => { return f.id !== this.$route.params.folder});
     }
   },
   methods: {

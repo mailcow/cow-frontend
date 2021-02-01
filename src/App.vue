@@ -31,6 +31,7 @@ export default {
     }
   },
   created () {
+    this.$store.dispatch('init_settings');
   },
   computed: {
     first_login () {

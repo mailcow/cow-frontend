@@ -2,6 +2,11 @@ var path = require('path');
 
 module.exports = {
   publicPath: '/betaclient/',
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false
+    }
+  }, 
   configureWebpack: {
     resolve: {
       alias: {
@@ -14,7 +19,8 @@ module.exports = {
         'mailcow-config': path.resolve(__dirname, 'src/config'),
         'mailcow-components': path.resolve(__dirname, 'src/components'),
         'mailcow-router': path.resolve(__dirname, 'src/router'),
-        'mailcow-mixins': path.resolve(__dirname, 'src/mixins')
+        'mailcow-mixins': path.resolve(__dirname, 'src/mixins'),
+        'mailcow-utils': path.resolve(__dirname, 'src/utils')
       }
     }
   }
