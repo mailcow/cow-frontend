@@ -202,7 +202,7 @@
   // border: 0.1em solid #a7a7a7;
   right: 1em;
   width: 50em;
-  z-index: 50;
+  z-index: 100;
   background: #FFF;
   -webkit-box-shadow: 0px -4px 30px -8px rgba(107,107,107,1);
   -moz-box-shadow: 0px -4px 30px -8 px rgba(107,107,107,1);
@@ -238,21 +238,24 @@
   }
 
   &.full {
-    width: 100vw !important;
-    height: 100vh !important;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    width: 90%;
+    height: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    // left: 0;
+    // right: 0;
+    // top: 0;
+    // bottom: 0;
     border-radius: 0;
 
     .content_editor {
-      height: 36em;
-      max-height: 36em;
+      // height: 36em;
+      // max-height: 36em;
     }
     .ProseMirror {
-      height: 36em;
-      max-height: 36em;
+      // height: 36em;
+      // max-height: 36em;
     }
   }
 

@@ -5,22 +5,21 @@
       <b-loading :is-full-page="false" v-model="is_loading" :can-cancel="false"></b-loading>
       <div class="mail-compose-nav">
           <span class="is-size-6">
-            New E-Mail
+            New E-Mail {{mode}}
           </span>
           <div>
             <b-icon
-              :icon="mode === 'mini' ? 'overscan' : 'window-minimize'"
-              size="is-small"
-              class="px-4 actions"
-              @click.native="sending_animation = !sending_animation"
-            >
-            </b-icon>
-
-            <b-icon
-              :icon="mode === 'mini' ? 'overscan' : 'window-minimize'"
+              :icon="mode_icon[0]"
               size="is-small"
               class="px-4 actions"
               @click.native="mode = (mode === 'mini' ? 'normal' : 'mini')"
+            >
+            </b-icon>
+            <b-icon
+              :icon="mode_icon[1]"
+              size="is-small"
+              class="px-4 actions"
+              @click.native="mode = (mode === 'normal' ? 'full' : 'normal')"
             >
             </b-icon>
             <b-icon
@@ -40,8 +39,8 @@
           </div>
       </div>
       <div class="mail-compose-header">
+        <!-- 
         <b-field>
-          <!-- TODO : To, CC, BCC fileds covert to comboBox -->
           <b-input v-model="email_data.to" placeholder="To" required type="email" style="width: 100%"></b-input>
           <p class="control">
             <button @click="show_cc = !show_cc" class="button">
@@ -54,14 +53,47 @@
             </button>
           </p>
         </b-field>
+        -->
+
+        <b-field>
+            <b-taginput
+                placeholder="To"
+                style="width: 100%"
+                v-model="email_data.to"
+                :before-adding="check_email_address">
+            </b-taginput>
+            <p class="control">
+              <button @click="show_cc = !show_cc" class="button">
+                <span>CC</span>
+              </button>
+            </p>
+            <p class="control">
+              <button @click="show_bcc = !show_bcc" class="button">
+                <span>BCC</span>
+              </button>
+            </p>
+        </b-field>
         <transition name="fade">
-          <b-field v-show="show_cc"> 
-            <b-input v-model="email_data.cc" placeholder="CC"></b-input>
+          <b-field>
+            <b-taginput
+                v-show="show_cc"
+                placeholder="CC"
+                style="width: 100%"
+                class="mt-2"
+                v-model="email_data.cc"
+                :before-adding="check_email_address">
+            </b-taginput>
           </b-field>
         </transition>
         <transition name="fade">
-          <b-field v-show="show_bcc">
-            <b-input v-model="email_data.bcc" placeholder="BCC"></b-input>
+          <b-field>
+            <b-taginput
+                v-show="show_bcc"
+                placeholder="BCC"
+                style="width: 100%"
+                v-model="email_data.bcc"
+                :before-adding="check_email_address">
+            </b-taginput>
           </b-field>
         </transition>
         <b-field>
@@ -117,7 +149,17 @@ export default {
   computed: {
     mail_dialog () {
       return this.$store.getters.mail_dialog;
+    },
+    mode_icon () {
+      if (this.mode === 'normal') {
+        return ['window-minimize', 'fullscreen'];
+      } else if (this.mode === 'mini') {
+        return ['oversan', 'fullscreen'];
+      } else {
+        return ['window-minimize', 'fullscreen-exit'];
+      }
     }
+
   },
   components: {
     'editor': Editor,
@@ -155,6 +197,10 @@ export default {
     clear_form () {
       this.email_data = {};
     },
+    check_email_address (input) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(input).toLowerCase());
+    },
     send (email_data) {
       this.is_loading = true;
       EmailService.send_message(email_data)
@@ -188,3 +234,12 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.taginput-container {
+  border-radius: 0px !important;
+
+  &.is-focusable {
+    padding-right: 2px !important;
+  }
+}
+</style>
