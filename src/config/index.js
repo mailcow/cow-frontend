@@ -2,6 +2,7 @@ const IS_LOCAL = process.env.NODE_ENV !== 'production';
 const API_URL = '';
 
 const DEFAULT_APP = 'email';
+const MAX_ATTACH_SIZE = 100 * 1024 * 1024 // 100 MB
 
 const API_BASE_URL = IS_LOCAL
   ? 'http://localhost:8090/api/'
@@ -10,5 +11,6 @@ const API_BASE_URL = IS_LOCAL
 export {
   IS_LOCAL,
   API_BASE_URL,
-  DEFAULT_APP
+  DEFAULT_APP,
+  MAX_ATTACH_SIZE
 };

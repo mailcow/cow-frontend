@@ -1,3 +1,4 @@
+import {MAX_ATTACH_SIZE} from 'mailcow-config';
 import SettingsService from 'mailcow-services/SettingsService';
 import Vue from 'vue';
 
@@ -31,6 +32,8 @@ const actions = {
     for (let section in local_settings) {
       commit('set_section_settings', {'section': section, 'options': local_settings[section]})
     }
+
+    commit('set_section_settings', {'section': 'config', 'options': {'max_attach_size': MAX_ATTACH_SIZE}});
   },
   set_new_settings ({state, commit}, item) {
     state.settings_loading = true;
@@ -86,6 +89,13 @@ const getters = {
     let o = {};
     if (state.settings.general) {
       o = state.settings.general
+    }
+    return o;
+  },
+  config_settings (state) {
+    let o = {};
+    if (state.settings.config) {
+      o = state.settings.config
     }
     return o;
   },

@@ -25,5 +25,8 @@ export default {
   },
   send_message (data) {
     return axios.post(API_BASE_URL + 'email/send/', data);
+  },
+  uplpad_attachment (data) {
+    return axios.post(API_BASE_URL + 'email/files/', data, {'Content-Type': 'multipart/form-data'});
   }
 };

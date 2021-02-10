@@ -52,7 +52,6 @@
   margin: auto 1rem auto 0;
 }
 
-
 .email-content-nav {
   height: 50px;
   box-shadow: $bottom-box-shadow;
@@ -118,6 +117,7 @@
     background-color: rgba(255, 255, 255, 0) !important;
   }
 }
+
 .email-count {
   font-size: 10px;
   height: 20px;
@@ -136,7 +136,6 @@
   &.draft {
     background: #ff9f43;
   }
-
 }
 
 .email-menu-item {
@@ -195,6 +194,12 @@
   }
 }
 
+.mail-attachment {
+  position: relative;
+  width: 10em;
+  float: left;
+}
+
 .mail-compose {
   position: absolute;
   bottom: 0;
@@ -243,19 +248,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    // left: 0;
-    // right: 0;
-    // top: 0;
-    // bottom: 0;
     border-radius: 0;
 
     .content_editor {
-      // height: 36em;
-      // max-height: 36em;
     }
     .ProseMirror {
-      // height: 36em;
-      // max-height: 36em;
     }
   }
 

@@ -1,117 +1,162 @@
 <template>
-  <transition name="mail-compose-transition">
-    <div key="mail-compose" v-if="mail_dialog" class="mail-compose" :class="{'mini': mode === 'mini', 'full': mode === 'full'}" :style="{'height': dialog_height + 'em'}">
-      <sending-animation :loading="sending_animation"></sending-animation>
-      <b-loading :is-full-page="false" v-model="is_loading" :can-cancel="false"></b-loading>
-      <div class="mail-compose-nav">
-          <span class="is-size-6">
-            New E-Mail {{mode}}
-          </span>
-          <div>
-            <b-icon
-              :icon="mode_icon[0]"
-              size="is-small"
-              class="px-4 actions"
-              @click.native="mode = (mode === 'mini' ? 'normal' : 'mini')"
-            >
-            </b-icon>
-            <b-icon
-              :icon="mode_icon[1]"
-              size="is-small"
-              class="px-4 actions"
-              @click.native="mode = (mode === 'normal' ? 'full' : 'normal')"
-            >
-            </b-icon>
-            <b-icon
-              icon="content-save"
-              size="is-small"
-              class="px-4 actions"
-              @click.native="$store.commit('change_mail_dialog', false);"
-            >
-            </b-icon>
-            <b-icon
-              size="is-small"
-              icon="close"
-              class="px-4 actions"
-              @click.native="$store.commit('change_mail_dialog', false);"
-            >
-            </b-icon>
-          </div>
+  <transition 
+    name="mail-compose-transition"
+  >
+    <div
+      key="mail-compose"
+      v-if="mail_dialog"
+      class="mail-compose" 
+      :class="{'mini': mode === 'mini', 'full': mode === 'full'}"
+      :style="{'height': dialog_height + 'em'}"
+    >
+      <sending-animation
+        :loading="sending_animation"
+      >
+      </sending-animation>
+      <b-loading
+        :is-full-page="false"
+        v-model="is_loading"
+        :can-cancel="false"
+      >
+      </b-loading>
+      <div
+        class="mail-compose-nav"
+      >
+        <span
+          class="is-size-6"
+        >
+          New E-Mail {{mode}}
+        </span>
+        <div>
+          <b-icon
+            :icon="mode_icon[0]"
+            size="is-small"
+            class="px-4 actions"
+            @click.native="mode = (mode === 'mini' ? 'normal' : 'mini')"
+          >
+          </b-icon>
+          <b-icon
+            :icon="mode_icon[1]"
+            size="is-small"
+            class="px-4 actions"
+            @click.native="mode = (mode === 'normal' ? 'full' : 'normal')"
+          >
+          </b-icon>
+          <b-icon
+            icon="content-save"
+            size="is-small"
+            class="px-4 actions"
+            @click.native="$store.commit('change_mail_dialog', false);"
+          >
+          </b-icon>
+          <b-icon
+            size="is-small"
+            icon="close"
+            class="px-4 actions"
+            @click.native="$store.commit('change_mail_dialog', false);"
+          >
+          </b-icon>
+        </div>
       </div>
-      <div class="mail-compose-header">
-        <!-- 
-        <b-field>
-          <b-input v-model="email_data.to" placeholder="To" required type="email" style="width: 100%"></b-input>
-          <p class="control">
-            <button @click="show_cc = !show_cc" class="button">
-              <span>CC</span>
-            </button>
-          </p>
-          <p class="control">
-            <button @click="show_bcc = !show_bcc" class="button">
-              <span>BCC</span>
-            </button>
-          </p>
-        </b-field>
-        -->
-
+      <div
+        class="mail-compose-header"
+      >
         <b-field>
             <b-taginput
                 placeholder="To"
-                style="width: 100%"
+                class="w-100"
+                field="email"
+                :before-adding="check_email_address"
+                :create-tag="(ev) => { return {'email': ev, 'name': ev}}"
                 v-model="email_data.to"
-                :before-adding="check_email_address">
+                @typing="get_filtered_users"
+            >
             </b-taginput>
             <p class="control">
-              <button @click="show_cc = !show_cc" class="button">
+              <button
+                @click="show_cc = !show_cc" class="button"
+              >
                 <span>CC</span>
               </button>
             </p>
             <p class="control">
-              <button @click="show_bcc = !show_bcc" class="button">
+              <button
+                @click="show_bcc = !show_bcc" class="button"
+              >
                 <span>BCC</span>
               </button>
             </p>
         </b-field>
-        <transition name="fade">
+        <transition
+          name="fade"
+        >
           <b-field>
             <b-taginput
                 v-show="show_cc"
                 placeholder="CC"
-                style="width: 100%"
-                class="mt-2"
+                class="w-100"
+                field="email"
+                :create-tag="(ev) => { return {'email': ev, 'name': ev}}"
                 v-model="email_data.cc"
                 :before-adding="check_email_address">
             </b-taginput>
           </b-field>
         </transition>
-        <transition name="fade">
+        <transition
+          name="fade"
+        >
           <b-field>
             <b-taginput
                 v-show="show_bcc"
                 placeholder="BCC"
-                style="width: 100%"
+                class="w-100"
+                field="email"
+                :create-tag="(ev) => { return {'email': ev, 'name': ev}}"
                 v-model="email_data.bcc"
                 :before-adding="check_email_address">
             </b-taginput>
           </b-field>
         </transition>
         <b-field>
-          <b-input v-model="email_data.subject" placeholder="Subject"></b-input>
+          <b-input
+            v-model="email_data.subject"
+            placeholder="Subject"
+          >
+          </b-input>
         </b-field>
       </div>
-      <div class="mail-compose-body">
+      <div
+        class="mail-compose-body"
+      >
         <b-field>
-          <editor v-model="email_data.body"></editor>
+          <editor
+            v-model="email_data.body"
+          >
+          </editor>
         </b-field>
       </div>
-      <div class="mail-compose-footer">
-        <b-icon
-          type="is-black"
-          icon="paperclip"
-          style=" cursor: pointer;"
+      <div
+        class="mail-compose-footer"
+      >
+        <attachment
+          @uploaded="uploaded_new_file"
+          @delete="delete_attachment"
+          :files="email_data.files" 
+          class="mail-attachment"
         >
-        </b-icon>
+          <template v-slot:button="props">
+            <b-icon
+              @click.native="props.dialog"
+              type="is-black"
+              icon="paperclip"
+              class="c-pointer"
+            >
+            </b-icon>
+            <div class="badge-20" v-if="email_data.files.length">
+              <span>{{email_data.files.length}}</span>
+            </div>
+          </template>
+        </attachment>
         <b-button
           @click="init_send_data"
           size="is-small"
@@ -128,6 +173,7 @@
 
 import Editor from 'mailcow-components/Editor';
 import SendingAnimation from 'mailcow-components/Email/SendingAnimation';
+import Attachment from 'mailcow-components/Email/Attachment';
 import EmailService from 'mailcow-services/EmailService';
 
 export default {
@@ -139,9 +185,10 @@ export default {
     sending_animation: false,
     is_loading: false,
     email_data: {
-      to: '',
-      bcc: '',
-      cc: '',
+      files: [],
+      to: [],
+      bcc: [],
+      cc: [],
       subject: '',
       body: ''
     }
@@ -163,19 +210,21 @@ export default {
   },
   components: {
     'editor': Editor,
-    'sending-animation': SendingAnimation
+    'sending-animation': SendingAnimation,
+    'attachment': Attachment
   },
   methods: {
     init_send_data () {
       var email_data = Object.assign({}, this.email_data);
-      // Todo :: Check all validation, This just test MVP (Minimum viable product)
       if (email_data.to) {
-        email_data.to = [{'email': email_data.to, 'name': 'MAilCow'}];
-        email_data.cc = [];
-        email_data.bcc = [];
         this.send(email_data);
       } else {
         this.error_message('Please check form');
+      }
+    },
+    uploaded_new_file (file, t) {
+      if (this.email_data.files) {
+        this.email_data.files.push(t);
       }
     },
     success_message (message) {
@@ -195,11 +244,17 @@ export default {
       });
     },
     clear_form () {
-      this.email_data = {};
+      this.email_data = {to: [], cc: [], bcc: [], files: []};
     },
     check_email_address (input) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(String(input).toLowerCase());
+    },
+    delete_attachment (file_index) {
+      this.email_data.files.splice(file_index, 1);
+    },
+    get_filtered_users () {
+      // TODO :: added contact search
     },
     send (email_data) {
       this.is_loading = true;
