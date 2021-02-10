@@ -4,10 +4,10 @@
       <b-modal
         v-model="attach_dialog"
         has-modal-card
-        trap-focus
         :destroy-on-hide="false"
         aria-role="dialog"
-        aria-modal>
+        aria-modal
+      >
         <template>
           <div class="modal-card" style="width: 800px">
             <header class="modal-card-head">
@@ -103,6 +103,7 @@
           </div>
         </template>
       </b-modal>
+      <b-loading :is-full-page="true" v-model="is_uploading" :can-cancel="false"></b-loading>
     </section>
     <input
       class="display-none"
@@ -125,6 +126,7 @@ import {mapGetters} from 'vuex';
 export default {
   data: () => ({
     attach_dialog: false,
+    is_uploading: false,
     raw_files: []
   }),
   created () {
@@ -153,11 +155,12 @@ export default {
       this.attach_dialog = !this.attach_dialog;
     },
     upload_file (form_data, f) {
+      this.is_uploading = true;
       EmailService.uplpad_attachment(form_data)
         .then((resp) => {
-          this.$emit('uploaded', resp.data[0], f);
           if (resp.data.length > 0) {
-            //
+            this.$emit('uploaded', resp.data[0], f);
+            setTimeout(() => {this.is_uploading = false;}, 300);
           }
         })
     },

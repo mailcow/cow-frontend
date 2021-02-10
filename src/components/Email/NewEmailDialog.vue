@@ -25,7 +25,7 @@
         <span
           class="is-size-6"
         >
-          New E-Mail {{mode}}
+          New E-Mail
         </span>
         <div>
           <b-icon
