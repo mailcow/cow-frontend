@@ -47,12 +47,12 @@
                         </div>
                         <div class="media-content">
                           <p class="title is-6">
-                            {{file.name}}
                             <b-tag
-                              class="ml-2"
+                              class="mr-2"
                               v-if="file.is_new"
                               type="is-success">New!
                             </b-tag>
+                            {{file.name}}
                           </p>
                           <p class="subtitle is-6">{{file.size | get_size}}</p>
                         </div>
@@ -167,12 +167,12 @@ export default {
     get_file_icon (file) {
       let content_type = file.type || file.content_type || '';
       let type_data = content_type.split('/');
+      let file_content = type_data[0].toLowerCase();
+      let file_type = "";
 
-      if (type_data[1].toLowerCase() == 'pdf') {
-        return 'file-pdf';
+      if (type_data[1]) {
+        file_type = type_data[1].toLowerCase();
       }
-
-      let file_type = type_data[0].toLowerCase();
 
       const file_type_map = {
         application: 'file-code',
@@ -181,11 +181,14 @@ export default {
         audio: 'file-music',
         font: 'format-text',
         image: 'file-image',
+        pdf: 'file-pdf'
       };
 
       if (file_type_map[file_type]) {
         return file_type_map[file_type];
-      }
+      } else if (file_type_map[file_content]) {
+        return file_type_map[file_content];
+      } 
 
       return 'file';
     },
@@ -207,7 +210,6 @@ export default {
 
       for (let file of this.raw_files) {
         let form_data = new FormData();
-        console.log('FILE', file);
         file.is_new = true;
         form_data.append('file', file);
         form_data.append('name', file.name);
