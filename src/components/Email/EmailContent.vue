@@ -4,8 +4,8 @@
       <div class="email-content-nav">
         <strong class="email-subject">{{message.subject}}</strong>
         <div class="email-actions">
-          <b-icon class="ml-5 c-pointer" icon="reply"></b-icon>
-          <b-icon class="ml-5 c-pointer" icon="forward"></b-icon>
+          <b-icon class="ml-5 c-pointer" @click.native="open_email_dialog('reply')" icon="reply"></b-icon>
+          <b-icon class="ml-5 c-pointer" @click.native="open_email_dialog('forward')" icon="forward"></b-icon>
           <b-icon class="ml-5 is-hidden-touch c-pointer" @click.native="move_message('trash')" icon="delete"></b-icon>
           <b-icon class="ml-5 is-hidden-touch c-pointer" @click.native="move_message('spam')" icon="alert-circle"></b-icon>
           <b-icon @click.native="star_message" class="ml-5 is-hidden-touch c-pointer" :type="message.starred ? 'is-warning': ''" :icon="message.starred ? 'star' : 'star-outline'"></b-icon>
@@ -41,6 +41,27 @@
         <div v-html="message.body">
         </div>
       </div>
+      <div class="email-content-text">
+        <h1  v-show="message.files && message.files.length" class="has-text-weight-bold">Attachments</h1>
+        <hr v-show="message.files && message.files.length" >
+        <b-field grouped group-multiline>
+          <div class="control">
+            <b-taglist attached :key="attach.id" v-for="attach in message.files">
+              <b-tag type="is-info">{{attach.filename || 'Unnamed'}}</b-tag>
+              <b-tag type="is-info">({{attach.size | get_size}})</b-tag>
+              <b-tag type="is-danger">
+                <b-icon
+                  class="c-pointer"
+                  @click.native="download_attachment(attach)"
+                  icon="download"
+                  size="is-small"
+                >
+                </b-icon>
+              </b-tag>
+            </b-taglist>
+          </div>
+        </b-field>
+      </div>
     </div>
   </component>
   <div v-else class="is-justify-content-center is-align-items-center mail-content-container is-hidden-touch">
@@ -52,6 +73,7 @@
 import EmptyState from 'mailcow-components/EmptyState/State';
 import MessageMenu from 'mailcow-components/Email/MessageMenu';
 import TextAvatar from 'mailcow-components/TextAvatar';
+import AttachmentsMix from 'mailcow-mixins/Attachments';
 
 export default {
   data: () => ({
@@ -59,10 +81,11 @@ export default {
     dialog: true,
     selected_email: null,
     window: {
-        width: 0,
-        height: 0
+      width: 0,
+      height: 0
     }
   }),
+  mixins: [AttachmentsMix],
   computed: {
     is_mobile () {
       return this.window.width < 770;
@@ -83,6 +106,21 @@ export default {
     handleResize () {
       this.window.width = window.innerWidth;
       this.window.height = window.innerHeight;      
+    },
+    open_email_dialog (type) {
+      let message = Object.assign({}, this.message);
+
+      if (type === 'reply') {
+        const to = message.from;
+        message.subject = message.subject.substr(0,3) !== 'RE:' ? ("RE: " + message.subject) : message.subject;
+        message.from = message.to;
+        message.to = to;
+      } else if (type === 'forward') {
+        message.to = [];
+      }
+
+      this.$store.commit('set_choose_email', message);
+      this.$store.commit('change_mail_dialog', true);
     },
     close_mail_dialog () {
       this.dialog = false;
