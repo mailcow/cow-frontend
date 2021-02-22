@@ -52,7 +52,7 @@
                               v-if="file.is_new"
                               type="is-success">New!
                             </b-tag>
-                            {{file.name}}
+                            {{file.name || file.filename || 'Untitled'}}
                           </p>
                           <p class="subtitle is-6">{{file.size | get_size}}</p>
                         </div>
@@ -154,12 +154,12 @@ export default {
     toggle_dialog () {
       this.attach_dialog = !this.attach_dialog;
     },
-    upload_file (form_data, f) {
+    upload_file (form_data) {
       this.is_uploading = true;
       EmailService.uplpad_attachment(form_data)
         .then((resp) => {
           if (resp.data.length > 0) {
-            this.$emit('uploaded', resp.data[0], f);
+            this.$emit('uploaded', resp.data);
             setTimeout(() => {this.is_uploading = false;}, 300);
           }
         })
@@ -208,13 +208,16 @@ export default {
         return false;
       }
 
+      this.$emit('busy', true);
       for (let file of this.raw_files) {
         let form_data = new FormData();
         file.is_new = true;
         form_data.append('file', file);
         form_data.append('name', file.name);
-        this.upload_file(form_data, file);
+        this.upload_file(form_data);
       }
+      // Fake loading for user experience 500ms
+      setTimeout(() => {this.$emit('busy', false)}, 500);
       this.raw_files = [];
     },
     close_dialog () {
