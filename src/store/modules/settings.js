@@ -66,7 +66,6 @@ const mutations = {
   set_local_settings (state, data) {
     let local_settings = get_local_settings();
     local_settings[data.section] = data.options;
-    console.log(local_settings)
     localStorage.setItem('settings', JSON.stringify(local_settings));
   },
   set_settings_loading_status (state, status) {
