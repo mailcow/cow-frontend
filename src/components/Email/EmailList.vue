@@ -6,6 +6,7 @@
         <span v-else class="title is-size-6">Selected {{$store.getters.get_slected_messages_count}}</span>
       </b-checkbox>
       <div class="block" v-if="$store.getters.get_slected_messages_count === 0">
+        <b-icon icon="refresh c-pointer" @click.native="$store.dispatch('get_messages')"></b-icon>
         <b-icon icon="chevron-left c-pointer" @click.native="chnage_page(-1)"></b-icon>
         {{$store.getters.get_filters.offset + 1}}-{{$store.getters.get_filters.offset + $store.getters.get_messages_count}} of {{$store.getters.get_total_message_count}}
         <b-icon icon="chevron-right c-pointer" @click.native="chnage_page(1)"></b-icon>
