@@ -46,7 +46,7 @@
             icon="content-save"
             size="is-small"
             class="px-4 actions"
-            @click.native="$store.commit('change_mail_dialog', false);"
+            @click.native="init_send_data(true)"
           >
           </b-icon>
           <b-icon
@@ -130,6 +130,7 @@
       >
         <b-field>
           <editor
+            ref="editor"
             v-model="email_data.body"
           >
           </editor>
@@ -141,6 +142,7 @@
         <attachment
           @uploaded="uploaded_new_file"
           @delete="delete_attachment"
+          @busy="attachments_busy = $event"
           :files="email_data.files" 
           class="mail-attachment"
         >
@@ -155,10 +157,12 @@
             <div class="badge-20" v-if="email_data.files.length">
               <span>{{email_data.files.length}}</span>
             </div>
+            <span v-show="attachments_busy">Uploading..</span>
           </template>
         </attachment>
         <b-button
-          @click="init_send_data"
+          @click="init_send_data()"
+          :disabled="attachments_busy"
           size="is-small"
           type="is-primary"
           icon-right="send"
@@ -184,6 +188,7 @@ export default {
     show_bcc: false,
     sending_animation: false,
     is_loading: false,
+    attachments_busy: false,
     email_data: {
       files: [],
       to: [],
@@ -196,6 +201,9 @@ export default {
   computed: {
     mail_dialog () {
       return this.$store.getters.mail_dialog;
+    },
+    mail_data () {
+      return this.$store.getters.choose_email;
     },
     mode_icon () {
       if (this.mode === 'normal') {
@@ -214,17 +222,25 @@ export default {
     'attachment': Attachment
   },
   methods: {
-    init_send_data () {
+    init_send_data (is_draft = false) {
       var email_data = Object.assign({}, this.email_data);
-      if (email_data.to) {
+
+      // Add draft attach files to sending data
+      if (email_data.files) {
+        email_data.file_ids = email_data.files.map((item) => item.id);
+      }
+
+      if (is_draft) {
+        this.save_draft(email_data)
+      } else if (email_data.to) {
         this.send(email_data);
       } else {
         this.error_message('Please check form');
       }
     },
-    uploaded_new_file (file, t) {
+    uploaded_new_file (file) {
       if (this.email_data.files) {
-        this.email_data.files.push(t);
+        this.email_data.files = this.email_data.files.concat(file);
       }
     },
     success_message (message) {
@@ -251,10 +267,23 @@ export default {
       return re.test(String(input).toLowerCase());
     },
     delete_attachment (file_index) {
-      this.email_data.files.splice(file_index, 1);
+      if (this.email_data.files) {
+        this.email_data.files.splice(file_index, 1);
+      }
     },
     get_filtered_users () {
       // TODO :: added contact search
+    },
+    save_draft (email_data) {
+      EmailService.save_draft(email_data)
+        .then(resp => {
+          console.log('SAVE DRAFT', resp);
+          this.email_data = resp.data;
+          this.$store.dispatch('get_messages');
+          this.success_message('Your message has been saved 🥳');
+        }).catch (() => {
+          this.error_message('Something went be wrong<br><em>Please try later </em>. 😞');
+        });
     },
     send (email_data) {
       this.is_loading = true;
@@ -281,9 +310,23 @@ export default {
     show_cc (val) {
       this.dialog_height = val ? this.dialog_height + 3.2 : this.dialog_height - 3.2
     },
+    mail_data (val) {
+      if (val) {
+        this.email_data = Object.assign({}, val);
+        // force update tiptap editor
+        if (this.$refs.editor) {
+          this.$refs.editor.editor.setContent(this.email_data.body);
+        }
+      }
+    },
     mail_dialog (val) {
-      if (!val) {
+      if (val) {
+        if (this.mail_data) {
+          this.email_data = Object.assign({}, this.mail_data);
+        }
+      } else {
         this.clear_form();
+        this.$store.commit('set_choose_email', null);
       }
     }
   }
