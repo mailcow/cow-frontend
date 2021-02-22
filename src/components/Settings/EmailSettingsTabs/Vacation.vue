@@ -129,7 +129,7 @@
           >
             <b-checkbox
               @input="change_options"
-              v-model="options.always_vocation_message_response"
+              v-model="options.always_vacation_message_response"
             >
               Always send vacation message response
             </b-checkbox>
@@ -164,7 +164,7 @@ export default {
     ]),
     options: {
       get () {
-        return this.$store.getters.email_settings('email-vocation');
+        return this.$store.getters.email_settings('email-vacation');
       },
       set () {
         this.change_options();
@@ -174,7 +174,7 @@ export default {
   methods: {
     change_options () {
       const options = {
-        'email-vocation': Object.assign({}, this.options)
+        'email-vacation': Object.assign({}, this.options)
       };
       this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
     }
