@@ -56,6 +56,19 @@ const mutations = {
     let op = {...state.unsaved_changes[item.section], ...item.data};
     Vue.set(state.unsaved_changes, item.section, op);
   },
+  remove_to_unsaved_changes (state, item) {
+    if (state.unsaved_changes && state.unsaved_changes[item.section]) {
+      if (state.unsaved_changes[item.section][item.setting_name]) {
+        delete state.unsaved_changes[item.section][item.setting_name];
+        if (Object.keys(state.unsaved_changes[item.section]).length === 0) {
+          delete state.unsaved_changes[item.section];
+        }
+        if (Object.keys(state.unsaved_changes).length === 0) {
+          state.unsaved_changes = null;
+        }
+      }
+    }
+  },
   delete_unsaved_changes(state, section) {
     delete state.unsaved_changes[section];
   },
