@@ -7,26 +7,26 @@
     </h1>
     <section>
       <b-field>
-          <b-select
-            v-model="options.lang"
-            @input="change_options"
+        <b-select
+          v-model="options.lang"
+          @input="change_options"
           >
-              <option
-                  :key="lang.code"
-                  v-for="lang in langs"
-                  :value="lang.code"
-              >
-                <div>
-                  {{ lang.title }}
-                </div>
-              </option>
-          </b-select>
+          <option
+            :key="lang.code"
+            v-for="lang in langs"
+            :value="lang.code"
+            >
+            <div>
+              {{ lang.title }}
+            </div>
+          </option>
+        </b-select>
       </b-field>
     </section>
     <hr>
     <h1
       class="is-size-3 has-text-bold-medium mb-4 mt-4"
-    >
+      >
       Timezone / Date
     </h1>
     <section>
@@ -34,12 +34,12 @@
         <b-select
           v-model="options.timezone"
           @input="change_options"
-        >
+          >
           <option
             :key="timezone"
             v-for="timezone in timezones"
             :value="timezone"
-          >
+            >
             <div>
               {{ timezone }}
             </div>
@@ -50,7 +50,7 @@
     <hr>
     <reset-user-password
       inline
-    >
+      >
     </reset-user-password>
   </div>
 </template>
@@ -74,7 +74,7 @@ export default {
   methods: {
     change_options () {
       const options = Object.assign({}, this.options);
-      console.log(options);
+      this.$i18n.locale = options.lang;
       this.$store.commit('set_local_settings', {'section': 'general', 'options': options});    
     }
   },
