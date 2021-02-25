@@ -37,10 +37,14 @@ export default {
   },
   methods: {
     change_options () {
-      const options = {
-        'email-forward': Object.assign({}, this.options)
-      };
-      this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options})
+      if (this.options.emails.length) {
+        const options = {
+          'email-forward': Object.assign({}, this.options)
+        };
+        this.$store.commit('add_to_unsaved_changes', {'section': 'email', 'data': options});
+      } else {
+        this.$store.commit('remove_to_unsaved_changes', {section: 'email', setting_name: 'email-forward'});
+      }
     }
   }
 };
