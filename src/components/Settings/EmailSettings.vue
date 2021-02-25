@@ -1,15 +1,5 @@
 <template>
   <div>
-    <b-button
-      is-size="is-large"
-      type="is-primary"
-      icon-left="content-save"
-      v-if="unsaved_changes" 
-      @click="save_settings"
-      style="position: absolute; right: 1em; top: 7em; z-index: 100;"
-    >
-      SAVE
-    </b-button>
     <b-tabs v-model="actve_tab">
       <b-tab-item label="General">
         <cow-general></cow-general>
@@ -23,6 +13,23 @@
       <b-tab-item label="Forward">
         <cow-forward></cow-forward>
       </b-tab-item>
+      <b-tab-item
+        v-if="unsaved_changes"
+      >
+        <template #header>
+          <b-button
+            style="font-size: 0.60rem;"
+            class="settings-save-btn"
+            size="is-small"
+            type="is-primary"
+            icon-left="content-save"
+            @click.stop="save_settings"
+          >
+            SAVE
+          </b-button>
+        </template>
+      </b-tab-item>
+
     </b-tabs> 
   </div>
 </template>
