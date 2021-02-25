@@ -7,8 +7,7 @@ export default {
     download_attachment (attach) {
       EmailService.download_attachment(attach)
         .then(resp => {
-          var headers = resp.headers['content-type'];
-          var blob = new Blob([resp.body], {type: headers});
+          var blob = new Blob([resp.data]);
           var link = document.createElement('a');
           link.href = window.URL.createObjectURL(blob);
           link.download = attach.filename;
