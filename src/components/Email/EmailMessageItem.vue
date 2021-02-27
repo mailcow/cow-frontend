@@ -47,6 +47,13 @@ export default {
   },
   methods: {
     select_message () {
+
+      if (this.message.unread) {
+        const msg = {'unread': !this.message.unread};
+        this.$store.dispatch('update_message', {'mail_id': this.message.id, 'message': msg, 'no_update': true});
+        this.message.unread = !this.message.unread;
+      }
+
       if (this.$route.params.message_id !== this.message.id) {
         this.$router.push({params:{'message_id': this.message.id}});
       }

@@ -27,23 +27,8 @@
 }
 
 .settings-view {
-  max-height: calc(100vh - 10em);
-  // overflow: auto;
-
-  // &::-webkit-scrollbar-track {
-  //   -webkit-box-shadow: inset 0 0 3px rgba(0,0,0,0.3);
-  //   background-color: $base-color-light;
-  // }
-
-  // &::-webkit-scrollbar {
-  //   width: 5px;
-  //   background-color: $email-scroll;
-  // }
-
-  // &::-webkit-scrollbar-thumb {
-  //   background-color: $email-scroll;
-  // }
-  
+  // max-height: calc(100vh - 7em) !important;
+  overflow: auto;
 }
 
 .c-pointer {
@@ -52,6 +37,28 @@
 .c-all-scroll {
   cursor: all-scroll !important;
 }
+
+.w-100 {
+  width: 100%;
+}
+
+.display-none {
+  display: none;
+}
+
+.badge-20 {
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  border-radius: 50%;
+  text-align: center;
+  color: $white;
+  background: $primary;
+  position: absolute;
+  left: 15px;
+  top: -12px;
+}
+
 
 #filter-modal {
   .animation-content {

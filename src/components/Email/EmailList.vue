@@ -6,15 +6,17 @@
         <span v-else class="title is-size-6">Selected {{$store.getters.get_slected_messages_count}}</span>
       </b-checkbox>
       <div class="block" v-if="$store.getters.get_slected_messages_count === 0">
+        <b-icon icon="refresh c-pointer" @click.native="$store.dispatch('get_messages')"></b-icon>
         <b-icon icon="chevron-left c-pointer" @click.native="chnage_page(-1)"></b-icon>
         {{$store.getters.get_filters.offset + 1}}-{{$store.getters.get_filters.offset + $store.getters.get_messages_count}} of {{$store.getters.get_total_message_count}}
         <b-icon icon="chevron-right c-pointer" @click.native="chnage_page(1)"></b-icon>
       </div>
       <div v-else class="block">
         <span class="selected-title title is-size-6 mr-3"></span>
-        <b-icon @click.native="move_message('trash')" class="mr-2 c-pointer" icon="delete" ></b-icon>
-        <b-icon @click.native="move_message('spam')" class="mr-2 c-pointer" icon="alert-circle" ></b-icon>
-        <message-menu></message-menu>
+        <b-icon v-if="$route.params.folder !== 'drafts'" @click.native="move_message('trash')" class="mr-2 c-pointer" icon="delete" ></b-icon>
+        <b-icon v-else @click.native="delete_draft()" class="mr-2 c-pointer" icon="delete" ></b-icon>
+        <b-icon v-if="$route.params.folder !== 'drafts'" @click.native="move_message('spam')" class="mr-2 c-pointer" icon="alert-circle" ></b-icon>
+        <message-menu v-if="$route.params.folder !== 'drafts'" ></message-menu>
       </div>
     </div>
     <div v-if="$store.getters.email_is_loading" class="email-messages">
@@ -22,7 +24,7 @@
     </div>
     <div v-else class="email-messages" v-for="(message, i) in $store.getters.get_messages" :key="`message-item-${i}`"> 
       <message-item v-if="message.object === 'message'" :message="message"></message-item>
-      <draft-item v-else></draft-item>
+      <draft-item v-else :message="message"></draft-item>
     </div>
     <div v-if="!$store.getters.email_is_loading && $store.getters.get_messages_count === 0">
       <h3  style="text-align: center; margin-top: 1em; text-transform: uppercase; color: #b9b8b8" class="subtitle is-4">{{$route.query.f || $route.params.folder}} BOX EMPTY</h3>
@@ -48,6 +50,10 @@ export default {
       const msg = {'folder_id': folder.id};
       this.$store.dispatch('update_messages', msg);
       this.$router.replace({'name': 'EmailFolder', 'params': {}});
+    },
+    delete_draft () {
+      this.$store.dispatch('delete_drafts');
+      this.$store.commit('change_mail_dialog', false);
     },
     chnage_page (status) {
       if (this.$store.getters.get_filters.offset + status > 0 && 

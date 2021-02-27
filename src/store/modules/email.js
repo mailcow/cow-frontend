@@ -34,10 +34,17 @@ const actions = {
     state.is_loading = true;
     state.selected = [];
     let filter = filter_to_query(state.filters);
-    EmailService.messages(filter)
-      .then(resp => {
-        commit('add_messages', resp.data);
-      });
+    if (state.filters.in === 'drafts') {
+      EmailService.get_drafts(filter)
+        .then(resp => {
+          commit('add_messages', resp.data);
+        });
+    } else {
+      EmailService.messages(filter)
+        .then(resp => {
+          commit('add_messages', resp.data);
+        });
+    }
   },
   get_total_message_count ({state}) {
     EmailService.messages('in=' + state.filters.in + '&view=count')
@@ -73,6 +80,17 @@ const actions = {
   update_messages ({dispatch}, data) {
     state.selected.forEach((m) => {
       dispatch('update_message', {'mail_id': m, 'message': data});
+    });
+  },
+  delete_draft ({commit}, draft_id) {
+    EmailService.delete_draft(draft_id)
+      .then(() => {
+        commit('updated_message');
+      });
+  },
+  delete_drafts ({dispatch}) {
+    state.selected.forEach((m) => {
+      dispatch('delete_draft', m);
     });
   }
 };

@@ -11,207 +11,223 @@
   >
     <template>
       <div class="modal-card" style="width:100%">
-        <header class="modal-card-head">
-          {{edit_mode}}
-          <b-field>
-            <b-input
-              v-model="filters_data.name"
-              placeholder="Filter Name.."
-            >
-            </b-input>
-          </b-field>
-        </header>
-        <section class="modal-card-body">
-          <b-field
-            label="For incoming messages that"
-          >
-            <b-select
-              placeholder="Select Incomin message"
-              expanded 
-              v-model="filters_data.incoming_message"
-            >
-              <option
-                :key="option.id"
-                v-for="option in incoming_messages_op" 
-                :value="option.id">{{option.name}}
-              </option>
-            </b-select>
-            <p 
-              class="control" 
-              v-if="filters_data.incoming_message !== 'match_all'"
-              >
-              <b-button
-                @click="add_condition"
-                icon-left="plus"
-              >
-                Add a condition
-              </b-button>
-            </p>
-          </b-field>
-          <div 
-            v-if="filters_data.incoming_message !== 'match_all'"
-          >
-            <b-field
-              grouped
-              :key="`conditaion-${index}`"
-              v-for="(condition, index) in filters_data.conditions"
-            >
-              <b-select
-                placeholder="selector"
-                expanded 
-                v-model="condition.selector"
-              >
-                <option
-                  :key="`condition-category-${category.id}`"
-                  v-for="category in condition_categoris"
-                  :value="category.id">{{category.id}}
-                </option>
-              </b-select>
-              <template
-                v-for="(field, index) in condition_schema[condition.selector]"
-              >
-                <b-select
-                  :key="`condition-field-${index}`"
-                  v-if="field.type === 'select'"
-                  :placeholder="field.name"
-                  expanded
-                  v-model="condition[field.name]"
-                >
-                  <option
-                    :key="`condition-item-${item.id}`"
-                    v-for="item in field.items"
-                    :value="item.id">{{item.id}}
-                  </option>
-                </b-select>
+        <form ref="form">
+            <header class="modal-card-head">
+              
                 <b-field
-                  :key="`condition-field-${index}`"
-                  v-else-if="field.type === 'text'"
-                  expanded
                 >
-                  <b-input 
-                    :placeholder="field.name"
-                    v-model="condition[field.name]"
+                  <b-input
+                    required
+                    v-model="filters_data.name"
+                    placeholder="Filter Name.."
                   >
                   </b-input>
                 </b-field>
-              </template>
-              <b-button
-                @click="remove_condition_from_list(index)"
+
+            </header>
+            <section class="modal-card-body">
+              <b-field
+                required
+                label="For incoming messages that"
               >
-                <b-icon
-                  icon="delete"
-                  size="is-small"
+                <b-select
+                  placeholder="Select Incomin message"
+                  expanded 
+                  v-model="filters_data.incoming_message"
                 >
-                </b-icon>
-              </b-button>
-            </b-field>
-          </div>
-          <h2 class="has-text-weight-semibold mb-2 mt-2">
-            Perform these actions
-          </h2>
-          <b-button
-            @click="add_action"
-            class="mb-2"
-            icon-left="plus"
-          >
-            Add an action
-          </b-button>
-          <draggable v-model="filters_data.actions"  class="list-group" handle=".handle">
-            <div v-for="(action, index) in filters_data.actions" :key="action.id">
-                <div
-                  style="display: none"
-                >
-                  {{action.order = index}}
-                </div>
-                <b-field
-                  grouped
-                >
-                  <b-icon
-                    class="handle mr-2"
-                    icon="view-headline"
-                    size="is-small"
-                    style="margin: auto; cursor: all-scroll"
-                    >
-                  </b-icon>
-                  <b-select 
-                    placeholder="Action type"
-                    v-model="action.type"
-                    expanded
-                    style="width:100%"
-                    class="mb-2"
+                  <option
+                    :key="option.id"
+                    v-for="option in incoming_messages_op" 
+                    :value="option.id">{{option.name}}
+                  </option>
+                </b-select>
+                <p 
+                  class="control" 
+                  v-if="filters_data.incoming_message !== 'match_all'"
                   >
-                    <option 
-                      :key="`action-category-${category.id}`"
-                      v-for="category in action_categoris" 
-                      :value="category.id">{{category.id}}
-                    </option>
-                  </b-select>
-                  <template 
-                    v-for="(field, index) in action_schema[action.type]"
+                  <b-button
+                    @click="add_condition"
+                    icon-left="plus"
                   >
-                    <b-select
-                      :key="`action-field-${index}`"
-                      v-if="field.type === 'select'"
-                      :placeholder="field.title"
-                      expanded
-                      v-model="action[field.name]"
-                    >
-                      <template v-if="field.store">
-                        <option
-                          :key="`action-item-${item.id}`"
-                          v-for="item in $store.getters[field.items]"
-                          :value="item.id"
-                        >
-                          {{item.display_name}}
-                        </option>
-                      </template>
-                      <template v-else>
-                        <option
-                          :key="`action-item-${item.id}`"
-                          v-for="item in field.items"
-                          :value="item.id"
-                        >
-                          {{item.id}}
-                        </option>
-                      </template>
-                    </b-select>
-                    <b-field
-                      :key="`action-field-${index}`"
-                      v-if="field.type === 'text'"
-                      expanded
-                    >
-                      <b-input
-                        v-model="action[field.name]"
-                        :placeholder="field.name"
-                      >
-                      </b-input>
-                    </b-field>
-                  </template>
-                  <b-button 
-                    @click="remove_action_from_list(index)"
-                    class="ml-2"
-                  >
-                    <b-icon
-                      icon="delete"
-                      size="is-small"
-                      >
-                    </b-icon>
+                    Add a condition
                   </b-button>
-                </b-field>
-            </div>
-          </draggable>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button" type="button" @click="close">Close</button>
-          <button class="button" type="button" @click="add_filter">Save</button>
-        </footer>
+                </p>
+              </b-field>
+              <div 
+                v-if="filters_data.incoming_message !== 'match_all'"
+              >
+                  <b-field
+                    required
+                    grouped
+                    :key="`conditaion-${index}`"
+                    v-for="(condition, index) in filters_data.conditions"
+                  >
+
+                      <b-select
+                        required
+                        placeholder="selector"
+                        expanded 
+                        v-model="condition.selector"
+                      >
+                        <option
+                          :key="`condition-category-${category.id}`"
+                          v-for="category in condition_categoris"
+                          :value="category.id">{{category.id}}
+                        </option>
+                      </b-select>
+
+                    <template
+                      v-for="(field, index) in condition_schema[condition.selector]"
+                    >
+                      <b-select
+                        required
+                        :key="`condition-field-${index}`"
+                        v-if="field.type === 'select'"
+                        :placeholder="field.name"
+                        expanded
+                        v-model="condition[field.name]"
+                      >
+                        <option
+                          :key="`condition-item-${item.id}`"
+                          v-for="item in field.items"
+                          :value="item.id">{{item.id}}
+                        </option>
+                      </b-select>
+                      <b-field
+                        
+                        :key="`condition-field-${index}`"
+                        v-else-if="field.type === 'text'"
+                        expanded
+                      >
+                        <b-input
+                           required
+                          :placeholder="field.name"
+                          v-model="condition[field.name]"
+                        >
+                        </b-input>
+                      </b-field>
+                    </template>
+                    <b-button
+                      @click="remove_condition_from_list(index)"
+                    >
+                      <b-icon
+                        icon="delete"
+                        size="is-small"
+                      >
+                      </b-icon>
+                    </b-button>
+                  </b-field>
+
+              </div>
+              <h2 class="has-text-weight-semibold mb-2 mt-2">
+                Perform these actions
+              </h2>
+              <b-button
+                @click="add_action"
+                class="mb-2"
+                icon-left="plus"
+              >
+                Add an action
+              </b-button>
+              <draggable v-model="filters_data.actions"  class="list-group" handle=".handle">
+                <div v-for="(action, index) in filters_data.actions" :key="action.id">
+                    <div
+                      style="display: none"
+                    >
+                      {{action.order = index}}
+                    </div>
+                    <b-field
+                      grouped
+                    >
+                      <b-icon
+                        class="handle mr-2"
+                        icon="view-headline"
+                        size="is-small"
+                        style="margin: auto; cursor: all-scroll"
+                        >
+                      </b-icon>
+                      <b-select
+                        required
+                        placeholder="Action type"
+                        v-model="action.type"
+                        expanded
+                        style="width:100%"
+                        class="mb-2"
+                      >
+                        <option 
+                          :key="`action-category-${category.id}`"
+                          v-for="category in action_categoris" 
+                          :value="category.id">{{category.id}}
+                        </option>
+                      </b-select>
+                      <template 
+                        v-for="(field, index) in action_schema[action.type]"
+                      >
+                        <b-select
+                          required
+                          :key="`action-field-${index}`"
+                          v-if="field.type === 'select'"
+                          :placeholder="field.title"
+                          expanded
+                          v-model="action[field.name]"
+                        >
+                          <template v-if="field.store">
+                            <option
+                              :key="`action-item-${item.id}`"
+                              v-for="item in $store.getters[field.items]"
+                              :value="item.display_name"
+                            >
+                              {{item.display_name}}
+                            </option>
+                          </template>
+                          <template v-else>
+                            <option
+                              :key="`action-item-${item.id}`"
+                              v-for="item in field.items"
+                              :value="item.id"
+                            >
+                              {{item.id}}
+                            </option>
+                          </template>
+                        </b-select>
+                        <b-field
+                          :key="`action-field-${index}`"
+                          v-if="field.type === 'text'"
+                          expanded
+                        >
+                          <b-input
+                            required
+                            v-model="action[field.name]"
+                            :placeholder="field.name"
+                          >
+                          </b-input>
+                        </b-field>
+                      </template>
+                      <b-button 
+                        @click="remove_action_from_list(index)"
+                        class="ml-2"
+                      >
+                        <b-icon
+                          icon="delete"
+                          size="is-small"
+                          >
+                        </b-icon>
+                      </b-button>
+                    </b-field>
+                </div>
+              </draggable>
+            </section>
+            <footer class="modal-card-foot">
+              <button class="button" type="button" @click="close">Close</button>
+              <button class="button" type="button" @click="add_filter">Save</button>
+            </footer>
+        </form>
       </div>
     </template>
   </b-modal>
 </template>
 <script>
 
-// import SettingsService from 'mailcow-services/SettingsService';
 import {filters_settings_schemas} from 'mailcow-utils';
 import { mapGetters } from 'vuex';
 import draggable from 'vuedraggable';
@@ -254,8 +270,20 @@ export default {
       this.filters_data.actions.splice(index, 1);
     },
     add_filter () {
-      this.$emit('added', this.filters_data, this.edit_mode);
-      this.close();
+      let form_is_valid = this.$refs.form.checkValidity();
+      if (form_is_valid && (this.filters_data.conditions.length && this.filters_data.actions.length)) {
+        this.$emit('added', this.filters_data, this.edit_mode);
+        this.close();
+      } else {
+        this.$buefy.snackbar.open({
+            duration: 2000,
+            message: 'Please check form',
+            type: 'is-danger',
+            position: 'is-top',
+            actionText: 'Close',
+            queue: false
+        });
+      }
     }
   },
   computed: {
@@ -276,7 +304,7 @@ export default {
     }
   },
   components: {
-    'draggable': draggable
+    draggable
   }
 };
 </script>

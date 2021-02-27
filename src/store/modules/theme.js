@@ -1,7 +1,8 @@
 const state = {
   new_mail_dialog: false,
   dark_mode: false,
-  navigation_drawer: true
+  navigation_drawer: true,
+  choose_email: null
 };
 
 const actions = {
@@ -34,18 +35,24 @@ const mutations = {
   },
   toggle_navigation (state) {
     state.navigation_drawer = !state.navigation_drawer;
+  },
+  set_choose_email (state, email) {
+    state.choose_email = email;
   }
 };
 
 const getters = {
-  dark_mode () {
+  dark_mode (state) {
     return state.dark_mode;
   },
   navigation_drawer () {
     return state.navigation_drawer;
   },
-  mail_dialog () {
+  mail_dialog (state) {
     return state.new_mail_dialog;
+  },
+  choose_email (state) {
+    return state.choose_email;
   }
 };
 

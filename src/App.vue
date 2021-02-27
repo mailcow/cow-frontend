@@ -31,6 +31,16 @@ export default {
     }
   },
   created () {
+    let user_lang = (navigator.language || navigator.userLanguage).split('-')[0]; 
+    if (!localStorage.getItem('settings')) {
+      const timezone = 'Europe/Istanbul'; // Todo ::
+      const local_options = {lang: user_lang, timezone: timezone};
+      this.$store.commit('set_local_settings', {section: 'general', options: local_options});
+    } else {
+      user_lang = JSON.parse(localStorage.getItem('settings')).general.lang;
+    }
+
+    this.$i18n.locale = user_lang;
     this.$store.dispatch('init_settings');
   },
   computed: {

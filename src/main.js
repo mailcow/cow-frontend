@@ -9,6 +9,7 @@ import router from './router';
 import store from './store';
 import * as filters from './filters';
 import './validate';
+import i18n from './i18n';
 
 Vue.config.productionTip = false;
 Vue.use(Buefy);
@@ -38,6 +39,7 @@ Object.keys(filters).forEach(key => {
 new Vue({
   router,
   store,
+  i18n,
   render: h => h(App)
 }).$mount('#app');
 

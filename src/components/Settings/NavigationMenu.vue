@@ -1,5 +1,6 @@
 <template>
   <aside class="navigation-drawer" :class="{'open': $store.getters.navigation_drawer}">
+    <div class="navigation-drawer-overlay" @click="$store.dispatch('toggle_navigation')"></div>
     <div style="margin-top: 1em">
       <b-menu>
         <b-menu-list>

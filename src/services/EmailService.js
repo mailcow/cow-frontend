@@ -25,5 +25,24 @@ export default {
   },
   send_message (data) {
     return axios.post(API_BASE_URL + 'email/send/', data);
+  },
+  uplpad_attachment (data) {
+    return axios.post(API_BASE_URL + 'email/files/', data, {'Content-Type': 'multipart/form-data'});
+  },
+  download_attachment (file) {
+    return axios.get(API_BASE_URL + 'email/files/' + file.id + '/download/', {'responseType': 'blob'});
+  },
+  save_draft (data) {
+    if (data.object && data.object === 'draft') {
+      return axios.put(API_BASE_URL + 'email/drafts/' + data.id + '/', data);
+    } else {
+      return axios.post(API_BASE_URL + 'email/drafts/', data);
+    }
+  },
+  get_drafts () {
+    return axios.get(API_BASE_URL + 'email/drafts/');
+  },
+  delete_draft (draft_id) {
+    return axios.delete(API_BASE_URL + 'email/drafts/' + draft_id + '/?version=0', {'version': "0"});
   }
 };

@@ -64,7 +64,7 @@
             <img style="border-radius: 50%" src="https://pickaface.net/gallery/avatar/unr_randomavatar_170412_0236_9n4c2i.png">
           </figure>
           <b-dropdown-item custom aria-role="menuitem">
-              Ahmet Küçük
+              {{user.name}} {{user.surname}}
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" @click="$router.push({'name': 'Settings'})">
               <b-icon icon="account-cog" size="is-small"></b-icon>
@@ -81,10 +81,16 @@
 <script>
 
 import UserService from 'mailcow-services/UserService';
+import {mapGetters} from 'vuex';
 
 export default {
   data: () => ({
   }),
+  computed: {
+    ...mapGetters([
+        'user'
+      ])
+  },
   methods: {
     logout () {
       UserService.logout()

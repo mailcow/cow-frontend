@@ -1,3 +1,4 @@
+import {MAX_ATTACH_SIZE} from 'mailcow-config';
 import SettingsService from 'mailcow-services/SettingsService';
 import Vue from 'vue';
 
@@ -31,6 +32,8 @@ const actions = {
     for (let section in local_settings) {
       commit('set_section_settings', {'section': section, 'options': local_settings[section]})
     }
+
+    commit('set_section_settings', {'section': 'config', 'options': {'max_attach_size': MAX_ATTACH_SIZE}});
   },
   set_new_settings ({state, commit}, item) {
     state.settings_loading = true;
@@ -53,6 +56,19 @@ const mutations = {
     let op = {...state.unsaved_changes[item.section], ...item.data};
     Vue.set(state.unsaved_changes, item.section, op);
   },
+  remove_to_unsaved_changes (state, item) {
+    if (state.unsaved_changes && state.unsaved_changes[item.section]) {
+      if (state.unsaved_changes[item.section][item.setting_name]) {
+        delete state.unsaved_changes[item.section][item.setting_name];
+        if (Object.keys(state.unsaved_changes[item.section]).length === 0) {
+          delete state.unsaved_changes[item.section];
+        }
+        if (Object.keys(state.unsaved_changes).length === 0) {
+          state.unsaved_changes = null;
+        }
+      }
+    }
+  },
   delete_unsaved_changes(state, section) {
     delete state.unsaved_changes[section];
   },
@@ -63,7 +79,6 @@ const mutations = {
   set_local_settings (state, data) {
     let local_settings = get_local_settings();
     local_settings[data.section] = data.options;
-    console.log(local_settings)
     localStorage.setItem('settings', JSON.stringify(local_settings));
   },
   set_settings_loading_status (state, status) {
@@ -86,6 +101,13 @@ const getters = {
     let o = {};
     if (state.settings.general) {
       o = state.settings.general
+    }
+    return o;
+  },
+  config_settings (state) {
+    let o = {};
+    if (state.settings.config) {
+      o = state.settings.config
     }
     return o;
   },
