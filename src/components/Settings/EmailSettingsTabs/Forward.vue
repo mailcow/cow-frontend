@@ -15,7 +15,7 @@
           </b-taginput>
         </b-field>
         <b-field>
-          <b-checkbox @input="change_options" class="mt-1" v-model="options.keep_a_copy">Kepp a copy</b-checkbox>
+          <b-checkbox @input="change_options" class="mt-1" v-model="options.keep_a_copy">Keep a copy</b-checkbox>
         </b-field>
       </div>
     </section>
