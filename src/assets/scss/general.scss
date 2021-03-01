@@ -31,6 +31,17 @@
   overflow: auto;
 }
 
+.settings-tabs {
+  position: relative;
+}
+
+.settings-save-btn {
+  position: absolute;
+  top: 1em;
+  right: 2em;
+  font-size: 0.60rem !important;
+}
+
 .c-pointer {
   cursor: pointer !important;
 }
