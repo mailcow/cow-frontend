@@ -1,7 +1,8 @@
 import store from './store';
+import { TZ } from "mailcow-config";
 
 function get_timezone () {
-  let timezone = "";
+  let timezone = TZ;
   if (store.getters.general_settings.timezone) {
     timezone = store.getters.general_settings.timezone;
   }
@@ -31,6 +32,13 @@ export function get_time (unix_date, locale="en-en") {
 
 export function from_now (date) {
   let seconds = Math.floor(((new Date().getTime()/1000) - date))
+  // let timezone = get_timezone();
+  // let now = new Date();
+  // let options = {timeZone: timezone};
+  // let now_tz = new Date(now.toLocaleString("en-en", options));
+  // let msg_date = new Date(date * 1000);
+  // let msg_tz = new Date(msg_date.toLocaleString("en-en", options));
+  // let seconds = Math.floor((now_tz.getTime() / 1000) - (msg_tz.getTime() / 1000));
 
   let interval = seconds / 31536000;
   if (interval >= 1) {

@@ -11,6 +11,7 @@
 import NewEmailDialog from 'mailcow-components/Email/NewEmailDialog';
 import NewAccountDialog from 'mailcow-components/Account/NewAccountDialog';
 import PreparingAccountModal from 'mailcow-components/PreparingAccountModal';
+import { TZ } from "mailcow-config";
 
 export default {
   data: () => ({
@@ -33,7 +34,7 @@ export default {
   created () {
     let user_lang = (navigator.language || navigator.userLanguage).split('-')[0]; 
     if (!localStorage.getItem('settings')) {
-      const timezone = 'Europe/Istanbul'; // Todo ::
+      const timezone = TZ;
       const local_options = {lang: user_lang, timezone: timezone};
       this.$store.commit('set_local_settings', {section: 'general', options: local_options});
     } else {

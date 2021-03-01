@@ -91,11 +91,15 @@ export default {
       };
       
       var is_smile = false;
-      e.path.forEach((o) => {
-        if (o.id === "message-feed") {
-          is_smile = true;
-        }
-      });
+      if (e.path) {
+        e.path.forEach((o) => {
+          if (o.id === "message-feed") {
+            is_smile = true;
+          }
+        });
+      } else {
+        is_smile = true;
+      }
 
       if (is_smile) {
         document.getElementById("mouth-happy").style.display = 'block';

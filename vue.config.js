@@ -2,6 +2,10 @@ var path = require('path');
 
 module.exports = {
   publicPath: '/betaclient/',
+  devServer: {
+    host: "0.0.0.0",
+    port: "8780"
+  },
   pluginOptions: {
     webpackBundleAnalyzer: {
       openAnalyzer: false
