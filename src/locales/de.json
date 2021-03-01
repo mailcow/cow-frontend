@@ -1,0 +1,121 @@
+{
+  "Navbar": {
+    "apps": {
+      "email": "Email",
+      "contact": "Führen",
+      "calendar": "Kalender"
+    },
+    "profile": {
+      "settings": "die Einstellungen",
+      "logout": "Austragen"
+    },
+    "accounts": {
+      "add_new_account": "Neues Konto hinzufügen"
+    }
+  },
+  "AccountsDialog": {
+    "title": "Choose Account Type",
+    "gmail": "Add a Gamil account",
+    "outlook": "Add an Outlook account",
+    "imap_smtp": "Add an Imap/Smtp account",
+    "close": "Close",
+    "messages": {
+      "close": "Close",
+      "coming_soon": "Microsoft and Google accounts are not yet supported. 😥 It will be added as soon as possible. 💪"
+    }
+  },
+  "ImapSmtpDialog": {
+    "title": "Imap/Smtp Settings",
+    "email": "Email",
+    "your_email": "Your Email",
+    "your_password": "Your Password",
+    "password": "Password",
+    "imap_host": "Imap Host",
+    "imap_port": "Imap Port",
+    "smtp_host": "Smtp Host",
+    "smtp_port": "Smtp Port",
+    "close": "Close",
+    "login": "Login",
+    "messages": {
+      "close": "Close",
+      "created": "Created new account 🎉",
+      "check_form": "Please Check Form",
+      "error": "Sorry, something went be wrong, please try later 😢"
+    }
+  },
+  "Email": {
+    "side_menu": {
+      "compose": "KOMPONIEREN",
+      "folders": "Folders",
+      "new_folder": "New Folder"
+    },
+    "EmailList": {
+      "select_all": "Select All",
+      "empty" : "{name} BOX EMPTY"
+    },
+    "EmailContent": {
+      "no_selected": "No selected any email"
+    },
+    "Folders": {
+      "inbox": "Posteingang",
+      "sent": "Geschickt",
+      "trash": "Müll",
+      "archive": "Archiv",
+      "drafts": "Entwürfe",
+      "spam": "Spam"
+    },
+    "NewFolderDialog": {
+      "title": "Create new folder 🖿",
+      "edit_title": "Edit folder name 🖿",
+      "delete_title": "Deleting Folder",
+      "delete_content": "Are you sure you want to <b>delete</b> <br />This action cannot be undone.",
+      "placeholder": "Folder Name",
+      "edit": "Edit",
+      "create": "Create",
+      "cancel": "Cancel",
+      "delete": "Delete Folder",
+      "uploading": "Uploading..",
+      "messages": {
+        "close": "CLOSE",
+        "creating_folder": "Creating Folder..",
+        "created": "Success, Created your folder 🥳",
+        "edited": "Success, Edited your folder 🥳",
+        "deleted": "Success, Deleted your folder",
+        "delete_error": "Folder {folder_name} cannot be deleted because it contains messages ☹️",
+        "error": "Sorry, something went be wrong! ☹️"
+      }
+    },
+    "NewEmailDialog": {
+      "title": "New E-Mail",
+      "to": "To",
+      "cc": "CC",
+      "bcc": "BCC",
+      "subject": "Subject",
+      "attachment_title": "Email Attachment",
+      "not_yet_attachment": "Not yet attachet any file",
+      "add_from_your_pc": "Add file from your pc",
+      "download_file": "Download File",
+      "remove_file": "Remove File",
+      "send": "SEND",
+      "messages": {
+        "close": "CLOSE",
+        "send": "Your message has been sent 🥳",
+        "save_draft": "Your message has been saved 🥳",
+        "error": "Something went be wrong<br><em>Please try later </em>. 😞"
+      }
+    }
+  },
+  "Editor": {
+    "bold": "Bold",
+    "italics": "Italics",
+    "strike": "Strike-Through",
+    "underline": "Underline",
+    "paragraph": "Paragraph",
+    "heading": "Heading",
+    "bullet_list": "Bullet List",
+    "ordered_list": "Ordered List",
+    "quote": "Quote",
+    "undo": "Undo",
+    "redo": "Redo"
+  }
+}
