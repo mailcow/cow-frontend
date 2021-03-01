@@ -274,6 +274,9 @@ export default {
 
 
       if (form_is_valid && ((this.filters_data.incoming_message === 'match_all' || this.filters_data.conditions.length) && this.filters_data.actions.length)) {
+        if (!this.edit_mode) {
+          this.filters_data.id = Math.random().toString(36).substr(2, 9);
+        }
         this.$emit('added', this.filters_data, this.edit_mode);
         this.close();
       } else {

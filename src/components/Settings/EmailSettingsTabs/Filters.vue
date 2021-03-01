@@ -20,7 +20,7 @@
         <div 
           class="box mb-5"
           style="background: #FFF"
-          :key="`filter-${index}`"
+          :key="`filter-${filter.id}`"
           v-for="(filter, index) in filters"
         >
           <div
@@ -86,7 +86,8 @@ export default {
       get () {
         return this.$store.getters.email_settings('email-filters');
       },
-      set () {
+      set (val) {
+        this.$store.commit('set_email_settings_filter_list', val);
         this.change_options();
       }
     }
