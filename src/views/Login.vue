@@ -37,7 +37,7 @@
                 </b-field>
                 <b-button @click="login" type="is-primary" expanded>Login</b-button>
                 <br />
-                <small><em>Forget my password?</em></small>
+                <!-- <small><em>Forget my password?</em></small> -->
               </form>
             </div>
           </div>
@@ -47,7 +47,9 @@
           <nav class="level">
             <div class="level-left">
               <div class="level-item">
-                <b-icon icon="github"></b-icon>&emsp;
+                <a href="https://github.com/mailcow" target="_blank">
+                  <b-icon icon="github"></b-icon>&emsp;
+                </a>
               </div>
             </div>
           </nav>
