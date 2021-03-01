@@ -41,7 +41,9 @@ export default {
     }
 
     this.$i18n.locale = user_lang;
-    this.$store.dispatch('init_settings');
+    if (this.$route.name !== 'Login') {
+      this.$store.dispatch('init_settings');
+    }
   },
   computed: {
     first_login () {

@@ -17,6 +17,7 @@ export default {
   data: () => ({
   }),
   created () {
+    this.$store.dispatch('init_settings');
   },
   computed: {
     is_loading: {
