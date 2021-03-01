@@ -122,6 +122,7 @@ export default {
         message.subject = message.subject.substr(0,3) !== 'RE:' ? ("RE: " + message.subject) : message.subject;
         message.from = message.to;
         message.to = to;
+        message.body = `<br/><br/><div><span>${this.message.from[0].email} wrote it.</span><hr></div>` + message.body;
       } else if (type === 'forward') {
         message.to = [];
       }
