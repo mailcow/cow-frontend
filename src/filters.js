@@ -1,3 +1,13 @@
+import store from './store';
+
+function get_timezone () {
+  let timezone = "";
+  if (store.getters.general_settings.timezone) {
+    timezone = store.getters.general_settings.timezone;
+  }
+  return timezone;
+}
+
 export function truncate (value, limit) {
   if (value.length > limit) {
     value = value.substring(0, (limit - 3)) + '...';
@@ -6,21 +16,23 @@ export function truncate (value, limit) {
 }
 
 export function get_date (unix_date, locale="en-en") {
-  var date = new Date(unix_date * 1000);
-  const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' };
+  let timezone = get_timezone();
+  let date = new Date(unix_date * 1000);
+  const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', timeZone: timezone };
   return date.toLocaleDateString(locale, options);
 }
 
 export function get_time (unix_date, locale="en-en") {
-  var date = new Date(unix_date * 1000);
-  const options = { hour: 'numeric', minute: 'numeric' };
+  let timezone = get_timezone();
+  let date = new Date(unix_date * 1000);
+  const options = { hour: 'numeric', minute: 'numeric', timeZone: timezone  };
   return date.toLocaleTimeString(locale, options);
 }
 
 export function from_now (date) {
-  var seconds = Math.floor(((new Date().getTime()/1000) - date))
+  let seconds = Math.floor(((new Date().getTime()/1000) - date))
 
-  var interval = seconds / 31536000;
+  let interval = seconds / 31536000;
   if (interval >= 1) {
     return Math.floor(interval) + "y";
   }
