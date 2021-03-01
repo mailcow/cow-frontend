@@ -2,7 +2,7 @@
   <div class="container is-fluid settings-view">
     <section>
       <b-field>
-        <b-switch @input="change_options" v-model="options.enabled">Forward incoming messages"</b-switch>
+        <b-switch @input="change_options" v-model="options.enabled">Forward incoming messages</b-switch>
       </b-field>
       <div v-if="options.enabled">
         <b-field label="Add a email address">

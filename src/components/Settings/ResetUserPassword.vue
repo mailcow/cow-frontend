@@ -15,7 +15,7 @@
         <b-field
           :type="{ 'is-danger': errors[0], 'is-success': valid }"
           :message="errors"
-          label="Curret Password"
+          label="Current Password"
         >
           <b-input
             required
@@ -58,7 +58,7 @@
         <b-field
           :type="{ 'is-danger': errors[0], 'is-success': valid }"
           :message="errors"
-          label="Again New Password"
+          label="Confirmation password (repeat)"
          >
           <b-input
             required
@@ -66,7 +66,7 @@
             v-model="credentials.re_new_password"
             autocomplete="off"
             type="password"
-            placeholder="Again Password"
+            placeholder="Retype New Password"
           >
           </b-input>
         </b-field>

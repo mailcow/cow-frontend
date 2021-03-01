@@ -67,7 +67,7 @@
       v-if="filters.length === 0"
       class="is-justify-content-center is-align-items-center"
     >
-      <empty-state mode="page" text="Not yet create any filters"></empty-state>
+      <empty-state mode="page" text="You don't have any filters yet"></empty-state>
     </div>
   </div>
 </template>
