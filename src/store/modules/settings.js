@@ -83,6 +83,11 @@ const mutations = {
   },
   set_settings_loading_status (state, status) {
     state.settings_loading = status;
+  },
+  set_email_settings_filter_list (state, list) {
+    if (state.settings.email) {
+      state.settings.email['email-filters'] = list;
+    }
   }
 };
 

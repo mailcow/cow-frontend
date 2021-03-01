@@ -102,7 +102,7 @@
                 </b-checkbox>
               </b-field>
               <b-field>
-                <b-datetimepicker
+                <b-datepicker
                   @input="set_date_time('enable', $event)"
                   :value="get_date(options.enable_reply_on)"
                   :required="options.enable_auto_reply"
@@ -110,7 +110,7 @@
                   placeholder="Type or select a date..."
                   icon="calendar-today"
                   editable>
-                </b-datetimepicker>
+                </b-datepicker>
               </b-field>
             </b-field>
             <b-field 
@@ -127,7 +127,7 @@
                 </b-checkbox>
               </b-field>
               <b-field >
-                <b-datetimepicker
+                <b-datepicker
                   @input="set_date_time('disable', $event)"
                   :value="get_date(options.disable_reply_on)"
                   :required="options.disable_auto_reply"
@@ -135,7 +135,7 @@
                   placeholder="Type or select a date..."
                   icon="calendar-today"
                   editable>
-                </b-datetimepicker>
+                </b-datepicker>
               </b-field>
             </b-field>
             <b-field
