@@ -25,7 +25,7 @@
         <span
           class="is-size-6"
         >
-          New E-Mail
+          {{$t('Email.NewEmailDialog.title')}}
         </span>
         <div>
           <b-icon
@@ -63,7 +63,7 @@
       >
         <b-field>
             <b-taginput
-                placeholder="To"
+                :placeholder="$t('Email.NewEmailDialog.to')"
                 class="w-100"
                 field="email"
                 :before-adding="check_email_address"
@@ -76,14 +76,14 @@
               <button
                 @click="show_cc = !show_cc" class="button"
               >
-                <span>CC</span>
+                <span>{{$t('Email.NewEmailDialog.cc')}}</span>
               </button>
             </p>
             <p class="control">
               <button
                 @click="show_bcc = !show_bcc" class="button"
               >
-                <span>BCC</span>
+                <span>{{$t('Email.NewEmailDialog.bcc')}}</span>
               </button>
             </p>
         </b-field>
@@ -93,7 +93,7 @@
           <b-field>
             <b-taginput
                 v-show="show_cc"
-                placeholder="CC"
+                :placeholder="$t('Email.NewEmailDialog.cc')"
                 class="w-100"
                 field="email"
                 :create-tag="(ev) => { return {'email': ev, 'name': ev}}"
@@ -108,7 +108,7 @@
           <b-field>
             <b-taginput
                 v-show="show_bcc"
-                placeholder="BCC"
+                :placeholder="$t('Email.NewEmailDialog.bcc')"
                 class="w-100"
                 field="email"
                 :create-tag="(ev) => { return {'email': ev, 'name': ev}}"
@@ -120,7 +120,7 @@
         <b-field>
           <b-input
             v-model="email_data.subject"
-            placeholder="Subject"
+            :placeholder="$t('Email.NewEmailDialog.subject')"
           >
           </b-input>
         </b-field>
@@ -157,7 +157,7 @@
             <div class="badge-20" v-if="email_data.files.length">
               <span>{{email_data.files.length}}</span>
             </div>
-            <span v-show="attachments_busy">Uploading..</span>
+            <span v-show="attachments_busy">{{$t('Email.NewEmailDialog.uploading')}}</span>
           </template>
         </attachment>
         <b-button
@@ -167,7 +167,7 @@
           type="is-primary"
           icon-right="send"
         >
-          SEND
+          {{$t('Email.NewEmailDialog.send')}}
         </b-button>
       </div>
     </div>
@@ -235,7 +235,7 @@ export default {
       } else if (email_data.to) {
         this.send(email_data);
       } else {
-        this.error_message('Please check form');
+        this.error_message(this.$t('Email.NewEmailDialog.messages.error'));
       }
     },
     uploaded_new_file (file) {
@@ -255,7 +255,7 @@ export default {
           message: message,
           type: 'is-danger',
           position: 'is-top',
-          actionText: 'CLOSE',
+          actionText: this.$t('Email.NewEmailDialog.messages.close'),
           queue: true
       });
     },
@@ -277,12 +277,11 @@ export default {
     save_draft (email_data) {
       EmailService.save_draft(email_data)
         .then(resp => {
-          console.log('SAVE DRAFT', resp);
           this.email_data = resp.data;
           this.$store.dispatch('get_messages');
-          this.success_message('Your message has been saved 🥳');
+          this.success_message(this.$t('Email.NewEmailDialog.messages.save_draft'));
         }).catch (() => {
-          this.error_message('Something went be wrong<br><em>Please try later </em>. 😞');
+          this.error_message(this.$t('Email.NewEmailDialog.messages.error'));
         });
     },
     send (email_data) {
@@ -295,11 +294,11 @@ export default {
             this.sending_animation = false
             this.$store.commit('change_mail_dialog', false);
           }, 1500);
-          this.success_message('Your message has been sent 🥳');
+          this.success_message(this.$t('Email.NewEmailDialog.messages.send'));
         }).catch(() => {
           this.sending_animation = false;
           this.is_loading = false;
-          this.error_message('Something went be wrong<br><em>Please try later </em>. 😞');
+          this.error_message(this.$t('Email.NewEmailDialog.messages.error'));
         });
     }
   },
