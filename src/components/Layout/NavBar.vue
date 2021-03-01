@@ -10,15 +10,15 @@
     <template slot="start">
       <b-navbar-item tag="router-link" :to="{'name': 'Email'}" :active="$route.name === 'Email'">
         <b-icon icon="email-open-outline"></b-icon> 
-        <span class="pl-1 is-size-7">Email</span>
+        <span class="pl-1 is-size-7">{{$t('Navbar.apps.email')}}</span>
       </b-navbar-item>
       <b-navbar-item tag="router-link" :to="{'name': 'Contact'}" :active="$route.name === 'Contact'">
         <b-icon icon="account-box-outline"></b-icon>
-        <span class="pl-1 is-size-7">Contact</span>
+        <span class="pl-1 is-size-7">{{$t('Navbar.apps.contact')}}</span>
       </b-navbar-item>
       <b-navbar-item tag="router-link" :to="{'name': 'Calendar'}" :active="$route.name === 'Calendar'">
         <b-icon icon="calendar"></b-icon>
-        <span class="pl-1 is-size-7">Calendar</span>
+        <span class="pl-1 is-size-7">{{$t('Navbar.apps.calendar')}}</span>
       </b-navbar-item>
     </template>
     <template slot="end">
@@ -52,7 +52,7 @@
           >
             <div class="media">
               <div class="media-content">
-                  <h3>Add New Account</h3>
+                  <h3>{{$t('Navbar.accounts.add_new_account')}}</h3>
               </div>
             </div>
         </b-dropdown-item>
@@ -68,11 +68,11 @@
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" @click="$router.push({'name': 'Settings'})">
               <b-icon icon="account-cog" size="is-small"></b-icon>
-              Settings
+              {{$t('Navbar.profile.settings')}}
           </b-dropdown-item>
           <b-dropdown-item aria-role="listitem" @click="logout">
               <b-icon icon="logout" size="is-small"></b-icon>
-              Logout
+              {{$t('Navbar.profile.logout')}}
           </b-dropdown-item>
       </b-dropdown>
     </template>

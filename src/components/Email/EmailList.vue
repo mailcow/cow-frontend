@@ -2,7 +2,7 @@
   <section class="email-list full-height">
     <div class="email-messages-action">
       <b-checkbox :value="$store.getters.get_slected_messages_count !== 0" @input="$store.commit($event ? 'select_all_message' : 'clear_selected_message')">
-        <span v-if="$store.getters.get_slected_messages_count === 0">Select All</span>
+        <span v-if="$store.getters.get_slected_messages_count === 0">{{$t('Email.EmailList.select_all')}}</span>
         <span v-else class="title is-size-6">Selected {{$store.getters.get_slected_messages_count}}</span>
       </b-checkbox>
       <div class="block" v-if="$store.getters.get_slected_messages_count === 0">
@@ -27,7 +27,9 @@
       <draft-item v-else :message="message"></draft-item>
     </div>
     <div v-if="!$store.getters.email_is_loading && $store.getters.get_messages_count === 0">
-      <h3  style="text-align: center; margin-top: 1em; text-transform: uppercase; color: #b9b8b8" class="subtitle is-4">{{$route.query.f || $route.params.folder}} BOX EMPTY</h3>
+      <h3  style="text-align: center; margin-top: 1em; text-transform: uppercase; color: #b9b8b8" class="subtitle is-4">
+        {{$t('Email.EmailList.empty', {'name': $route.query.f || $route.params.folder})}}
+      </h3>
     </div>
   </section>
 </template>

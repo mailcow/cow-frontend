@@ -1,3 +1,121 @@
 {
-  "message": "Merhaba i18n !!"
+  "Navbar": {
+    "apps": {
+      "email": "E-Posta",
+      "contact": "Rehber",
+      "calendar": "Takvim"
+    },
+    "profile": {
+      "settings": "Ayarlar",
+      "logout": "Çıkış Yap"
+    },
+    "accounts": {
+      "add_new_account": "Yeni Hesap"
+    }
+  },
+  "AccountsDialog": {
+    "title": "Hesap Tipi Seç",
+    "gmail": "Gmail Hesabı EKle",
+    "outlook": "Outlook Hesabı Ekle",
+    "imap_smtp": "Imap/Smtp hesabı Ekle",
+    "close": "KAPAT",
+    "messages": {
+      "close": "KAPAT",
+      "coming_soon": "Microsoft ve Google henüz eklenemiyor. 😥 En kısa zamanada desteklenecektir. 💪"
+    }
+  },
+  "ImapSmtpDialog": {
+    "title": "Imap/Smtp Ayarları",
+    "email": "E-Posta",
+    "your_email": "E-Posta Adresin",
+    "your_password": "Parolan",
+    "password": "Parola",
+    "imap_host": "Imap Sunucusu",
+    "imap_port": "Imap Port",
+    "smtp_host": "Smtp Sunucusu",
+    "smtp_port": "Smtp Port",
+    "close": "KAPAT",
+    "login": "GİRİŞ YAP",
+    "messages": {
+      "close": "KAPAT",
+      "created": "Yeni hesap oluşturuldu 🎉",
+      "check_form": "Lütfen formu kontrol ediniz.",
+      "error": "Üzgünüz, bir hata ile karşılaşıldı, lütfen sonra tekrar deneyiniz. 😢"
+    }
+  },
+  "Email": {
+    "side_menu": {
+      "compose": "YENİ E-POSTA",
+      "folders": "Klasörler",
+      "new_folder": "Yeni Klasör"
+    },
+    "EmailList": {
+      "select_all": "Hepsini Seç",
+      "empty" : "{name} KUTUSU BOŞ"
+    },
+    "EmailContent": {
+      "no_selected": "Henüz hiç bir posta seçilmemiş"
+    },
+    "Folders": {
+      "inbox": "Gelen",
+      "sent": "Giden",
+      "trash": "Çöp Kutusu",
+      "archive": "Arşiv",
+      "drafts": "Taslak",
+      "spam": "Spam"
+    },
+    "NewFolderDialog": {
+      "title": "Yeni Klasör Oluştur 🖿",
+      "edit_title": "Klasörü Düzenle 🖿",
+      "delete_title": "Klasör Siliniyor",
+      "delete_content": "Bu klasör <b>silinecek</b> <br />Geri alınamaz.",
+      "placeholder": "Klasör Adı",
+      "edit": "Düzenle",
+      "create": "Oluştur",
+      "cancel": "İPTAL",
+      "delete": "KLASÖRÜ SİL",
+      "messages": {
+        "close": "CLOSE",
+        "creating_folder": "Klasör oluşturuluyor..",
+        "created": "Başarılı, Yeni klasör oluşturuldu 🥳",
+        "edited": "Başarılı, Klasör düzenlendi 🥳",
+        "deleted": "Başarılı, Kalsör silindi",
+        "delete_error": "Klasör {folder_name} silinemez. Çükü haala posta içeriyor. ☹️",
+        "error": "Üzgünüz, bir hata ile karşılaşıldı! ☹️"
+      }
+    },
+    "NewEmailDialog": {
+      "title": "Yeni E-Posta",
+      "to": "Kime",
+      "cc": "CC",
+      "bcc": "BCC",
+      "subject": "Konu",
+      "attachment_title": "E-Posta Eki",
+      "not_yet_attachment": "Henüz hiçbir dosya seçilmemiş",
+      "add_from_your_pc": "Bilgisayardan Dosya Seç",
+      "download_file": "Dosyayı İndir",
+      "remove_file": "Dosyayı Sil",
+      "uploading": "YÜkleniyor..",
+      "send": "GÖNDER",
+      "messages": {
+        "close": "KAPAT",
+        "send": "E-Postanız gönderildi 🥳",
+        "save_draft": "Postanız taslaklara kaydedildi 🥳",
+        "error": "Bir şeyler ters gitti.<br><em>Lütfen sonra tekrar deneyiniz </em>. 😞"
+      }
+    }
+  },
+  "Editor": {
+    "bold": "KALIN",
+    "italics": "EĞİK",
+    "strike": "ÜSTÜ ÇİZİLİ",
+    "underline": "ALTI ÇİZİLİ",
+    "paragraph": "PARAGRAF",
+    "heading": "BAŞLIK",
+    "bullet_list": "NOKTALI LİSTE",
+    "ordered_list": "NUMARALI LİSTE",
+    "quote": "TIRNAK",
+    "undo": "GERİ AL",
+    "redo": "İLERİ AL"
+  }
 }

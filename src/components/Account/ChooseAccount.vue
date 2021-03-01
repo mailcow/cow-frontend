@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card" style="width: 400px; max-width: 400px">
     <header class="modal-card-head">
-      Choose Account Type
+      {{$t('AccountsDialog.title')}}
     </header>
     <section class="modal-card-body" >
       <b-button
@@ -12,7 +12,7 @@
         icon-left="gmail"
         :disabled="is_loading"
       >
-        Add a Gmail account
+        {{$t('AccountsDialog.gmail')}}
       </b-button>
       <b-button
         @click="choose('microsoft')"
@@ -22,7 +22,7 @@
         icon-left="microsoft-windows"
         :disabled="is_loading"
       >
-        Add an Outlook account
+        {{$t('AccountsDialog.outlook')}}
       </b-button>
       <b-button
         @click="choose('generic')"
@@ -32,7 +32,7 @@
         icon-left="email"
         :disabled="is_loading"
       >
-        Add an Imap/Smtp account
+        {{$t('AccountsDialog.imap_smtp')}}
       </b-button>
     </section>
     <footer class="modal-card-foot">
@@ -52,7 +52,7 @@ export default {
         this.$emit('choose', app_name);
       } else {
         this.$buefy.toast.open({
-            message: 'Microsoft and Google accounts are not yet supported. 😥 It will be added as soon as possible. 💪',
+            message: this.$t('AccountsDialog.messages.coming_soon'),
             type: 'is-primary',
             position: 'is-top',
             queue: false

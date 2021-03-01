@@ -2,7 +2,7 @@
   <div class="editor">
     <editor-menu-bar style="padding-bottom:2px" :editor="editor" v-slot="{ commands, isActive }">
       <div>
-        <b-tooltip label="Bold" type="is-dark" :delay="50">        
+        <b-tooltip :label="$t('Editor.bold')" type="is-dark" :delay="50">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.bold() }"
@@ -12,7 +12,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Italics" type="is-dark" :delay="500">        
+        <b-tooltip :label="$t('Editor.italics')" type="is-dark" :delay="500">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.italic() }"
@@ -22,7 +22,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Strike-through" type="is-dark" :delay="500 ">        
+        <b-tooltip :label="$t('Editor.strike')" type="is-dark" :delay="500 ">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.strike() }"
@@ -32,7 +32,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Underline" type="is-dark" :delay="5">        
+        <b-tooltip :label="$t('Editor.underline')" type="is-dark" :delay="5">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.underline() }"
@@ -42,7 +42,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Paragraph" type="is-dark" :delay="5">        
+        <b-tooltip :label="$t('Editor.paragraph')" type="is-dark" :delay="5">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.paragraph() }"
@@ -52,7 +52,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Heading" type="is-dark" :delay="500">        
+        <b-tooltip :label="$t('Editor.heading')" type="is-dark" :delay="500">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.heading({ level: 3 }) }"
@@ -60,7 +60,7 @@
           > <b-icon icon="format-header-3"/></button>
         </b-tooltip>
 
-        <b-tooltip label="Bullet List" type="is-dark" :delay="500">        
+        <b-tooltip :label="$t('Editor.bullet_list')" type="is-dark" :delay="500">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.bullet_list() }"
@@ -70,7 +70,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Ordered List" type="is-dark" :delay="50">        
+        <b-tooltip :label="$t('Editor.ordered_list')" type="is-dark" :delay="50">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.ordered_list() }"
@@ -80,7 +80,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Quote" type="is-dark" :delay="50">        
+        <b-tooltip :label="$t('Editor.quote')" type="is-dark" :delay="50">
           <button
             class="button is-white"
             :class="{ 'is-active': isActive.blockquote() }"
@@ -90,7 +90,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Undo" type="is-dark" :delay="50">        
+        <b-tooltip :label="$t('Editor.undo')" type="is-dark" :delay="50">
           <button
             class="button is-white"
             @click="commands.undo">
@@ -98,7 +98,7 @@
           </button>
         </b-tooltip>
 
-        <b-tooltip label="Redo" type="is-dark" :delay="50">        
+        <b-tooltip :label="$t('Editor.redo')" type="is-dark" :delay="50">
           <button
             class="button is-white"
             @click="commands.redo">

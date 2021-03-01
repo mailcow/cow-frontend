@@ -2,15 +2,15 @@
   "Navbar": {
     "apps": {
       "email": "Email",
-      "contact": "Contact",
-      "calendar": "Calendar"
+      "contact": "Führen",
+      "calendar": "Kalender"
     },
     "profile": {
-      "settings": "Settings",
-      "logout": "Logout"
+      "settings": "die Einstellungen",
+      "logout": "Austragen"
     },
     "accounts": {
-      "add_new_account": "Add New Account"
+      "add_new_account": "Neues Konto hinzufügen"
     }
   },
   "AccountsDialog": {
@@ -45,7 +45,7 @@
   },
   "Email": {
     "side_menu": {
-      "compose": "COMPOSE",
+      "compose": "KOMPONIEREN",
       "folders": "Folders",
       "new_folder": "New Folder"
     },
@@ -57,11 +57,11 @@
       "no_selected": "No selected any email"
     },
     "Folders": {
-      "inbox": "Inbox",
-      "sent": "Sent",
-      "trash": "Trash",
-      "archive": "Archive",
-      "drafts": "Drafts",
+      "inbox": "Posteingang",
+      "sent": "Geschickt",
+      "trash": "Müll",
+      "archive": "Archiv",
+      "drafts": "Entwürfe",
       "spam": "Spam"
     },
     "NewFolderDialog": {

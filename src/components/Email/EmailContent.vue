@@ -72,7 +72,7 @@
     </div>
   </component>
   <div v-else class="is-justify-content-center is-align-items-center mail-content-container is-hidden-touch">
-    <empty-state mode="envelope" text="No selected any email"></empty-state>
+    <empty-state mode="envelope" :text="$t('Email.EmailContent.no_selected')"></empty-state>
   </div>
 </template>
 <script>
