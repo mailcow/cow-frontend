@@ -58,7 +58,7 @@
         </b-dropdown-item>
       </b-dropdown>
       <b-icon @click.native="$store.dispatch('change_dark_mode')" style="margin: auto 0;" class="mr-4 c-pointer" icon="brightness-6"></b-icon>
-      <b-icon style="margin: auto 0;" class="mr-4 c-pointer" icon="magnify"></b-icon>
+      <!-- <b-icon style="margin: auto 0;" class="mr-4 c-pointer" icon="magnify"></b-icon> -->
       <b-dropdown position="is-bottom-left" aria-role="menu" append-to-body class="mr-4" style="margin: auto 0; cursor: pointer;">
           <figure class="image is-32x32"  slot="trigger">
             <img style="border-radius: 50%" src="https://pickaface.net/gallery/avatar/unr_randomavatar_170412_0236_9n4c2i.png">

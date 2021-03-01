@@ -131,7 +131,8 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
+  HorizontalRule
 } from "tiptap-extensions";
 
 export default {
@@ -159,7 +160,8 @@ export default {
           new Link(),
           new Strike(),
           new Underline(),
-          new History()
+          new History(),
+          new HorizontalRule()
         ],
         content: this.value,
         onUpdate: ({ getHTML }) => {

@@ -23,13 +23,20 @@
         <figure class="media-left">
           <text-avatar :name="user_text"></text-avatar>
         </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong>{{user_text}}</strong><br/>
-              <small>{{message.from[0].email}}</small>
-            </p>
-          </div>
+        <div class="media-content" style="overflow: inherit;">
+        <b-dropdown :triggers="['hover']" aria-role="list" class="mail-users-list">
+            <template #trigger>
+              <div class="content">
+                <p>
+                  <strong>{{user_text}}</strong><br/>
+                  <small>{{message.from[0].email}}</small>
+                </p>
+              </div>  
+            </template>
+            <b-dropdown-item aria-role="listitem" class="mail-users-item">Sender: {{message.from[0].email}}</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" class="mail-users-item">Receivers: {{message.to.map(t => t.email).join(',')}}</b-dropdown-item>
+            <b-dropdown-item aria-role="listitem" class="mail-users-item">CC: {{message.cc.map(t => t.email).join(',')}}</b-dropdown-item>
+        </b-dropdown>
         </div>
         <div class="media-right has-text-right">
           <span>{{message.date | get_date}}</span>
@@ -115,6 +122,7 @@ export default {
         message.subject = message.subject.substr(0,3) !== 'RE:' ? ("RE: " + message.subject) : message.subject;
         message.from = message.to;
         message.to = to;
+        message.body = `<br/><br/><div><span>${this.message.from[0].email} wrote it.</span><hr></div>` + message.body;
       } else if (type === 'forward') {
         message.to = [];
       }

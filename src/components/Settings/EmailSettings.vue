@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="settings-tabs">
     <b-tabs v-model="actve_tab">
       <b-tab-item label="General">
         <cow-general></cow-general>
@@ -13,24 +13,17 @@
       <b-tab-item label="Forward">
         <cow-forward></cow-forward>
       </b-tab-item>
-      <b-tab-item
-        v-if="unsaved_changes"
-      >
-        <template #header>
-          <b-button
-            style="font-size: 0.60rem;"
-            class="settings-save-btn"
-            size="is-small"
-            type="is-primary"
-            icon-left="content-save"
-            @click.stop="save_settings"
-          >
-            SAVE
-          </b-button>
-        </template>
-      </b-tab-item>
-
     </b-tabs> 
+    <b-button
+      v-if="unsaved_changes"
+      class="settings-save-btn"
+      size="is-small"
+      type="is-primary"
+      icon-left="content-save"
+      @click.stop="save_settings"
+    >
+      SAVE
+    </b-button>
   </div>
 </template>
 <script>
@@ -53,6 +46,22 @@ export default {
       ])
   },
   methods: {
+    success_message (message) {
+      this.$buefy.toast.open({
+          message: message,
+          type: 'is-success'
+      });
+    },
+    error_message (message) {
+      this.$buefy.snackbar.open({
+          duration: 3000,
+          message: message,
+          type: 'is-danger',
+          position: 'is-top',
+          actionText: 'CLOSE',
+          queue: true
+      });
+    },
     save_settings () {
       this.$store.commit('set_settings_loading_status', true);
       let data = {};
@@ -65,6 +74,9 @@ export default {
         .then(() => {
           this.$store.dispatch('init_settings');
           this.$store.commit('clear_unsaved_changes');
+          this.success_message("Your settings have been saved successfully 😊");
+        }).catch(() => {
+          this.error_message("Something went be wrong, please try later. 😓");
         });
     }
   },

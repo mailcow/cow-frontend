@@ -271,7 +271,9 @@ export default {
     },
     add_filter () {
       let form_is_valid = this.$refs.form.checkValidity();
-      if (form_is_valid && (this.filters_data.conditions.length && this.filters_data.actions.length)) {
+
+
+      if (form_is_valid && ((this.filters_data.incoming_message === 'match_all' || this.filters_data.conditions.length) && this.filters_data.actions.length)) {
         this.$emit('added', this.filters_data, this.edit_mode);
         this.close();
       } else {
