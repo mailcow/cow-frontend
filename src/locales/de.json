@@ -2,120 +2,120 @@
   "Navbar": {
     "apps": {
       "email": "Email",
-      "contact": "Führen",
+      "contact": "Kontakt",
       "calendar": "Kalender"
     },
     "profile": {
-      "settings": "die Einstellungen",
-      "logout": "Austragen"
+      "settings": "Einstellungen",
+      "logout": "Ausloggen"
     },
     "accounts": {
       "add_new_account": "Neues Konto hinzufügen"
     }
   },
   "AccountsDialog": {
-    "title": "Choose Account Type",
-    "gmail": "Add a Gamil account",
-    "outlook": "Add an Outlook account",
-    "imap_smtp": "Add an Imap/Smtp account",
-    "close": "Close",
+    "title": "Kontotyp wählen",
+    "gmail": "Ein Gamil-Konto hinzufügen",
+    "outlook": "Hinzufügen eines Outlook-Kontos",
+    "imap_smtp": "Ein Imap/Smtp-Konto hinzufügen",
+    "close": "Schließen",
     "messages": {
-      "close": "Close",
-      "coming_soon": "Microsoft and Google accounts are not yet supported. 😥 It will be added as soon as possible. 💪"
+      "close": "Schließen",
+      "coming_soon": "Microsoft- und Google-Konten werden noch nicht unterstützt. 😥 Es wird so bald wie möglich hinzugefügt. 💪"
     }
   },
   "ImapSmtpDialog": {
-    "title": "Imap/Smtp Settings",
+    "title": "Imap/Smtp Einstellungen",
     "email": "Email",
-    "your_email": "Your Email",
-    "your_password": "Your Password",
-    "password": "Password",
+    "your_email": "Deine E-Mail",
+    "your_password": "Dein Passwort",
+    "password": "Passwort",
     "imap_host": "Imap Host",
     "imap_port": "Imap Port",
     "smtp_host": "Smtp Host",
     "smtp_port": "Smtp Port",
-    "close": "Close",
-    "login": "Login",
+    "close": "Schließen",
+    "login": "Einloggen",
     "messages": {
-      "close": "Close",
-      "created": "Created new account 🎉",
-      "check_form": "Please Check Form",
-      "error": "Sorry, something went be wrong, please try later 😢"
+      "close": "Schließen",
+      "created": "Neues Konto erstellt 🎉",
+      "check_form": "Bitte Formular prüfen",
+      "error": "Entschuldigung, da ist etwas schief gelaufen, bitte versuche es späte erneut 😢."
     }
   },
   "Email": {
     "side_menu": {
-      "compose": "KOMPONIEREN",
-      "folders": "Folders",
-      "new_folder": "New Folder"
+      "compose": "zusammenstellen",
+      "folders": "Ordner",
+      "new_folder": "Neuer Ordner"
     },
     "EmailList": {
-      "select_all": "Select All",
-      "empty" : "{name} BOX EMPTY"
+      "select_all": "Alle auswählen",
+      "empty" : "{Name} BOX LEER"
     },
     "EmailContent": {
-      "no_selected": "No selected any email"
+      "no_selected": "Keine E-Mail ausgewählt"
     },
     "Folders": {
       "inbox": "Posteingang",
-      "sent": "Geschickt",
-      "trash": "Müll",
+      "sent": "Gesendet",
+      "trash": "Papierkorb",
       "archive": "Archiv",
       "drafts": "Entwürfe",
       "spam": "Spam"
     },
     "NewFolderDialog": {
-      "title": "Create new folder 🖿",
-      "edit_title": "Edit folder name 🖿",
-      "delete_title": "Deleting Folder",
-      "delete_content": "Are you sure you want to <b>delete</b> <br />This action cannot be undone.",
-      "placeholder": "Folder Name",
+      "title": "Neuen Ordner erstellen 🖿.",
+      "edit_title": "Ordnername bearbeiten 🖿.",
+      "delete_title": "Ordner löschen",
+      "delete_content": "Sind Sie sicher, dass Sie <b>löschen</b> möchten? <br />Diese Aktion kann nicht rückgängig gemacht werden.",
+      "placeholder": "Ordnername",
       "edit": "Edit",
-      "create": "Create",
-      "cancel": "Cancel",
-      "delete": "Delete Folder",
-      "uploading": "Uploading..",
+      "create": "Erstellen",
+      "cancel": "Abbrechen",
+      "delete": "Ordner löschen",
+      "uploading": "Hochladen..",
       "messages": {
-        "close": "CLOSE",
-        "creating_folder": "Creating Folder..",
-        "created": "Success, Created your folder 🥳",
-        "edited": "Success, Edited your folder 🥳",
-        "deleted": "Success, Deleted your folder",
-        "delete_error": "Folder {folder_name} cannot be deleted because it contains messages ☹️",
-        "error": "Sorry, something went be wrong! ☹️"
+      "close": "SCHLIESSEN",
+        "creating_folder": "Ordner wird erstellt..",
+        "created": "Erfolg, Ihr Ordner wurde erstellt 🥳",
+        "edited": "Erfolg, Ihr Ordner wurde bearbeitet 🥳",
+        "deleted": "Erfolg, Ihr Ordner wurde gelöscht",
+        "delete_error": "Ordner {folder_name} kann nicht gelöscht werden, da er Nachrichten enthält ☹️",
+        "error": "Entschuldigung, es ist ein Fehler aufgetreten! ☹️"
       }
     },
     "NewEmailDialog": {
-      "title": "New E-Mail",
-      "to": "To",
-      "cc": "CC",
-      "bcc": "BCC",
-      "subject": "Subject",
-      "attachment_title": "Email Attachment",
-      "not_yet_attachment": "Not yet attachet any file",
-      "add_from_your_pc": "Add file from your pc",
-      "download_file": "Download File",
-      "remove_file": "Remove File",
-      "send": "SEND",
-      "messages": {
-        "close": "CLOSE",
-        "send": "Your message has been sent 🥳",
-        "save_draft": "Your message has been saved 🥳",
-        "error": "Something went be wrong<br><em>Please try later </em>. 😞"
+    "title": "Neue E-Mail",
+    "to": "An",
+    "cc": "CC",
+    "bcc": "BCC",
+    "subject": "Betreff",
+    "attachment_title": "E-Mail-Anhang",
+    "not_yet_attachment": "Noch keine Datei angehängt",
+    "add_from_your_pc": "Datei von Ihrem PC hinzufügen",
+    "download_file": "Datei herunterladen",
+    "remove_file": "Datei entfernen",
+    "send": "SENDEN",
+    "messages": {
+      "close": "SCHLIESSEN",
+      "send": "Ihre Nachricht wurde gesendet 🥳",
+      "save_draft": "Ihre Nachricht wurde gespeichert 🥳",
+      "error": "Etwas ist schiefgegangen<br><em>Bitte versuchen Sie es später erneut</em>. 😞"
       }
     }
   },
   "Editor": {
-    "bold": "Bold",
-    "italics": "Italics",
-    "strike": "Strike-Through",
-    "underline": "Underline",
-    "paragraph": "Paragraph",
-    "heading": "Heading",
-    "bullet_list": "Bullet List",
-    "ordered_list": "Ordered List",
-    "quote": "Quote",
-    "undo": "Undo",
-    "redo": "Redo"
+    "bold": "Fett",
+    "italics": "Kursiv",
+    "strike": "Durchgestrichen",
+    "underline": "Unterstrichen",
+    "paragraph": "Absatz",
+    "heading": "Überschrift",
+    "bullet_list": "Aufzählungsliste",
+    "ordered_list": "Nummerierte Liste",
+    "quote": "Zitat",
+    "undo": "Rückgängig machen",
+    "redo": "Wiederherstellen"
   }
 }
